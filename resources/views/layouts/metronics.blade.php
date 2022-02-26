@@ -25,6 +25,7 @@
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/alpinejs@3.9.0/dist/cdn.min.js" defer></script>
     @livewireStyles
     <!--end::Global Stylesheets Bundle-->
 </head>
@@ -280,7 +281,9 @@
                 <!--begin::Post-->
                 <div class="post d-flex flex-column-fluid" id="kt_post">
                     <!--begin::Container-->
+                    <div id="kt_content_container" class="container-xxl">
                     {{$slot}}
+                    </div>
                     <!--end::Container-->
                 </div>
                 <!--end::Post-->
