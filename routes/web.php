@@ -18,7 +18,27 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('pages.dashboard.index');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+Route::get('/metronics', function (){
+    return view('pages.dashboard.index');
+});
+
+/**
+ * Master Routing
+ */
+
+/**
+ * Auth Routing
+ */
+Route::middleware('guest')->group(function (){
+    Route::controller(\App\Http\Controllers\AuthController::class)->group(function (){
+        Route::get('/login', 'index')->name('login');
+        Route::post('/login', 'login');
+        Route::get('/register', 'create')->name('register');
+        Route::post('/register', 'store');
+    });
+});
+
+// require __DIR__.'/auth.php';
