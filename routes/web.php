@@ -21,13 +21,18 @@ Route::get('/dashboard', function () {
     return view('pages.dashboard.index');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/metronics', function (){
-    return view('pages.dashboard.index');
-});
+//Route::get('/metronics', function (){
+//    return view('pages.dashboard.index');
+//});
 
 /**
  * Master Routing
  */
+Route::middleware('auth')->group(function (){
+    Route::get('/master/produk', \App\Http\Livewire\Master\ProdukIndex::class);
+    Route::get('/master/produk/kategori', \App\Http\Livewire\Master\ProdukKategoriIndex::class);
+    Route::get('/master/produk/kategoriharga', \App\Http\Livewire\Master\ProdukKategoriHargaIndex::class);
+});
 
 /**
  * Auth Routing

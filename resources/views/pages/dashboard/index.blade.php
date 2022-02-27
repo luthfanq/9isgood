@@ -1,6 +1,6 @@
 <x-metronics-layout>
 
-    <div id="kt_content_container" class="container-xxl">
+
         <!--begin::Row-->
         <div class="row gy-5 g-xl-8">
             <!--begin::Col-->
@@ -2657,7 +2657,6 @@
         </div>
         <!--end::Modal - New Product-->
         <!--end::Modals-->
-    </div>
 
     @push('custom-scripts')
 
