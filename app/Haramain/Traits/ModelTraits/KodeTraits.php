@@ -8,4 +8,9 @@ trait KodeTraits
     {
         return substr($this->kode, 1, 5);
     }
+
+    public function getLastNumTransAttribute()
+    {
+        return substr($this->kode, 0, 4);
+    }
 }

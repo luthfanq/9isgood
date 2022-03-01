@@ -7,7 +7,9 @@ use Livewire\Component;
 
 class ProdukKategoriIndex extends Component
 {
-    protected $listeners = [];
+    protected $listeners = [
+        'edit'=>'edit'
+    ];
 
     public $kategori_id, $kode_lokal, $nama, $keterangan;
 
@@ -26,6 +28,30 @@ class ProdukKategoriIndex extends Component
 
     public function store()
     {
-        //
+        $this->validate([
+            'kode_lokal'=>'required',
+            'nama'=>'required'
+        ]);
+
+        ProdukKategori::updateOrCreate(
+            [
+                'id'=>$this->idKategoriProduk,
+            ],
+            [
+                'kode_lokal'=>$this->kode_lokal,
+                'nama'=>$this->nama,
+                'keterangan'=>$this->keterangan,
+            ]);
+    }
+
+    public function destroy($id)
+    {
+        $this->kategori_id = $id;
+    }
+
+    public function confirmDestroy()
+    {
+        ProdukKategori::destroy($this->kategori_id);
+        $this->emit('close_confirm');
     }
 }

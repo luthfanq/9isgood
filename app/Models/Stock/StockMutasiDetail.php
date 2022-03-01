@@ -3,17 +3,17 @@
 namespace App\Models\Stock;
 
 use App\Haramain\Traits\ModelTraits\ProdukTraits;
-use App\Haramain\Traits\ModelTraits\StockKeluarTraits;
+use App\Haramain\Traits\ModelTraits\StockMutasiTraits;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StockKeluarDetail extends Model
+class StockMutasiDetail extends Model
 {
-    use HasFactory, StockKeluarTraits, ProdukTraits;
+    use HasFactory, StockMutasiTraits, ProdukTraits;
 
-    protected $table = 'stock_keluar_detail';
+    protected $table = 'stock_mutasi_detail';
     protected $fillable = [
-        'stock_keluar_id',
+        'stock_mutasi_id',
         'produk_id',
         'jumlah',
     ];

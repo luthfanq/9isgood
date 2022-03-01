@@ -6,19 +6,14 @@ use App\Haramain\Traits\ModelTraits\{ProdukTraits};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StockOpnameDetail extends Model
+class PreorderDetail extends Model
 {
     use HasFactory, ProdukTraits;
 
-    protected $table = 'stock_opname_detail';
+    protected $table = 'stock_preorder_detail';
     protected $fillable = [
-        'stock_opname_id',
+        'stock_preorder_id',
         'produk_id',
         'jumlah',
     ];
-
-    public function stockOpname()
-    {
-        return $this->belongsTo(StockOpname::class);
-    }
 }
