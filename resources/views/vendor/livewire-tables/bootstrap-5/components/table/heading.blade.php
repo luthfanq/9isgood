@@ -17,7 +17,7 @@
         {{ $attributes->merge($customAttributes) }}
         style="cursor:pointer;"
     >
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center flex-center">
             <span>{{ $text }}</span>
 
             <span class="relative d-flex align-items-center">
