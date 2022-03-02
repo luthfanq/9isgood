@@ -6,20 +6,24 @@
         <livewire:produk-kategori-table />
     </x-molecules.card>
 
-    <x-molecules.modal title="Form Produk Kategori" id="modal_form" size="lg">
+    <x-molecules.modal title="Form Produk Kategori" id="modal_form" size="lg" wire:ignore.self>
         <form>
             <x-atoms.input.group label="ID Lokal" required="required">
-                <x-atoms.input.text name="id_lokal"/>
+                <x-atoms.input.text name="kode_lokal" wire:model.defer="kode_lokal"/>
             </x-atoms.input.group>
             <x-atoms.input.group label="Nama Kategori" required="required">
-                <x-atoms.input.text name="nama_kategori"/>
+                <x-atoms.input.text name="nama" wire:model.defer="nama"/>
             </x-atoms.input.group>
             <x-atoms.input.group label="Keterangan">
-                <x-atoms.input.text name="keterangan"/>
+                <x-atoms.input.text name="keterangan" wire:model.defer="keterangan" />
             </x-atoms.input.group>
         </form>
-        <x-slot name="footer"></x-slot>
+        <x-slot name="footer">
+            <x-atoms.button.btn-primary wire:click="store">Simpan</x-atoms.button.btn-primary>
+        </x-slot>
     </x-molecules.modal>
+
+    <x-molecules.modal-notifications />
 
     @push('custom-scripts')
         <script>

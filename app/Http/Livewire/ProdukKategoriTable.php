@@ -9,11 +9,22 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
 
 class ProdukKategoriTable extends DataTableComponent
 {
+    public function setTableClass(): ?string
+    {
+        return 'table table-striped gx-7 border';
+    }
+
+    public function setTableRowClass(): ?string
+    {
+        return 'border align-middle';
+    }
 
     public function columns(): array
     {
         return [
-            Column::make('Column Name'),
+            Column::make('Kode'),
+            Column::make('Nama'),
+            Column::make('Keterangan'),
         ];
     }
 
