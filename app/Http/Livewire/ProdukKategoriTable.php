@@ -22,8 +22,10 @@ class ProdukKategoriTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make('Kode'),
-            Column::make('Nama'),
+            Column::make('Kode', 'kode_lokal')
+                ->searchable(),
+            Column::make('Nama')
+                ->searchable(),
             Column::make('Keterangan'),
         ];
     }
