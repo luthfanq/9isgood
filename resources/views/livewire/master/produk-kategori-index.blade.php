@@ -3,7 +3,7 @@
         <x-slot name="toolbar">
             <x-atoms.button.btn-modal target="#modal_form">New Data</x-atoms.button.btn-modal>
         </x-slot>
-        <livewire:produk-kategori-table />
+        <livewire:datatables.produk-kategori-table />
     </x-molecules.card>
 
     <x-molecules.modal title="Form Produk Kategori" id="modal_form" size="lg" wire:ignore.self>

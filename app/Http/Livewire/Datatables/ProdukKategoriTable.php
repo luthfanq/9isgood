@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Datatables;
 
+use App\Haramain\Traits\LivewireTraits\DatatablesTraits;
 use App\Models\Master\ProdukKategori;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
@@ -9,15 +10,7 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
 
 class ProdukKategoriTable extends DataTableComponent
 {
-    public function setTableClass(): ?string
-    {
-        return 'table table-striped gx-7 border';
-    }
-
-    public function setTableRowClass(): ?string
-    {
-        return 'border align-middle';
-    }
+    use DatatablesTraits;
 
     public function columns(): array
     {
