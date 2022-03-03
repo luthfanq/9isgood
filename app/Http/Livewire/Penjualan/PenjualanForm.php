@@ -120,7 +120,16 @@ class PenjualanForm extends Component
 
     public function editLine($index)
     {
-        //
+        $this->update = true;
+        $this->indexDetail = $index;
+        $this->idProduk = $this->dataDetail[$index]['produk_id'];
+        $this->namaProduk = $this->dataDetail[$index]['nama_produk'];
+        $this->hargaProduk = $this->dataDetail[$index]['harga'];
+        $this->detailHarga = rupiah_format($this->hargaProduk);
+        $this->jumlahProduk = $this->dataDetail[$index]['jumlah'];
+        $this->diskonProduk = $this->dataDetail[$index]['diskon'];
+        $this->subTotalProduk = $this->dataDetail[$index]['sub_total'];
+        $this->hitungSubTotal();
     }
 
     public function updateLine()
@@ -129,6 +138,19 @@ class PenjualanForm extends Component
             'idProduk'=>'required',
             'jumlahProduk'=>'required'
         ]);
+
+        $index = $this->indexDetail;
+        $this->dataDetail[$index]['produk_id'] = $this->idProduk;
+        $this->dataDetail[$index]['nama_produk'] = $this->namaProduk;
+        $this->dataDetail[$index]['harga'] = $this->hargaProduk;
+        $this->dataDetail[$index]['jumlah'] = $this->jumlahProduk;
+        $this->dataDetail[$index]['diskon'] = $this->diskonProduk;
+        $this->dataDetail[$index]['sub_total'] = $this->subTotalProduk;
+        $this->hitungSubTotal();
+        $this->resetForm();
+        $this->update = false;
+        $this->hitungTotal();
+        $this->hitungTotalBayar();
     }
 
     public function destroyLine($index)
@@ -136,6 +158,8 @@ class PenjualanForm extends Component
         // remove line transaksi
         unset($this->penjualan_detail[$index]);
         $this->penjualan_detail = array_values($this->penjualan_detail);
+        $this->hitungTotal();
+        $this->hitungTotalBayar();
     }
 
     /**
