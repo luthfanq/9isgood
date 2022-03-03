@@ -8,6 +8,6 @@ trait CustomerTraits
 {
     public function customer()
     {
-        return $this->belongTo(Customer::class, 'customer_id');
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 }
