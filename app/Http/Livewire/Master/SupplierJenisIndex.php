@@ -3,10 +3,10 @@
 namespace App\Http\Livewire\Master;
 
 use App\Haramain\Traits\LivewireTraits\ResetFormTraits;
-use App\Models\Master\ProdukKategori;
+use App\Models\Master\SupplierJenis;
 use Livewire\Component;
 
-class ProdukKategoriIndex extends Component
+class SupplierJenisIndex extends Component
 {
     use ResetFormTraits;
 
@@ -17,53 +17,53 @@ class ProdukKategoriIndex extends Component
         'confirmDestroy'=>'confirmDestroy'
     ];
 
-    public array $resetForm = ['kategori_id', 'kode_lokal', 'nama', 'keterangan'];
+    public $jenis_id, $jenis, $keterangan;
 
-    public $kategori_id, $kode_lokal, $nama, $keterangan;
+    public $resetForm= [
+        'jenis_id', 'jenis', 'keterangan'
+    ];
 
     public function render()
     {
-        return view('livewire.master.produk-kategori-index');
+        return view('livewire.master.supplier-jenis-index');
     }
 
-    public function edit(ProdukKategori $produkKategori)
+    public function edit(SupplierJenis $supplierJenis)
     {
-        $this->kategori_id = $produkKategori->id;
-        $this->kode_lokal = $produkKategori->kode_lokal;
-        $this->nama = $produkKategori->nama;
-        $this->keterangan = $produkKategori->keterangan;
+        $this->jenis_id = $supplierJenis->id;
+        $this->jenis = $supplierJenis->jenis;
+        $this->keterangan = $supplierJenis->keterangan;
         $this->emit('showModal');
     }
 
     public function store()
     {
         $this->validate([
-            'kode_lokal'=>'required',
-            'nama'=>'required'
+            'jenis'=>'required'
         ]);
 
-        ProdukKategori::updateOrCreate(
+        SupplierJenis::updateOrCreate(
             [
-                'id'=>$this->kategori_id,
+                'id'=>$this->idJenis,
             ],
             [
-                'kode_lokal'=>$this->kode_lokal,
-                'nama'=>$this->nama,
+                'jenis'=>$this->jenis,
                 'keterangan'=>$this->keterangan,
             ]);
         $this->emit('hideModal');
-        $this->emit('refreshDatatable');
+        $this->emit('refreshDatatables');
+        $this->resetForm();
     }
 
     public function destroy($id)
     {
-        $this->kategori_id = $id;
+        $this->jenis_id = $id;
         $this->emit('showDeleteNotification');
     }
 
     public function confirmDestroy()
     {
-        ProdukKategori::destroy($this->kategori_id);
+        SupplierJenis::destroy($this->jenis_id);
         $this->resetForm();
         $this->emit('hideDeleteNotification');
         $this->emit('close_confirm');

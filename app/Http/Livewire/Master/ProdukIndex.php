@@ -32,8 +32,8 @@ class ProdukIndex extends Component
     public function render()
     {
         return view('livewire.master.produk-index', [
-            'kategori'=>ProdukKategori::all(),
-            'kategoriHarga'=>ProdukKategoriHarga::all()
+            'kategori_data'=>ProdukKategori::all(),
+            'kategori_harga_data'=>ProdukKategoriHarga::all()
         ]);
     }
 
@@ -51,20 +51,67 @@ class ProdukIndex extends Component
         $this->size = $produk->size;
         $this->deskripsi = $produk->deskripsi;
         $this->harga = $produk->harga;
+        $this->emit('showModal');
+    }
+
+    public function kode(): ?string
+    {
+        $produk = Produk::latest('kode')->first();
+        if (!$produk){
+            $num = 1;
+        } else {
+            $lastNum = (int) $produk->last_num_master;
+            $num = $lastNum + 1;
+        }
+        return "P".sprintf("%05s", $num);
     }
 
     public function store()
     {
-        //
+        $this->validate([
+            'kategori'=>'required',
+            'kategori_harga'=>'required',
+            'nama'=>'required',
+            'harga'=>'required'
+        ]);
+
+//        dd($this->kode());
+
+        Produk::query()->updateOrCreate(
+            [
+                'id'=>$this->produk_id,
+            ],
+            [
+                'kode'=> $this->kode ?? $this->kode(),
+                'kategori_id'=>$this->kategori,
+                'kategori_harga'=>$this->kategori_harga,
+                'kode_lokal'=>$this->kode_lokal,
+                'penerbit'=>$this->penerbit,
+                'nama'=>$this->nama,
+                'hal'=>$this->hal,
+                'cover'=>$this->cover,
+                'harga'=>$this->harga,
+                'size'=>$this->size,
+                'deskripsi'=>$this->deskripsi
+            ]
+        );
+        $this->emit('hideModal');
+        $this->emit('refreshDatatables');
+        $this->resetForm();
     }
 
     public function destroy($id)
     {
-        //
+        $this->produk_id = $id;
+        $this->emit('showDeleteNotification');
     }
 
     public function confirmDestroy()
     {
-        //
+        Produk::destroy($this->produk_id);
+        $this->resetForm();
+        $this->emit('hideDeleteNotification');
+        $this->emit('close_confirm');
+        $this->emit('refreshDatatables');
     }
 }
