@@ -2,13 +2,13 @@
 
 namespace App\Models\Sales;
 
-use App\Haramain\Traits\ModelTraits\{CustomerTraits, GudangTraits, StockKeluarTraits, UserTraits};
+use App\Haramain\Traits\ModelTraits\{CustomerTraits, GudangTraits, KodeTraits, StockKeluarTraits, UserTraits};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Penjualan extends Model
 {
-    use HasFactory, CustomerTraits, GudangTraits, UserTraits, StockKeluarTraits;
+    use HasFactory, KodeTraits, CustomerTraits, GudangTraits, UserTraits, StockKeluarTraits;
     protected $table = 'penjualan';
     protected $fillable = [
         'kode',
