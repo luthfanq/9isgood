@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function (){
     // penjualan
     Route::get('penjualan', \App\Http\Livewire\Penjualan\PenjualanIndex::class)->name('penjualan');
     Route::get('penjualan/trans', \App\Http\Livewire\Penjualan\PenjualanForm::class)->name('penjualan.trans');
-    Route::get('penjualan/trans/{id}', \App\Http\Livewire\Penjualan\PenjualanForm::class);
+    Route::get('penjualan/trans/{penjualan}', \App\Http\Livewire\Penjualan\PenjualanForm::class);
 
     Route::get('penjualan/retur', \App\Http\Livewire\Penjualan\PenjualanReturIndex::class)->name('penjualan.retur');
     Route::get('penjualan/retur/trans', \App\Http\Livewire\Penjualan\PenjualanReturForm::class)->name('penjualan.retur.trans');
