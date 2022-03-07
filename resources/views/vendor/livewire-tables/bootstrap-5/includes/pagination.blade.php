@@ -1,8 +1,8 @@
 @if ($showPagination)
     @if ($paginationEnabled && $rows->lastPage() > 1)
         <div class="row">
-            <div class="col-12 col-md-6">
-                {{ $rows->links() }}
+            <div class="col-12 col-md-6  align-left">
+                {{ $rows->onEachSide(2)->links() }}
             </div>
 
             <div class="col-12 col-md-6 text-center text-md-end text-muted">
