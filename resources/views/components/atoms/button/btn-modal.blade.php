@@ -1,2 +1,2 @@
-@props(['type'=>'button', 'target'=>''])
-<button type="{{$type}}" {{$attributes->class(['btn btn-primary'])}} data-bs-toggle="modal" data-bs-target="{{$target}}">{{$slot}}</button>
+@props(['type'=>'button', 'target'=>'', 'color'=>'primary'])
+<button type="{{$type}}" {{$attributes->class(['btn btn-'.$color])}} data-bs-toggle="modal" data-bs-target="{{$target}}">{{$slot}}</button>
