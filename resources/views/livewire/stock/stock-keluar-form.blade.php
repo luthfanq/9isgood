@@ -1,3 +1,3 @@
 <div>
-    {{-- In work, do what you enjoy. --}}
+    <x-molecules.card title="Transaksi Stock Keluar {{ucwords($kondisi)}}"></x-molecules.card>
 </div>

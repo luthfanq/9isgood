@@ -3,6 +3,10 @@
             ->whereNotIn('nama', ['GUDANG BUKU RUSAK'])
             ->get();
     $jenis = collect([['jenis'=>'baik'], ['jenis'=>'rusak']]);
+    $stockMasuk = \App\Models\Stock\StockMasuk::query()
+            ->where('kondisi')
+            ->get();
+    $kondisi = collect([['kondisi'=>'baik'], ['kondisi'=>'rusak']]);
 @endphp
 <div id="kt_aside" class="aside aside-dark aside-hoverable" data-kt-drawer="true" data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
     <!--begin::Brand-->
@@ -395,38 +399,46 @@
 												<span class="menu-arrow"></span>
 											</span>
                             <div class="menu-sub menu-sub-accordion">
-                                <div class="menu-item">
-                                    <a class="menu-link {{request()->is('stock/transaksi/masuk') ? 'active' : ''}}" href="{{route('stock.masuk')}}">
+                                    @foreach($kondisi as $item)
+                                        <div class="menu-item">
+                                            <a class="menu-link {{request()->is('stock/transaksi/masuk/'.$item['kondisi']) ? 'active' : ''}}" href="{{url('/').'/stock/transaksi/masuk/'.$item['kondisi']}}">
 														<span class="menu-bullet">
 															<span class="bullet bullet-dot"></span>
 														</span>
-                                        <span class="menu-title">Stock Masuk Baik</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a class="menu-link {{request()->is('stock/transaksi/masuk/rusak') ? 'active' : ''}}" href="{{route('inventory')}}">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                                        <span class="menu-title">Stock Masuk Rusak</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a class="menu-link {{request()->is('stock/transaksi/keluar') ? 'active' : ''}}" href="{{route('stock.keluar')}}">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                                        <span class="menu-title">Stock Keluar Baik</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a class="menu-link {{request()->is('stock/transaksi/keluar/rusak') ? 'active' : ''}}" href="{{route('stock.keluar')}}">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                                        <span class="menu-title">Stock Keluar Rusak</span>
-                                    </a>
-                                </div>
+                                                <span class="menu-title">Stock Masuk {{ucwords($item['kondisi'])}}</span>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                    @foreach($kondisi as $item)
+                                    <div class="menu-item">
+                                        <a class="menu-link {{request()->is('stock/transaksi/masuk/trans/'.$item['kondisi']) ? 'active' : ''}}" href="{{url('/').'/stock/transaksi/masuk/trans/'.$item['kondisi']}}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                            <span class="menu-title">Stock Masuk {{ucwords($item['kondisi'])}} Baru</span>
+                                        </a>
+                                    </div>
+                                @endforeach
+                                    @foreach($kondisi as $item)
+                                    <div class="menu-item">
+                                        <a class="menu-link {{request()->is('stock/transaksi/keluar/'.$item['kondisi']) ? 'active' : ''}}" href="{{url('/').'/stock/transaksi/keluar/'.$item['kondisi']}}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                            <span class="menu-title">Stock Keluar {{ucwords($item['kondisi'])}}</span>
+                                        </a>
+                                    </div>
+                                    @endforeach
+                                    @foreach($kondisi as $item)
+                                    <div class="menu-item">
+                                        <a class="menu-link {{request()->is('stock/transaksi/keluar/trans/'.$item['kondisi']) ? 'active' : ''}}" href="{{url('/').'/stock/transaksi/keluar/trans/'.$item['kondisi']}}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                            <span class="menu-title">Stock Keluar {{ucwords($item['kondisi'])}} Baru</span>
+                                        </a>
+                                    </div>
+                                    @endforeach
                                 <div class="menu-item">
                                     <a class="menu-link {{request()->is('stock/transaksi/mutasi/baik-rusak') ? 'active' : ''}}" href="{{route('inventory')}}">
 														<span class="menu-bullet">
