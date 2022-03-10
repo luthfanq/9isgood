@@ -27,7 +27,7 @@ class StockMasukRepository implements TransaksiRepositoryInterface
     public static function create(object $data, array $detail): ?string
     {
         $stock_masuk = StockMasuk::query()->create([
-            'kode'=>self::kode(),
+            'kode'=>self::kode($data->kondisi),
             'active_cash'=>session('ClosedCash'),
             'stockable_masuk_id'=>null,
             'stockable_masuk_type'=>null,
@@ -48,8 +48,8 @@ class StockMasukRepository implements TransaksiRepositoryInterface
 
             StockInventoryRepository::create(
                 (object)[
-                    'produk_id' => $item['produk_id'],
-                    'jumlah' => $item['jumlah']
+                    'produk_id' => $row['produk_id'],
+                    'jumlah' => $row['jumlah']
                 ],
                 $data->kondisi,
                 $data->gudang_id,
@@ -69,6 +69,33 @@ class StockMasukRepository implements TransaksiRepositoryInterface
         }
 
         $stock_masuk->stockMasukDetail()->delete();
+
+        $stock_masuk->update([
+            'kondisi'=>$data->kondisi,
+            'gudang_id'=>$data->gudang_id,
+            'tgl_masuk'=>tanggalan_database_format($data->tgl_masuk, 'd-M-Y'),
+            'user_id'=>\Auth::id(),
+            'keterangan'=>$data->keterangan,
+        ]);
+
+        foreach ($detail as $row){
+            $stock_masuk->stockMasukDetail()->create([
+                'produk_id'=>$row->produk->id,
+                'jumlah'=>$row->jumlah,
+            ]);
+
+            StockInventoryRepository::create(
+                (object)[
+                    'produk_id' => $row['produk_id'],
+                    'jumlah' => $row['jumlah']
+                ],
+                $data->kondisi,
+                $data->gudang_id,
+                'stock_masuk'
+            );
+        }
+
+        return $stock_masuk->id;
     }
 
     public static function delete(int $id): ?string

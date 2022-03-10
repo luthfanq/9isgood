@@ -26,12 +26,75 @@ class StockKeluarRepository implements TransaksiRepositoryInterface
 
     public static function create(object $data, array $detail): ?string
     {
-        // TODO: Implement create() method.
+        $stock_keluar = StockKeluar::query()->create([
+            'kode'=>self::kode($data->kondisi),
+            'supplier_id'=>$data->supplier->id,
+            'active_cash'=>session('ClosedCash'),
+            'stockable_keluar_id'=>null,
+            'stockable_keluar_type'=>null,
+            'kondisi'=>$data->kondisi,
+            'gudang_id'=>$data->gudang_id ?? $data->gudang_keluar,
+            'tgl_keluar'=>tanggalan_database_format('tgl_keluar', 'd-M-Y'),
+            'user_id'=>auth()->id(),
+            'keterangan'=>$data->keterangan,
+        ]);
+
+        foreach ($detail as $row){
+            $stock_keluar->stockKeluarDetail()->create([
+                'produk_id'=>$row->produk->id,
+                'jumlah'=>$row->jumlah,
+            ]);
+
+            StockInventoryRepository::create(
+                (object)[
+                    'produk_id' => $row['produk_id'],
+                    'jumlah' => $row['jumlah']
+                ],
+                $data->kondisi,
+                $data->gudang_id,
+                'stock_keluar'
+            );
+        }
+
+        return $stock_keluar->id;
     }
 
     public static function update(object $data, array $detail): ?string
     {
-        // TODO: Implement update() method.
+        $stock_keluar = StockKeluar::query()->find($data->stock_keluar_id);
+
+        foreach ($stock_keluar->stockKeluarDetail() as $row){
+            StockInventoryRepository::rollback($row, $data->kondisi, $stock_keluar->gudang_id, 'stock_masuk');
+        }
+
+        $stock_keluar->stockKeluarDetail()->delete();
+
+        $stock_keluar->update([
+            'kondisi'=>$data->kondisi,
+            'gudang_id'=>$data->gudang_id,
+            'tgl_keluar'=>tanggalan_database_format($data->tgl_keluar, 'd-M-Y'),
+            'user_id'=>\Auth::id(),
+            'keterangan'=>$data->keterangan,
+        ]);
+
+        foreach ($detail as $row){
+            $stock_keluar->stockKeluarDetail()->create([
+                'produk_id'=>$row->produk->id,
+                'jumlah'=>$row->jumlah,
+            ]);
+
+            StockInventoryRepository::create(
+                (object)[
+                    'produk_id' => $row['produk_id'],
+                    'jumlah' => $row['jumlah']
+                ],
+                $data->kondisi,
+                $data->gudang_id,
+                'stock_keluar'
+            );
+        }
+
+        return $stock_keluar->id;
     }
 
     public static function delete(int $id): ?string
