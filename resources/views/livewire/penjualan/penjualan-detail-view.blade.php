@@ -67,7 +67,7 @@
                             {{$item->diskon}}
                         </x-atoms.table.td>
                         <x-atoms.table.td align="end">
-                            {{$item->sub_total}}
+                            {{rupiah_format($item->sub_total)}}
                         </x-atoms.table.td>
                     </tr>
                 @endforeach

@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Penjualan;
 
 use App\Haramain\Traits\LivewireTraits\ResetFormTraits;
-use App\Models\Sales\Penjualan;
+use App\Models\Penjualan\Penjualan;
 use Livewire\Component;
 
 class PenjualanDetailView extends Component

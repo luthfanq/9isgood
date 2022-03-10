@@ -8,7 +8,9 @@
     {{tanggalan_format($row->tgl_nota)}}
 </x-atoms.table.td>
 <x-atoms.table.td>
-    {{tanggalan_format($row->tgl_tempo)}}
+    @if($row->tgl_tempo)
+        {{tanggalan_format($row->tgl_tempo)}}
+    @endif
 </x-atoms.table.td>
 <x-atoms.table.td>
     {{$row->jenis_bayar}}

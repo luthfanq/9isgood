@@ -2,7 +2,7 @@
 
 namespace App\Haramain\Repository;
 
-use App\Models\Sales\Penjualan;
+use App\Models\Penjualan\Penjualan;
 
 class PenjualanRepository implements TransaksiRepositoryInterface
 {
@@ -31,8 +31,8 @@ class PenjualanRepository implements TransaksiRepositoryInterface
             'customer_id'=>$data->customer_id,
             'gudang_id'=>$data->gudang_id,
             'user_id'=>\Auth::id(),
-            'tgl_nota'=>$data->tgl_nota,
-            'tgl_tempo'=>($data->jenis_bayar == 'tempo') ? $data->tgl_tempo : null,
+            'tgl_nota'=>tanggalan_database_format($data->tgl_nota, 'd-M-Y'),
+            'tgl_tempo'=>($data->jenis_bayar == 'tempo') ? tanggalan_database_format($data->tgl_tempo, 'd-M-Y') : null,
             'jenis_bayar'=>$data->jenis_bayar,
             'status_bayar'=>'belum',
             'total_barang'=>$data->total_bayar,
@@ -43,23 +43,27 @@ class PenjualanRepository implements TransaksiRepositoryInterface
         ]);
 
         // create stock_masuk jenis baik
-        $stock_keluar = $penjualan->stockKeluar()->create([
+        $stock_keluar = $penjualan->stockKeluarMorph()->create([
             'kode'=>StockKeluarRepository::kode('baik'),
             'active_cash'=>session('ClosedCash'),
             'kondisi'=>'baik',
-            'gudang_id'=>$data->gudang,
-            'tgl_keluar'=>$data->tgl_nota,
+            'gudang_id'=>$data->gudang_id,
+            'tgl_keluar'=>tanggalan_database_format($data->tgl_nota, 'd-M-Y'),
             'user_id'=>\Auth::id(),
             'keterangan'=>$data->keterangan,
         ]);
 
         // detail proses
-        return self::detailProses($detail, $penjualan, $stock_keluar, $data);
+        return self::detailProses($detail, $penjualan, $stock_keluar, 'baik',$data);
     }
 
     public static function update(object $data, array $detail): ?string
     {
-        $penjualan = Penjualan::query()->find($data->penjualan_id);
+        $penjualan = Penjualan::query()
+            ->with(['stockKeluar.stockKeluarDetail'])
+            ->find($data->penjualan_id);
+
+        // dd($penjualan->stockKeluarMorph->stockKeluarDetail());
 
         // rollback inventory
         foreach ($penjualan->penjualanDetail as $row)
@@ -75,8 +79,8 @@ class PenjualanRepository implements TransaksiRepositoryInterface
             'customer_id'=>$data->customer_id,
             'gudang_id'=>$data->customer_id,
             'user_id'=>\Auth::id(),
-            'tgl_nota'=>$data->tgl_nota,
-            'tgl_tempo'=>($data->jenis_bayar == 'tempo') ? $data->tgl_tempo : null,
+            'tgl_nota'=>tanggalan_database_format($data->tgl_nota, 'd-M-Y'),
+            'tgl_tempo'=>($data->jenis_bayar == 'tempo') ? tanggalan_database_format($data->tgl_tempo, 'd-M-Y') : null,
             'jenis_bayar'=>$data->jenis_bayar,
             'status_bayar'=>'belum',
             'total_barang'=>$data->total_bayar,
@@ -86,22 +90,22 @@ class PenjualanRepository implements TransaksiRepositoryInterface
             'keterangan'=>$data->keterangan,
         ]);
 
-        $stock_keluar = $penjualan->stockKeluar();
+        $stock_keluar = $penjualan->stockKeluarMorph()->first();
 
         // delete stock keluar detail
-        $stockKeluar = $penjualan->stockKeluar->stockKeluarDetail()->delete();
+        $penjualan->stockKeluarMorph->stockKeluarDetail()->delete();
 
         // update stock keluar
         $stock_keluar->update([
             'kondisi'=>'baik',
-            'gudang_id'=>$data->gudang,
-            'tgl_keluar'=>$data->tgl_nota,
+            'gudang_id'=>$data->gudang_id,
+            'tgl_keluar'=>tanggalan_database_format($data->tgl_nota, 'd-M-Y'),
             'user_id'=>\Auth::id(),
             'keterangan'=>$data->keterangan,
         ]);
 
         // detail proses
-        return self::detailProses($detail, $penjualan, $stock_keluar, $data);
+        return self::detailProses($detail, $penjualan, $stock_keluar, 'baik', $data);
     }
 
     public static function delete(int $id): ?string
@@ -117,7 +121,7 @@ class PenjualanRepository implements TransaksiRepositoryInterface
      * @param object $data
      * @return string|null
      */
-    protected static function detailProses(array $detail,Penjualan $penjualan, $stock_keluar, object $data): ?string
+    protected static function detailProses(array $detail, Penjualan $penjualan, $stock_keluar, $kondisi,object $data): ?string
     {
         foreach ($detail as $item) {
             $penjualan->penjualanDetail()->create([
@@ -138,8 +142,8 @@ class PenjualanRepository implements TransaksiRepositoryInterface
                     'produk_id' => $item['produk_id'],
                     'jumlah' => $item['jumlah']
                 ],
-                $data->jenis,
-                $data->gudang,
+                $kondisi,
+                $data->gudang_id,
                 'stock_keluar'
             );
         }
