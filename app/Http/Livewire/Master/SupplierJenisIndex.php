@@ -51,7 +51,7 @@ class SupplierJenisIndex extends Component
                 'keterangan'=>$this->keterangan,
             ]);
         $this->emit('hideModal');
-        $this->emit('refreshDatatables');
+        $this->emit('refreshDatatable');
         $this->resetForm();
     }
 
