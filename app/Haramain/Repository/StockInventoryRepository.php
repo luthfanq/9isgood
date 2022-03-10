@@ -19,7 +19,7 @@ class StockInventoryRepository
         $query = StockInventory::query()
             ->where('produk_id', $data->produk_id)
             ->where('jenis', $jenis)
-            ->where('gudang', $gudang)
+            ->where('gudang_id', $gudang)
             ->where('active_cash', session('ClosedCash'));
         if ($query->count() > 0){
             // update Stock
@@ -50,7 +50,7 @@ class StockInventoryRepository
         return StockInventory::query()
             ->where('produk_id', $data->produk_id)
             ->where('jenis', $jenis)
-            ->where('gudang', $gudang)
+            ->where('gudang_id', $gudang)
             ->where('active_cash', session('ClosedCash'))
             ->update([
                 $column=>\DB::raw($column.' -'.$data->jumlah)
