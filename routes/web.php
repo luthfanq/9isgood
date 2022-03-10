@@ -81,12 +81,14 @@ Route::middleware('auth')->group(function (){
 
     // stock transaksi
     Route::get('stock/transaksi/masuk', \App\Http\Livewire\Stock\StockMasukIndex::class)->name('stock.masuk');
-    Route::get('stock/transaksi/masuk/trans', \App\Http\Livewire\Stock\StockMasukForm::class);
-    Route::get('stock/transaksi/masuk/trans/{stockmasuk}', \App\Http\Livewire\Stock\StockMasukForm::class);
+    Route::get('stock/transaksi/masuk/{kondisi}', \App\Http\Livewire\Stock\StockMasukIndex::class);
+    Route::get('stock/transaksi/masuk/{kondisi}/trans', \App\Http\Livewire\Stock\StockMasukForm::class);
+    Route::get('stock/transaksi/masuk/{kondisi}/trans/{stockmasuk}', \App\Http\Livewire\Stock\StockMasukForm::class);
 
     Route::get('stock/transaksi/keluar', \App\Http\Livewire\Stock\StockKeluarIndex::class)->name('stock.keluar');
-    Route::get('stock/transaksi/keluar/trans', \App\Http\Livewire\Stock\StockKeluarForm::class);
-    Route::get('stock/transaksi/keluar/trans/{stockkeluar}', \App\Http\Livewire\Stock\StockKeluarForm::class);
+    Route::get('stock/transaksi/keluar/{kondisi}', \App\Http\Livewire\Stock\StockKeluarIndex::class);
+    Route::get('stock/transaksi/keluar/{kondisi}/trans', \App\Http\Livewire\Stock\StockKeluarForm::class);
+    Route::get('stock/transaksi/keluar/{kondisi}/trans/{stockkeluar}', \App\Http\Livewire\Stock\StockKeluarForm::class);
 });
 
 /**
