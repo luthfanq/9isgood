@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class InventoryIndex extends Component
 {
-    public function render()
+   public function render()
     {
         return view('livewire.stock.inventory-index');
     }
