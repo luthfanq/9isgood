@@ -2,7 +2,7 @@
 
 namespace App\Haramain\Traits\ModelTraits;
 
-use App\Models\Sales\PenjualanRetur;
+use App\Models\Penjualan\PenjualanRetur;
 
 trait PenjualanReturTraits
 {

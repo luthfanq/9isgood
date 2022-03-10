@@ -1,5 +1,5 @@
 <div>
-    <x-molecules.card title="Form Retur Penjualan">
+    <x-molecules.card title="Form Retur {{ucfirst($kondisi)}}">
         <div class="row">
             <div class="col-8">
                 <form>
@@ -73,7 +73,7 @@
                             <th width="10%"></th>
                         </tr>
                     </x-slot>
-                    @forelse($penjualan_detail as $index => $row)
+                    @forelse($data_detail as $index => $row)
                         <tr class="align-middle">
                             <td class="text-center">{{$row['kode_lokal']}}</td>
                             <td>{{$row['nama_produk']}}</td>
@@ -136,8 +136,8 @@
                         </x-atoms.input.group-horizontal>
                     </div>
                     <div class="pt-5">
-                        <x-atoms.input.group-horizontal name="detailHarga" label="Harga">
-                            <x-atoms.input.text wire:model.defer="detailHarga" wire:key="detailHarga" />
+                        <x-atoms.input.group-horizontal name="hargaRupiah" label="Harga">
+                            <x-atoms.input.text wire:model.defer="hargaRupiah" wire:key="hargaRupiah" class="text-end" readonly=""/>
                         </x-atoms.input.group-horizontal>
                     </div>
                     <div class="pt-5">
@@ -152,7 +152,7 @@
                         <x-atoms.input.group-horizontal name="diskonProduk" label="">
                             <div class="input-group">
                                 <span class="input-group-text">Rp. </span>
-                                <x-atoms.input.text wire:model.defer="detailDiskonHarga" wire:keyup="hitungSubTotal" readonly=""/>
+                                <x-atoms.input.text wire:model.defer="hargaSetelahDiskonRupiah" wire:keyup="hitungSubTotal" readonly=""/>
                             </div>
                         </x-atoms.input.group-horizontal>
                     </div>
@@ -163,7 +163,7 @@
                     </div>
                     <div class="pt-5">
                         <x-atoms.input.group-horizontal name="detailSubTotal" label="Sub Total">
-                            <x-atoms.input.text wire:model.defer="detailSubTotal" readonly="" />
+                            <x-atoms.input.text wire:model.defer="subTotalHargaRupiah" readonly="" />
                         </x-atoms.input.group-horizontal>
                     </div>
                 </form>
@@ -181,7 +181,7 @@
 
         <x-slot name="footer">
             <div class="d-flex justify-content-end">
-                @if($mode =='update')
+                @if($mode == 'update')
                     <x-atoms.button.btn-primary wire:click="update">Update All</x-atoms.button.btn-primary>
                 @else
                     <x-atoms.button.btn-primary wire:click="store">Save All</x-atoms.button.btn-primary>

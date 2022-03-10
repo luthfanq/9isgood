@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Sales;
+namespace App\Models\Penjualan;
 
 use App\Haramain\Traits\ModelTraits\{CustomerTraits, GudangTraits, KodeTraits, StockMasukTraits, UserTraits};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,4 +26,9 @@ class PenjualanRetur extends Model
         'total_bayar',
         'keterangan',
     ];
+
+    public function returDetail()
+    {
+        return $this->hasMany(PenjualanReturDetail::class, 'penjualan_retur_id');
+    }
 }

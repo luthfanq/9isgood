@@ -2,42 +2,88 @@
 
 namespace App\Http\Livewire\Penjualan;
 
+use App\Haramain\Repository\PenjualanReturRepository;
+use App\Models\Master\Customer;
 use App\Models\Master\Gudang;
+use App\Models\Master\Produk;
+use App\Models\Penjualan\PenjualanRetur;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Component;
 
-class PenjualanReturForm extends Component
+class PenjualanReturForm extends Transaksi
 {
-    protected $listeners = [
-        'set_customer'=>'setCustomer',
-        'set_produk'=>'setProduk'
-    ];
+    public $kondisi;
+    public $penjualan_retur_id;
 
-    public array $penjualan_detail = [];
-    public bool $update =false;
-    public $gudang_data;
-    public $indexDetail;
-    public $mode = 'create';
-    public $penjualan_id;
-
-    // properti master
-    public $kode, $customer_id, $customer_nama, $customer_diskon, $gudang_id, $user_id;
-    public $tgl_nota, $tgl_tempo, $jenis_bayar, $status_bayar, $total_barang, $ppn, $biaya_lain, $total_bayar;
-    public $keterangan, $print;
-    public $total, $total_rupiah, $total_bayar_rupiah;
-
-    // properti detail
-    public $detail_id, $idProduk, $namaProduk, $kodeLokalProduk, $coverProduk, $halProduk, $hargaProduk, $diskonProduk, $jumlahProduk, $subTotalProduk;
-    public $detailProduk, $detailHarga, $detailDiskon, $detailDiskonHarga, $detailSubTotal;
-
-    public function mount()
+    public function mount($kondisi, $retur=null)
     {
-        $this->tgl_nota = tanggalan_format(now('ASIA/JAKARTA'));
-        $this->tgl_tempo = tanggalan_format(now('ASIA/JAKARTA')->addMonth(2));
-        $this->gudang_data = Gudang::all();
+        // initiate
+        $retur = PenjualanRetur::query()->find($retur);
+
+        // kondisi
+        $this->kondisi = ($kondisi == 'baik') ? 'baik' : 'rusak';
+
+        if ($retur)
+        {
+            // mode update true
+            $this->penjualan_retur_id = $retur->id;
+
+            // mount customer data
+            $this->forMount('update', $retur, $retur->returDetail);
+
+            $this->hitungTotal();
+            $this->hitungTotalBayar();
+        }
     }
 
     public function render()
     {
         return view('livewire.penjualan.penjualan-retur-form');
     }
+
+    protected function validatedData():array
+    {
+        $this->total_barang = array_sum(array_column($this->data_detail, 'jumlah'));
+        return $this->validate([
+            'penjualan_retur_id'=>'nullable',
+            'kondisi'=>'required',
+            'customer_id'=>'required',
+            'gudang_id'=>'required',
+            'tgl_nota'=>'required|date_format:d-M-Y',
+            'tgl_tempo'=>'nullable|date_format:d-M-Y',
+            'jenis_bayar'=>'required',
+            'total_barang'=>'nullable|numeric',
+            'ppn'=>'nullable|numeric',
+            'biaya_lain'=>'nullable|numeric',
+            'total_bayar'=>'required|numeric',
+            'keterangan'=>'nullable|string'
+        ]);
+    }
+
+    public function store()
+    {
+        \DB::beginTransaction();
+        try {
+            PenjualanReturRepository::create((object)$this->validatedData(), $this->data_detail);
+            \DB::commit();
+        } catch (ModelNotFoundException $e){
+            \DB::rollBack();
+            session()->flash('message', $e);
+        }
+        return redirect()->to(url('/').'/penjualan/retur/baik');
+    }
+
+    public function update()
+    {
+        \DB::beginTransaction();
+        try {
+            PenjualanReturRepository::update((object)$this->validatedData(), $this->data_detail);
+            \DB::commit();
+        } catch (ModelNotFoundException $e){
+            \DB::rollBack();
+            session()->flash('message', $e);
+        }
+        return redirect()->to(url('/').'/penjualan/retur/baik');
+    }
+
 }

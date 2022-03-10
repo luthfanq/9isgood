@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Sales;
+namespace App\Models\Penjualan;
 
 use App\Haramain\Traits\ModelTraits\{CustomerTraits, GudangTraits, KodeTraits, StockKeluarTraits, UserTraits};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
