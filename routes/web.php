@@ -106,3 +106,4 @@ Route::middleware('guest')->group(function (){
 Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'destroy'])->name('logout');
 
 // require __DIR__.'/auth.php';
+ require __DIR__.'/keuangan.php';
