@@ -96,7 +96,7 @@ class ProdukIndex extends Component
             ]
         );
         $this->emit('hideModal');
-        $this->emit('refreshDatatables');
+        $this->emit('refreshDatatable');
         $this->resetForm();
     }
 
