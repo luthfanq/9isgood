@@ -33,4 +33,9 @@ class PembelianRetur extends Model
         'keterangan',
         'print',
     ];
+
+    public function returDetail()
+    {
+        return $this->hasMany(PembelianRetur::class, 'pembelian_id');
+    }
 }

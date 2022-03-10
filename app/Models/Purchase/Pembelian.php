@@ -28,4 +28,9 @@ class Pembelian extends Model
         'print',
     ];
 
+    public function pembelianDetail()
+    {
+        return $this->hasMany(PembelianDetail::class, 'pembelian_id');
+    }
+
 }
