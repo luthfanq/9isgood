@@ -11,9 +11,9 @@ Route::middleware('auth')->group(function (){
     Route::get('keuangan/master/rekanan', \App\Http\Livewire\Keuangan\Master\RekananIndex::class)->name('keuangan.master.rekanan');
 
     // payment penjualan
-    Route::get('keuangan/kasir/penjualan')->name('keuangan.kasir.penjualan');
-    Route::get('keuangan/kasir/penjualan/penerimaan')->name('keuangan.kasir.penerimaan');
-    Route::get('keuangan/kasir/penjualan/penerimaan/{id}');
+    Route::get('keuangan/kasir/penjualan', \App\Http\Livewire\Keuangan\Kasir\PenerimaanPenjualanIndex::class)->name('keuangan.kasir.penjualan');
+    Route::get('keuangan/kasir/penjualan/penerimaan', \App\Http\Livewire\Keuangan\Kasir\PenerimaanPenjualanForm::class)->name('keuangan.kasir.penjualan.penerimaan');
+    Route::get('keuangan/kasir/penjualan/penerimaan/{penerimaanPenjualanId}', \App\Http\Livewire\Keuangan\Kasir\PenerimaanPenjualanForm::class);
 
     // set piutang
     Route::get('keuangan/kasir/penjualan/setpiutang')->name('keuangan.kasir.penjualan.setpiutang');
