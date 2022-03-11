@@ -4,6 +4,7 @@ use App\Haramain\Traits\LivewireTraits\SetProdukTraits;
 use App\Haramain\Traits\LivewireTraits\SetSupplierTraits;
 use App\Models\Master\Gudang;
 use App\Models\Master\Produk;
+use App\Models\Master\Supplier;
 use Livewire\Component;
 
 class StockTransaksi extends Component
@@ -11,8 +12,8 @@ class StockTransaksi extends Component
     use SetProdukTraits, SetSupplierTraits;
 
     protected $listeners = [
-        'setProduk',
-        'setSupplier',
+        'set_produk'=>'setProduk',
+        'set_supplier'=>'setSupplier',
     ];
 
     // first initiate properties
@@ -37,6 +38,7 @@ class StockTransaksi extends Component
         parent::__construct($id);
         $this->gudang_data = Gudang::all();
         $this->tgl_keluar = tanggalan_format(now('ASIA/JAKARTA'));
+        $this->tgl_masuk = tanggalan_format(now('ASIA/JAKARTA'));
     }
 
     public function forMount($mode, $data, $data_detail)
