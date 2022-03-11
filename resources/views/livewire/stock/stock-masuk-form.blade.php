@@ -57,7 +57,7 @@
                             <th width="10%"></th>
                         </tr>
                     </x-slot>
-                    @forelse($data_detail as $row)
+                    {{-- @forelse($data_detail as $row)
                         <tr class="align-middle">
                             <td class="text-center">{{$row['kode_lokal']}}</td>
                             <td>{{$row['nama_produk']}}</td>
@@ -71,7 +71,7 @@
                         <tr>
                             <td colspan="7" class="text-center">Tidak Ada Data</td>
                         </tr>
-                    @endforelse
+                    @endforelse --}}
                 </x-atoms.table>
             </div>
             <div class="col-4 border">
@@ -88,7 +88,7 @@
                     </div>
                     <div class="pt-5">
                         <x-atoms.input.group-horizontal name="jumlahProduk" label="Jumlah">
-                            <x-atoms.input.text wire:model.defer="jumlahProduk" wire:keyup="hitungSubTotal" wire:key="jumlahProduk"/>
+                            <x-atoms.input.text wire:model.defer="jumlahProduk" wire:key="jumlahProduk"/>
                         </x-atoms.input.group-horizontal>
                     </div>
                 </form>

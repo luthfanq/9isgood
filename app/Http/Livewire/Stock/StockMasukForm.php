@@ -41,7 +41,6 @@ class StockMasukForm extends StockTransaksi
         return $this->validate([
             'stock_id'=>'nullable',
             'supplier_id'=>'required',
-            'supplier_nama'=>'required',
             'gudang_id'=>'required',
             'kondisi'=>'required',
             'tgl_masuk'=>'required|date_format:d-M-Y',
