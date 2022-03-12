@@ -29,7 +29,7 @@
     @elseif($row->stockable_masuk_type == 'App\Models\Stock\StockMutasi')
 
     @else
-        <x-atoms.button.btn-icon-link :href="url('/').'/stock/transaksi/keluar/trans/'.$row->id"><i class="far fa-edit fs-4"></i></x-atoms.button.btn-icon-link>
+        <x-atoms.button.btn-icon-link :href="url('/').'/stock/transaksi/masuk/trans/'.$row->id"><i class="far fa-edit fs-4"></i></x-atoms.button.btn-icon-link>
         <x-atoms.button.btn-icon color="danger"><i class="bi bi-trash-fill fs-4"></i></x-atoms.button.btn-icon>
     @endif
         <x-atoms.button.btn-icon><i class="fas fa-indent fs-4"></i></x-atoms.button.btn-icon>
