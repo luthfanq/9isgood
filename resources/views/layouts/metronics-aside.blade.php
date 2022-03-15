@@ -460,7 +460,15 @@
                                     </div>
                                     @endforeach
                                 <div class="menu-item">
-                                    <a class="menu-link {{request()->is('stock/transaksi/mutasi/baik/rusak') ? 'active' : ''}}" href="{{route('inventory')}}">
+                                    <a class="menu-link {{request()->is('stock/transaksi/mutasi/baik/baik') ? 'active' : ''}}" href="{{route('stock.mutasi.baik.baik')}}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                        <span class="menu-title">Mutasi Stock Baik</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item">
+                                    <a class="menu-link {{request()->is('stock/transaksi/mutasi/baik/rusak') ? 'active' : ''}}" href="{{route('stock.mutasi.baik.rusak')}}">
 														<span class="menu-bullet">
 															<span class="bullet bullet-dot"></span>
 														</span>
@@ -468,19 +476,35 @@
                                     </a>
                                 </div>
                                 <div class="menu-item">
-                                    <a class="menu-link {{request()->is('stock/transaksi/mutasi/baik') ? 'active' : ''}}" href="{{route('inventory')}}">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                                        <span class="menu-title">Mutasi Stock Baik</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a class="menu-link {{request()->is('stock/transaksi/mutasi/rusak') ? 'active' : ''}}" href="{{route('inventory')}}">
+                                    <a class="menu-link {{request()->is('stock/transaksi/mutasi/rusak/rusak') ? 'active' : ''}}" href="{{route('stock.mutasi.rusak.rusak')}}">
 														<span class="menu-bullet">
 															<span class="bullet bullet-dot"></span>
 														</span>
                                         <span class="menu-title">Mutasi Stock Rusak</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item">
+                                    <a class="menu-link {{request()->is('stock/transaksi/mutasi/baik/baik/trans') ? 'active' : ''}}" href="{{route('stock.mutasi.baik.baik.trans')}}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                        <span class="menu-title">Mutasi Stock Baik Baru</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item">
+                                    <a class="menu-link {{request()->is('stock/transaksi/mutasi/baik/rusak/trans') ? 'active' : ''}}" href="{{route('stock.mutasi.baik.rusak.trans')}}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+                                        <span class="menu-title">Mutasi Stock Baik - Rusak Baru</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item">
+                                    <a class="menu-link {{request()->is('stock/transaksi/mutasi/rusak/rusak/trans') ? 'active' : ''}}" href="{{route('stock.mutasi.rusak.rusak.trans')}}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+                                        <span class="menu-title">Mutasi Stock Rusak Baru</span>
                                     </a>
                                 </div>
                             </div>
