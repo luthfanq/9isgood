@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class PenerimaanPenjualanForm extends Component
 {
-    use SetCustomerTraits;
+    use SetCustomerTraits, SetCustomerTraits;
 
     protected $listeners = [];
 
@@ -38,7 +38,22 @@ class PenerimaanPenjualanForm extends Component
         }
     }
 
+    public function addLine()
+    {
+        //
+    }
+
+    public function removeLine()
+    {
+        //
+    }
+
     public function store()
+    {
+        //
+    }
+
+    public function update()
     {
         //
     }

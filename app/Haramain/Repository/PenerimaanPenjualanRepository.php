@@ -10,7 +10,7 @@ class PenerimaanPenjualanRepository implements TransaksiRepositoryInterface
 
     public static function create(object $data, array $detail): ?string
     {
-        // TODO: Implement create() method.
+        // jika
     }
 
     public static function update(object $data, array $detail): ?string
