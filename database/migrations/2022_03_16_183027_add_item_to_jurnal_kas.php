@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('kasir_penerimaan', function (Blueprint $table) {
-            $table->date('tgl_penerimaan')->after('id');
+        Schema::table('jurnal_kas', function (Blueprint $table) {
+            $table->string('kode')->after('id');
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('kasir_penerimaan', function (Blueprint $table) {
-            //
+        Schema::table('jurnal_kas', function (Blueprint $table) {
+            $table->dropColumn('kode');
         });
     }
 };
