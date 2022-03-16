@@ -2,12 +2,13 @@
 
 namespace App\Models\Keuangan;
 
+use App\Haramain\Traits\ModelTraits\KodeTraits;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class JurnalKas extends Model
 {
-    use HasFactory;
+    use HasFactory, KodeTraits;
     protected $table = 'jurnal_kas';
     protected $fillable = [
         'kode',
@@ -21,7 +22,7 @@ class JurnalKas extends Model
         'nominal_saldo',
     ];
 
-    public function jurnal_kas()
+    public function jurnalable_kas()
     {
         return $this->morphTo(__FUNCTION__, 'cash_type', 'cash_id');
     }
