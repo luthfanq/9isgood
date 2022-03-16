@@ -18,7 +18,7 @@ Route::middleware('auth')->group(function (){
     // set piutang
     Route::get('keuangan/kasir/penjualan/setpiutang')->name('keuangan.kasir.penjualan.setpiutang');
 
-    Route::get('keuangan/kasir/piutangpenjualan')->name('keuangan.kasir.piutangpenjualan'); // daftar piutang by customer
+    Route::get('keuangan/kasir/piutangpenjualan', \App\Http\Livewire\Keuangan\Kasir\DaftarPiutangPenjualan::class)->name('keuangan.kasir.piutangpenjualan'); // daftar piutang by customer
 
     // payment pembelian
     Route::get('keuangan/kasir/pembelian')->name('keuangan.kasir.pembelian');
