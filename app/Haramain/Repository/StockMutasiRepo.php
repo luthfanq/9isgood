@@ -1,6 +1,6 @@
 <?php namespace App\Haramain\Repository;
 
-class PenerimaanPenjualanRepository implements TransaksiRepositoryInterface
+class StockMutasiRepo implements TransaksiRepositoryInterface
 {
     //
     public static function kode(): ?string
@@ -10,7 +10,7 @@ class PenerimaanPenjualanRepository implements TransaksiRepositoryInterface
 
     public static function create(object $data, array $detail): ?string
     {
-        // jika
+        // TODO: Implement create() method.
     }
 
     public static function update(object $data, array $detail): ?string
