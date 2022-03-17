@@ -6,6 +6,6 @@ trait JurnalTransaksiTraits
 {
     public function jurnal_transaksi()
     {
-        return $this->morphMany(JurnalTransaksi::class, 'jurnalable_kas', 'jurnal_type', 'jurnal_id');
+        return $this->morphMany(JurnalTransaksi::class, 'jurnalable_transaksi', 'jurnal_type', 'jurnal_id');
     }
 }

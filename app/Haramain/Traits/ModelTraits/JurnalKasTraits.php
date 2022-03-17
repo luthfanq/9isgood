@@ -6,6 +6,6 @@ trait JurnalKasTraits
 {
     public function jurnal_kas()
     {
-        return $this->morphMany(JurnalKas::class, 'jurnal_kasable', 'cash_type', 'cash_id');
+        return $this->morphMany(JurnalKas::class, 'jurnalable_kas', 'cash_type', 'cash_id');
     }
 }
