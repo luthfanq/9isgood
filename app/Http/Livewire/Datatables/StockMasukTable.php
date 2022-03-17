@@ -28,6 +28,9 @@ class StockMasukTable extends DataTableComponent
                 ->searchable()
                 ->addClass('hidden md:table-cell')
                 ->selected(),
+                Column::make('Jenis')
+                    ->sortable()
+                    ->searchable(),
             Column::make('Gudang', 'gudang.nama')
                 ->sortable()
                 ->searchable(),
