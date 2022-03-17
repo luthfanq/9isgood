@@ -16,11 +16,11 @@ class JurnalPenjualan extends Model
         'tgl_jurnal',
         'customer_id',
         'total_penjualan',
-        'akun_biaya_lain',
         'total_biaya_lain',
-        'akun_hutang_ppn',
         'total_hutang_ppn',
         'total_bayar',
+        'total_kas',
+        'total_piutang',
         'user_id',
         'keterangan',
     ];
