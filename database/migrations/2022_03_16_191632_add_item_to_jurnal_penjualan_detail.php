@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('penjualan_detail', function (Blueprint $table) {
+        Schema::table('jurnal_penjualan_detail', function (Blueprint $table) {
             $table->bigInteger('total_penjualan')->after('penjualan_id');
             $table->unsignedBigInteger('akun_biaya_1')->nullable()->after('total_penjualan');
             $table->bigInteger('total_biaya_1')->nullable()->after('akun_biaya_1');
@@ -31,7 +31,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('penjualan_detail', function (Blueprint $table) {
+        Schema::table('jurnal_penjualan_detail', function (Blueprint $table) {
             $table->dropColumn(['total_penjualan', 'akun_biaya_1', 'total_biaya_1', 'akun_biaya_2', 'total_biaya_2', 'akun_ppn', 'total_ppn']);
         });
     }

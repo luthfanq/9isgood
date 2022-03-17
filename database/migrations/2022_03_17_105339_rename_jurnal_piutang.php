@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('jurnal_piutang_penjualan_table', function (Blueprint $table) {
+        Schema::table('jurnal_piutang_penjualan', function (Blueprint $table) {
             $table->rename('jurnal_piutang_penjualan_table');
         });
     }

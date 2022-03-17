@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('jurnal_penjualan', function (Blueprint $table) {
-            $table->bigInteger('total_penjualan')->after('customer_id');
+            $table->bigInteger('total_penjualan')->after('kode');
             $table->bigInteger('total_biaya_lain')->nullable()->after('total_penjualan');
             $table->bigInteger('total_hutang_ppn')->after('total_biaya_lain');
 
@@ -31,7 +31,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('jurnal_penjualan', function (Blueprint $table) {
-            $table->dropColumn(['total_penjualan', 'total_biaya_lain', 'total_hutang_ppn']);
+            $table->dropColumn(['total_penjualan', 'total_biaya_lain', 'total_hutang_ppn', 'total_kas', 'total_piutang']);
         });
     }
 };

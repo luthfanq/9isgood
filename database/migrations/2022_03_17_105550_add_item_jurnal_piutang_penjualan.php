@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('jurnal_penjualan', function (Blueprint $table) {
-            //
+        Schema::table('jurnal_piutang_penjualan', function (Blueprint $table) {
+            $table->dropColumn('customer_id');
         });
     }
 };
