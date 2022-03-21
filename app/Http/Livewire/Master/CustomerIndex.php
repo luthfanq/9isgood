@@ -85,7 +85,7 @@ class CustomerIndex extends Component
 
     public function confirmDestroy()
     {
-        Customer::destroy($this->jenis_id);
+        Customer::destroy($this->customer_id);
         $this->resetForm();
         $this->emit('hideDeleteNotification');
         $this->emit('close_confirm');

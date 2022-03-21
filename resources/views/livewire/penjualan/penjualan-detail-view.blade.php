@@ -105,6 +105,7 @@
                 </tr>
             </x-slot>
         </x-atoms.table>
+        <x-slot name="footer"></x-slot>
     </x-molecules.modal>
 
     @push('custom-scripts')

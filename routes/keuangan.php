@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function (){
 
+    // numpang stock
+    Route::get('stock/stockakhir', \App\Http\Livewire\Stock\StockAkhirIndex::class)->name('stock.stockakhir');
+    Route::get('stock/stockakhir/transaksi', \App\Http\Livewire\Stock\StockAkhirForm::class)->name('stock.stockakhir.transaksi');
+    Route::get('stock/stockakhir/transaksi/{id}', \App\Http\Livewire\Stock\StockAkhirForm::class);
+
     // master keuangan
     Route::get('keuangan/master/akun', \App\Http\Livewire\Keuangan\Master\AkunIndex::class)->name('keuangan.master.akun');
     Route::get('keuangan/master/akuntipe', \App\Http\Livewire\Keuangan\Master\AkunTipeIndex::class)->name('keuangan.master.akuntipe');

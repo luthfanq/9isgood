@@ -16,6 +16,10 @@
             modalDeleteNotification.hide();
         })
 
+        modal_delete_notification.addEventListener('hidden.bs.modal', evt => {
+            Livewire.emit('resetForm');
+        })
+
         Livewire.on('showDeleteNotification', ()=>{
             modalDeleteNotification.show();
         })

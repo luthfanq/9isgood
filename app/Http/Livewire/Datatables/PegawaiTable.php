@@ -1,33 +1,35 @@
 <?php
 
-namespace App\Http\Livewire\Datatables\Keuangan;
+namespace App\Http\Livewire\Datatables;
 
 use App\Haramain\Traits\LivewireTraits\DatatablesTraits;
-use App\Models\Keuangan\AkunTipe;
+use App\Models\Master\Pegawai;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 
-class AkunTipeTable extends DataTableComponent
+class PegawaiTable extends DataTableComponent
 {
     use DatatablesTraits;
+
     public function columns(): array
     {
         return [
-            Column::make('Kode'),
-            Column::make('Tipe'),
-            Column::make('Keterangan'),
+            Column::make('Kode', 'id'),
+            Column::make('Nama'),
+            Column::make('Alamat'),
             Column::make(''),
         ];
     }
 
     public function query(): Builder
     {
-        return AkunTipe::query()->latest('kode');
+        return Pegawai::query()
+            ->latest();
     }
 
     public function rowView(): string
     {
-        return 'livewire-tables.rows.akun_tipe_table';
+        return 'livewire-tables.rows.pegawai_table';
     }
 }

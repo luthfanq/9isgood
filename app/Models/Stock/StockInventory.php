@@ -20,6 +20,7 @@ class StockInventory extends Model
         'stock_opname',
         'stock_masuk',
         'stock_keluar',
+        'stock_akhir',
         'stock_lost',
     ];
 }

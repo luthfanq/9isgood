@@ -13,4 +13,9 @@ trait KodeTraits
     {
         return substr($this->kode, 0, 4);
     }
+
+    public function getLastNumCharAttribute()
+    {
+        return substr($this->kode, 0, strpos($this->kode, '/'));
+    }
 }

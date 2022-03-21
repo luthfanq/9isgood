@@ -2,13 +2,18 @@
 
 namespace App\Models\Keuangan;
 
-use App\Haramain\Traits\ModelTraits\{CustomerTraits, JurnalKasTraits, JurnalTransaksiTraits, KodeTraits, UserTraits};
+use App\Haramain\Traits\ModelTraits\{CustomerTraits,
+    JurnalKasTraits,
+    JurnalPiutangTraits,
+    JurnalTransaksiTraits,
+    KodeTraits,
+    UserTraits};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class JurnalPenjualan extends Model
 {
-    use HasFactory, KodeTraits, CustomerTraits, UserTraits, JurnalTransaksiTraits, JurnalKasTraits;
+    use HasFactory, KodeTraits, CustomerTraits, UserTraits, JurnalTransaksiTraits, JurnalKasTraits, JurnalPiutangTraits;
     protected $table = 'jurnal_penjualan';
     protected $fillable = [
         'kode',
@@ -25,13 +30,8 @@ class JurnalPenjualan extends Model
         'keterangan',
     ];
 
-    public function akunBiayaLain()
+    public function jurnal_penjualan_detail()
     {
-        return $this->belongsTo(Akun::class, 'akun_biaya_lain');
-    }
-
-    public function akunHutangPpn()
-    {
-        return $this->belongsTo(Akun::class, 'akun_hutang_ppn');
+        return $this->hasMany(JurnalPenjualanDetail::class, 'jurnal_penjualan_id');
     }
 }

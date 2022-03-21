@@ -10,6 +10,7 @@ class JurnalTransaksi extends Model
     use HasFactory;
     protected $table = 'jurnal_transaksi';
     protected $fillable = [
+        'active_cash',
         'jurnal_type',
         'jurnal_id',
         'akun_id',
