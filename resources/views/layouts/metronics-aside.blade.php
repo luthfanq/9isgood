@@ -509,13 +509,32 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="menu-item">
-                            <a class="menu-link" href="{{route('inventory')}}" title="Coming soon" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-                                <span class="menu-title">Stock Semua</span>
-                            </a>
+                        <div data-kt-menu-trigger="click" class="menu-item {{request()->is('stock/stockakhir*') ? 'here show' : ''}} menu-accordion mb-1">
+                            <span class="menu-link">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Stock Akhir</span>
+                                <span class="menu-arrow"></span>
+                            </span>
+                            <div class="menu-sub menu-sub-accordion">
+                                <div class="menu-item">
+                                    <a class="menu-link {{request()->is('stock/stockakhir') ? 'active' : ''}}" href="{{route('stock.stockakhir')}}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+                                        <span class="menu-title">Stock Akhir</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item">
+                                    <a class="menu-link {{request()->is('stock/stockakhir/transaksi*') ? 'active' : ''}}" href="{{route('stock.stockakhir.transaksi')}}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+                                        <span class="menu-title">Stock Akhir Baru</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -673,7 +692,7 @@
                         </div>
                     </div>
                 </div>
-               
+
             </div>
             <!--end::Menu-->
         </div>
@@ -681,6 +700,6 @@
     </div>
     <!--end::Aside menu-->
     <!--begin::Footer-->
-   
+
     <!--end::Footer-->
 </div>

@@ -90,7 +90,7 @@ Route::middleware('auth')->group(function (){
     Route::get('stock/transaksi/keluar/trans/{kondisi}', \App\Http\Livewire\Stock\StockKeluarForm::class);
     Route::get('stock/transaksi/keluar/trans/{kondisi}/{stockkeluar}', \App\Http\Livewire\Stock\StockKeluarForm::class);
 
-    
+
     Route::get('stock/transaksi/opname', \App\Http\Livewire\Stock\StockOpnameIndex::class)->name('stock.opname');
     Route::get('stock/transaksi/opname/{jenis}', \App\Http\Livewire\Stock\StockOpnameIndex::class);
     Route::get('stock/transaksi/opname/trans/{jenis}', \App\Http\Livewire\Stock\StockOpnameForm::class);
@@ -102,6 +102,11 @@ Route::middleware('auth')->group(function (){
     Route::get('stock/transaksi/mutasi/baik/rusak/trans',  \App\Http\Livewire\Stock\StockMutasiBaikRusakForm::class)->name('stock.mutasi.baik.rusak.trans');
     Route::get('stock/transaksi/mutasi/rusak/rusak',  \App\Http\Livewire\Stock\StockMutasiRusakRusakIndex::class)->name('stock.mutasi.rusak.rusak');
     Route::get('stock/transaksi/mutasi/rusak/rusak/trans',  \App\Http\Livewire\Stock\StockMutasiRusakRusakForm::class)->name('stock.mutasi.rusak.rusak.trans');
+
+    // numpang stock
+    Route::get('stock/stockakhir', \App\Http\Livewire\Stock\StockAkhirIndex::class)->name('stock.stockakhir');
+    Route::get('stock/stockakhir/transaksi', \App\Http\Livewire\Stock\StockAkhirForm::class)->name('stock.stockakhir.transaksi');
+    Route::get('stock/stockakhir/transaksi/{id}', \App\Http\Livewire\Stock\StockAkhirForm::class);
 });
 
 /**
