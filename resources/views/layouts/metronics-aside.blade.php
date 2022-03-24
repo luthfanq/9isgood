@@ -390,12 +390,12 @@
                                 @endforeach
                             </div>
                         </div>
-                        <div data-kt-menu-trigger="click" class="menu-item {{request()->is('stock/transaksi*') ? 'here show' : ''}} menu-accordion mb-1">
+                        <div data-kt-menu-trigger="click" class="menu-item {{request()->is('stock/transaksi/masuk*') ? 'here show' : ''}} menu-accordion mb-1">
                             <span class="menu-link">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">Stock Transaksi</span>
+												<span class="menu-title">Stock Masuk</span>
 												<span class="menu-arrow"></span>
 											</span>
                             <div class="menu-sub menu-sub-accordion">
@@ -418,7 +418,18 @@
                                             <span class="menu-title">Stock Masuk {{ucwords($item['kondisi'])}} Baru</span>
                                         </a>
                                     </div>
-                                @endforeach
+                                    @endforeach
+                            </div>
+                        </div>
+                        <div data-kt-menu-trigger="click" class="menu-item {{request()->is('stock/transaksi/keluar*') ? 'here show' : ''}} menu-accordion mb-1">
+                            <span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Stock Keluar</span>
+												<span class="menu-arrow"></span>
+											</span>
+                            <div class="menu-sub menu-sub-accordion">
                                     @foreach($kondisi as $item)
                                     <div class="menu-item">
                                         <a class="menu-link {{request()->is('stock/transaksi/keluar/'.$item['kondisi']) ? 'active' : ''}}" href="{{url('/').'/stock/transaksi/keluar/'.$item['kondisi']}}">
@@ -439,6 +450,17 @@
                                         </a>
                                     </div>
                                     @endforeach
+                            </div>
+                        </div>
+                        <div data-kt-menu-trigger="click" class="menu-item {{request()->is('stock/transaksi/opname*') ? 'here show' : ''}} menu-accordion mb-1">
+                            <span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Stock Opname</span>
+												<span class="menu-arrow"></span>
+											</span>
+                            <div class="menu-sub menu-sub-accordion">
                                     @foreach($jenis as $item)
                                     <div class="menu-item">
                                         <a class="menu-link {{request()->is('stock/transaksi/opname/'.$item['jenis']) ? 'active' : ''}}" href="{{url('/').'/stock/transaksi/opname/'.$item['jenis']}}">
@@ -459,6 +481,17 @@
                                         </a>
                                     </div>
                                     @endforeach
+                            </div>
+                        </div>
+                        <div data-kt-menu-trigger="click" class="menu-item {{request()->is('stock/transaksi/mutasi*') ? 'here show' : ''}} menu-accordion mb-1">
+                            <span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Stock Mutasi</span>
+												<span class="menu-arrow"></span>
+											</span>
+                            <div class="menu-sub menu-sub-accordion">
                                 <div class="menu-item">
                                     <a class="menu-link {{request()->is('stock/transaksi/mutasi/baik/baik') ? 'active' : ''}}" href="{{route('stock.mutasi.baik.baik')}}">
                                                         <span class="menu-bullet">
@@ -538,6 +571,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="menu-item">
                     <div class="menu-content pt-8 pb-0">
                         <span class="menu-section text-muted text-uppercase fs-8 ls-1">Keuangan</span>
@@ -692,7 +726,7 @@
                         </div>
                     </div>
                 </div>
-
+               
             </div>
             <!--end::Menu-->
         </div>
@@ -700,6 +734,6 @@
     </div>
     <!--end::Aside menu-->
     <!--begin::Footer-->
-
+   
     <!--end::Footer-->
 </div>
