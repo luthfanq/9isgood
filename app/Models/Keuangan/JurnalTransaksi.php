@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class JurnalTransaksi extends Model
 {
     use HasFactory;
+    protected $connection = 'mysql2';
     protected $table = 'jurnal_transaksi';
     protected $fillable = [
         'active_cash',
@@ -19,7 +20,7 @@ class JurnalTransaksi extends Model
         'keterangan'
     ];
 
-    public function jurnalable_transaksi()
+    public function jurnalable_transaksi(): \Illuminate\Database\Eloquent\Relations\MorphTo
     {
         return $this->morphTo(__FUNCTION__, 'jurnal_type', 'jurnal_id');
     }

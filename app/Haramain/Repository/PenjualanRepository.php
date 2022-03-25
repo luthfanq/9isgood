@@ -2,10 +2,14 @@
 
 namespace App\Haramain\Repository;
 
+use App\Haramain\Repository\RepoTraits\StockKeluarRepoTraits;
+use App\Models\KonfigurasiJurnal;
 use App\Models\Penjualan\Penjualan;
 
 class PenjualanRepository implements TransaksiRepositoryInterface
 {
+    use StockKeluarRepoTraits;
+
     public static function kode(): ?string
     {
         $query = Penjualan::query()
@@ -42,16 +46,65 @@ class PenjualanRepository implements TransaksiRepositoryInterface
             'keterangan'=>$data->keterangan,
         ]);
 
-        // create stock_masuk jenis baik
-        $stock_keluar = $penjualan->stockKeluarMorph()->create([
-            'kode'=>StockKeluarRepository::kode('baik'),
+        /*********************************
+         * Kepentingan Transaksi keuangan
+         **********************************/
+
+        // create jurnal Penjualan
+        $jurnal_penjualan = $penjualan->jurnal_penjualan()->create([
+            'kode'=>JurnalPenjualanRepository::kode(),
             'active_cash'=>session('ClosedCash'),
-            'kondisi'=>'baik',
-            'gudang_id'=>$data->gudang_id,
-            'tgl_keluar'=>tanggalan_database_format($data->tgl_nota, 'd-M-Y'),
-            'user_id'=>\Auth::id(),
-            'keterangan'=>$data->keterangan,
         ]);
+
+        // initiate transaksi akun
+        $nominal_penjualan = $data->total_bayar - (int)$data->biaya_lain - (int)$data->ppn;
+
+        $queryKonfigJurnal = KonfigurasiJurnal::query();
+        $akun_piutang = $queryKonfigJurnal->find('piutang_penjualan')->akun_id;
+        $akun_penjualan = $queryKonfigJurnal->find('penjualan')->akun_id;
+        $akun_biaya_lain = $queryKonfigJurnal->find('biaya_lain')->akun_id;
+        $akun_ppn = $queryKonfigJurnal->find('ppn')->akun_id;
+
+        $jurnal_penjualan->jurnalable_transaksi()->create([
+            'active_cash'=>session('ClosedCash'),
+            'akun_id'=>$akun_piutang,
+            'nominal_debet'=>$nominal_penjualan,
+        ]);
+
+        $jurnal_penjualan->jurnalable_transaksi()->create([
+            'active_cash'=>session('ClosedCash'),
+            'akun_id'=>$akun_penjualan,
+            'nominal_kredit'=>$nominal_penjualan,
+        ]);
+
+        // create jurnal transaksi debet
+        if ($data->biaya_lain || $data->ppn){
+
+            if ($data->biaya_lain){
+                $jurnal_penjualan->jurnalable_transaksi()->create([
+                    'active_cash'=>session('ClosedCash'),
+                    'akun_id'=>$akun_biaya_lain,
+                    'nominal_kredit'=>$akun_biaya_lain,
+                ]);
+            }
+
+            if ($data->ppn){
+                $jurnal_penjualan->jurnalable_transaksi()->create([
+                    'active_cash'=>session('ClosedCash'),
+                    'akun_id'=>$akun_ppn,
+                    'nominal_kredit'=>$akun_biaya_lain,
+                ]);
+            }
+        }
+
+        /***************************
+         * Kepentingan Stock Keluar
+         ***************************/
+
+        // create stock_masuk jenis baik
+        $stock_keluar= self::storeStockKeluar($penjualan->stockKeluarMorph(), $data);
+
+        // create hpp
 
         // detail proses
         return self::detailProses($detail, $penjualan, $stock_keluar, 'baik',$data);

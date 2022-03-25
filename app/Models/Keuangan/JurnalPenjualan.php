@@ -14,24 +14,12 @@ use Illuminate\Database\Eloquent\Model;
 class JurnalPenjualan extends Model
 {
     use HasFactory, KodeTraits, CustomerTraits, UserTraits, JurnalTransaksiTraits, JurnalKasTraits, JurnalPiutangTraits;
+
+    protected $connection = 'mysql2';
     protected $table = 'jurnal_penjualan';
     protected $fillable = [
         'kode',
         'active_cash',
-        'tgl_jurnal',
-        'customer_id',
-        'total_penjualan',
-        'total_biaya_lain',
-        'total_hutang_ppn',
-        'total_bayar',
-        'total_kas',
-        'total_piutang',
-        'user_id',
-        'keterangan',
+        'penjualan_id',
     ];
-
-    public function jurnal_penjualan_detail()
-    {
-        return $this->hasMany(JurnalPenjualanDetail::class, 'jurnal_penjualan_id');
-    }
 }

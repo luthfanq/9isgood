@@ -9,13 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 class JurnalKas extends Model
 {
     use HasFactory, KodeTraits;
+    protected $connection = 'kas';
     protected $table = 'jurnal_kas';
     protected $fillable = [
         'kode',
-        'type',
         'active_cash',
-        'cash_type',
-        'cash_id',
+        'type',
+        'jurnal_type',
+        'jurnal_id',
         'akun_id',
         'nominal_debet',
         'nominal_kredit',
@@ -24,6 +25,6 @@ class JurnalKas extends Model
 
     public function jurnalable_kas()
     {
-        return $this->morphTo(__FUNCTION__, 'cash_type', 'cash_id');
+        return $this->morphTo(__FUNCTION__, 'jurnal_type', 'jurnal_id');
     }
 }

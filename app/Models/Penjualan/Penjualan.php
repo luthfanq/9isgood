@@ -2,6 +2,7 @@
 
 namespace App\Models\Penjualan;
 
+use App\Models\Keuangan\JurnalPenjualan;
 use App\Haramain\Traits\ModelTraits\{CustomerTraits, GudangTraits, KodeTraits, StockKeluarTraits, UserTraits};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,5 +32,10 @@ class Penjualan extends Model
     public function penjualanDetail()
     {
         return $this->hasMany(PenjualanDetail::class, 'penjualan_id');
+    }
+
+    public function jurnal_penjualan()
+    {
+        return $this->hasOne(JurnalPenjualan::class, 'penjualan_id');
     }
 }
