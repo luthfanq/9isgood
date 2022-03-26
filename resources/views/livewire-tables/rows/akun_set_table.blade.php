@@ -1,8 +1,8 @@
 <x-atoms.table.td width="10%" align="center">
-    {{$row->akun_kategori_id}}
+    {{$row->akunKategori->deskripsi}}
 </x-atoms.table.td>
 <x-atoms.table.td width="20%">
-    {{$row->akun_tipe_id}}
+    {{$row->akunTipe->deskripsi}}
 </x-atoms.table.td>
 <x-atoms.table.td width="10%" align="center">
     {{$row->kode}}

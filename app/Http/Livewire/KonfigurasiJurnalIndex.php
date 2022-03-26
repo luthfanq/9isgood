@@ -19,15 +19,17 @@ class KonfigurasiJurnalIndex extends Component
         'confirmDestroy'
     ];
 
+    public $akun_nama;
+
     public function setAkun(Akun $akun)
     {
-        $akun = $this->setAkun($akun);
+        $this->akun_id = $akun->id;
         $this->akun_nama = $akun->deskripsi;
     }
 
     public $config, $akun_id, $keterangan;
 
-    public $resetForm = ['config', 'akun_id', 'keterangan'];
+    public $resetForm = ['config', 'akun_id', 'akun_nama', 'keterangan'];
 
     public function render()
     {
@@ -38,15 +40,16 @@ class KonfigurasiJurnalIndex extends Component
     {
         $this->config = $konfigurasiJurnal->config;
         $this->akun_id = $konfigurasiJurnal->akun_id;
+        $this->akun_nama = $konfigurasiJurnal->akun->deskripsi;
         $this->keterangan = $konfigurasiJurnal->keterangan;
-        $this->emit('showModal');
     }
 
     public function store()
     {
         $this->validate([
-            'config'=> ['required', Rule::unique('konfigurasi_jurnal', 'config')->ignore($this->config)],
-            'akun_id'=>'required'
+            'config'=> ['required', Rule::unique('mysql2.konfigurasi_jurnal', 'config')->ignore($this->config, 'config')],
+            'akun_id'=>'required',
+            'keterangan'=>'required'
         ]);
         KonfigurasiJurnal::query()->updateOrCreate(
             [

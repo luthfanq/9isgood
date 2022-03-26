@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Purchase;
 
-use App\Haramain\Repository\PembelianRepository;
+use App\Haramain\Repository\Pembelian\PembelianRepository;
 use App\Models\Purchase\Pembelian;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Component;
@@ -43,6 +43,8 @@ class PembelianForm extends Purchase
             'pembelian_id'=>'nullable',
             'supplier_id'=>'required',
             'gudang_id'=>'required',
+            'nomor_nota'=>'required',
+            'surat_jalan'=>'required',
             'tgl_nota'=>'required|date_format:d-M-Y',
             'tgl_tempo'=>'nullable|date_format:d-M-Y',
             'jenis_bayar'=>'required',
@@ -50,7 +52,13 @@ class PembelianForm extends Purchase
             'ppn'=>'nullable|numeric',
             'biaya_lain'=>'nullable|numeric',
             'total_bayar'=>'required|numeric',
-            'keterangan'=>'nullable|string'
+            'keterangan'=>'nullable|string',
+
+            // akun
+            'akun_persediaan'=>'required',
+            'akun_biaya_lain'=>'required',
+            'akun_ppn'=>'required',
+            'akun_hutang_dagang'=>'required',
         ]);
     }
 

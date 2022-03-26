@@ -1,5 +1,6 @@
-<?php namespace App\Haramain\Repository;
+<?php namespace App\Haramain\Repository\Pembelian;
 
+use App\Haramain\Repository\TransaksiRepositoryInterface;
 use App\Models\Purchase\PembelianRetur;
 
 class PembelianReturRepository implements TransaksiRepositoryInterface

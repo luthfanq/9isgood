@@ -51,6 +51,19 @@
                             </x-atoms.input.group-horizontal>
                         </div>
                         <div class="col-6">
+                            <x-atoms.input.group-horizontal label="Nomor Nota" name="nomor_nota">
+                                <x-atoms.input.text wire:model.defer="nomor_nota" />
+                            </x-atoms.input.group-horizontal>
+                        </div>
+                    </div>
+
+                    <div class="row mb-6">
+                        <div class="col-6">
+                            <x-atoms.input.group-horizontal label="Surat Jalan" name="surat_jalan">
+                                <x-atoms.input.text wire:model.defer="surat_jalan" />
+                            </x-atoms.input.group-horizontal>
+                        </div>
+                        <div class="col-6">
                             <x-atoms.input.group-horizontal label="Keterangan" name="keterangan">
                                 <x-atoms.input.text nwire:model.defer="keterangan" />
                             </x-atoms.input.group-horizontal>

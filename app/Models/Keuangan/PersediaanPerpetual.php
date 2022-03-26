@@ -14,13 +14,11 @@ class PersediaanPerpetual extends Model
     protected $table = 'persediaan_perpetual';
     protected $fillable = [
         'active_cash',
-        'stock_awal',
-        'kode',
+        'jenis',
         'kondisi',
         'gudang_id',
         'produk_id',
         'harga',
         'jumlah',
-        'sub_total',
     ];
 }

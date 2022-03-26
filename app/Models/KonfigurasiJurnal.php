@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 class KonfigurasiJurnal extends Model
 {
     use HasFactory, AkunTrait;
-    protected $connection = 'mysql2';
-    protected $table = 'konfigurasi_jurnal';
+//    protected $connection = 'mysql2';
+    protected $table = 'haramain_keuangan.konfigurasi_jurnal';
     protected $primaryKey = 'config';
     protected $keyType= 'string';
     protected $fillable = [
-        'akun_id', 'keterangan'
+        'config', 'akun_id', 'keterangan'
     ];
 }

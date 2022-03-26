@@ -22,12 +22,13 @@ class StockMasuk extends Model
         'tgl_masuk',
         'user_id',
         'nomor_po',
+        'nomor_surat_jalan',
         'keterangan',
     ];
 
     public function stockable_masuk()
     {
-        return $this->morphTo();
+        return $this->morphTo(__FUNCTION__, 'stockable_masuk_type', 'stockable_masuk_id');
     }
 
     public function stockMasukDetail()

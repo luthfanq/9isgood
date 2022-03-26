@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Datatables;
 
+use App\Haramain\Traits\LivewireTraits\DatatablesTraits;
 use App\Models\Keuangan\Akun;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
@@ -9,18 +10,16 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
 
 class AkunSetTable extends DataTableComponent
 {
+    use DatatablesTraits;
 
     public function columns(): array
     {
         return [
-        Column::make('Kode', 'akun_kategori_id')
-            ->searchable()
-            ->sortable(),
-        Column::make('Tipe', 'akun_tipe_id')
-            ->searchable()
-            ->sortable(),
+        Column::make('Kategori', 'akun_kategori_id'),
+        Column::make('Tipe', 'akun_tipe_id'),
         Column::make('Kode', 'kode'),
-        Column::make('Deskripsi', 'deskripsi'),
+        Column::make('Deskripsi', 'deskripsi')
+            ->searchable(),
         Column::make('Keterangan', 'keterangan'),
         Column::make('Action'),
         ];

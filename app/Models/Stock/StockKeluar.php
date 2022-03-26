@@ -2,13 +2,14 @@
 
 namespace App\Models\Stock;
 
-use App\Haramain\Traits\ModelTraits\{GudangTraits, KodeTraits, SupplierTraits, UserTraits};
+use App\Models\Keuangan\JurnalHPP;
+use App\Haramain\Traits\ModelTraits\{GudangTraits, HPPTrait, KodeTraits, SupplierTraits, UserTraits};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class StockKeluar extends Model
 {
-    use HasFactory, KodeTraits, GudangTraits, UserTraits, SupplierTraits;
+    use HasFactory, KodeTraits, GudangTraits, UserTraits, SupplierTraits, HPPTrait;
     protected $table = 'stock_keluar';
     protected $fillable = [
         'kode',

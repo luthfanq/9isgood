@@ -1,5 +1,6 @@
 <?php namespace App\Http\Livewire\Purchase;
 
+use App\Haramain\Repository\KonfigurasiJurnalRepo;
 use App\Haramain\Traits\LivewireTraits\SetProdukTraits;
 use App\Haramain\Traits\LivewireTraits\SetSupplierTraits;
 use App\Models\Master\Gudang;
@@ -26,7 +27,7 @@ class Purchase extends Component
 
     // master form properties
     public $gudang_id;
-    public $tgl_nota, $tgl_tempo;
+    public $tgl_nota, $tgl_tempo, $nomor_nota, $surat_jalan;
     public $jenis_bayar, $status_bayar;
     public $total_barang, $ppn, $biaya_lain, $total_bayar;
     public $keterangan;
@@ -50,6 +51,9 @@ class Purchase extends Component
     public $hargaSetelahDiskon;
     public $hargaSetelahDiskonRupiah, $hargaRupiah, $subTotalHargaRupiah;
 
+    // jurnal Tramnsaksi
+    public $akun_persediaan, $akun_biaya_lain, $akun_ppn, $akun_hutang_dagang;
+
     /**
      * set for construct
      */
@@ -59,6 +63,11 @@ class Purchase extends Component
         $this->gudang_data = Gudang::all();
         $this->tgl_nota = tanggalan_format(now('ASIA/JAKARTA'));
         $this->tgl_tempo = tanggalan_format(now('ASIA/JAKARTA')->addMonth(2));
+
+        $this->akun_persediaan = KonfigurasiJurnalRepo::getAkunId('persediaan_baik');
+        $this->akun_biaya_lain = KonfigurasiJurnalRepo::getAkunId('biaya_pembelian');
+        $this->akun_ppn = KonfigurasiJurnalRepo::getAkunId('PPN_pembelian');
+        $this->akun_hutang_dagang = KonfigurasiJurnalRepo::getAkunId('hutang_dagang');
     }
 
     public function forMount($mode, $data, $data_detail)
@@ -171,6 +180,7 @@ class Purchase extends Component
             'harga'=>$this->hargaProduk,
             'jumlah'=>$this->jumlahProduk,
             'diskon'=>$this->diskonProduk,
+            'harga_setelah_diskon'=>$this->hargaSetelahDiskon,
             'sub_total'=>$this->subTotalHarga
         ];
         $this->resetForm();
@@ -205,6 +215,7 @@ class Purchase extends Component
         $this->data_detail[$index]['harga'] = $this->hargaProduk;
         $this->data_detail[$index]['jumlah'] = $this->jumlahProduk;
         $this->data_detail[$index]['diskon'] = $this->diskonProduk;
+        $this->data_detail[$index]['harga_setelah_diskon'] = $this->hargaSetelahDiskon;
         $this->data_detail[$index]['sub_total'] = $this->subTotalHarga;
         $this->hitungSubTotal();
         $this->resetForm();

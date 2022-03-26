@@ -1,5 +1,7 @@
-<?php namespace App\Haramain\Repository;
+<?php namespace App\Haramain\Repository\StockMasuk;
 
+use App\Haramain\Repository\StockInventoryRepository;
+use App\Haramain\Repository\TransaksiRepositoryInterface;
 use App\Models\Stock\StockMasuk;
 
 class StockMasukRepository implements TransaksiRepositoryInterface
@@ -24,7 +26,13 @@ class StockMasukRepository implements TransaksiRepositoryInterface
         return sprintf("%04s", $num)."/{$kodeKondisi}/".date('Y');
     }
 
-    public static function create(object $data, array $detail): ?string
+    /**
+     * Stock Masuk Independence
+     * @param object $data
+     * @param array $detail
+     * @return string|null
+     */
+    public static function create(object $data, array $detail, object $objectClass = null): ?string
     {
         $stock_masuk = StockMasuk::query()->create([
             'kode'=>self::kode($data->kondisi),
@@ -39,6 +47,9 @@ class StockMasukRepository implements TransaksiRepositoryInterface
             'nomor_po'=>$data->nomor_po ?? null,
             'keterangan'=>$data->keterangan,
         ]);
+
+        // stock_masuk_id
+        $stock_masuk_id = $stock_masuk->id;
 
         foreach ($detail as $row){
             $stock_masuk->stockMasukDetail()->create([
@@ -57,7 +68,7 @@ class StockMasukRepository implements TransaksiRepositoryInterface
             );
         }
 
-        return $stock_masuk->id;
+        return $stock_masuk_id;
     }
 
     public static function update(object $data, array $detail): ?string
@@ -101,5 +112,24 @@ class StockMasukRepository implements TransaksiRepositoryInterface
     public static function delete(int $id): ?string
     {
         // TODO: Implement delete() method.
+    }
+
+    // stock masuk dari pembelian
+    public static function storeFromPurchase(object $data, object $pembelian = null)
+    {
+        // new stock_masuk and initiate object
+        $stock_masuk = StockMasuk::query()->create([
+            'kode'=>self::kode($data->kondisi),
+            'active_cash'=>session('active_cash'),
+            'kondisi'=>$data->kondisi,
+            'gudang_id'=>$data->gudang_id,
+            'supplier_id'=>$data->supplier_id,
+            'tgl_masuk'=>$data->tgl_masuk ?? $data->tgl_nota,
+            'user_id'=>\Auth::id(),
+            'nomor_po'=>$data->nomor_po ?? null,
+            'keterangan'=>$data->keterangan,
+        ]);
+
+        // store Hutang Pembelian
     }
 }
