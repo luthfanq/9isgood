@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Keuangan\Akun;
 use App\Haramain\Traits\LivewireTraits\ResetFormTraits;
 use App\Models\KonfigurasiJurnal;
 use Illuminate\Validation\Rule;
@@ -11,11 +12,18 @@ class KonfigurasiJurnalIndex extends Component
 {
     use ResetFormTraits;
     protected $listeners = [
+        'set_akun' => 'setAkun',
         'edit',
         'resetForm',
         'destroy',
         'confirmDestroy'
     ];
+
+    public function setAkun(Akun $akun)
+    {
+        $akun = $this->setAkun($akun);
+        $this->akun_nama = $akun->deskripsi;
+    }
 
     public $config, $akun_id, $keterangan;
 

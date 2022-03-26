@@ -10,6 +10,8 @@ Route::middleware('auth')->group(function (){
     Route::get('keuangan/master/akunkategori', \App\Http\Livewire\Keuangan\Master\AkunKategoriIndex::class)->name('keuangan.master.akunkategori');
     Route::get('keuangan/master/rekanan', \App\Http\Livewire\Keuangan\Master\RekananIndex::class)->name('keuangan.master.rekanan');
 
+    // config keuangan
+    Route::get('keuangan/config/akun', \App\Http\Livewire\KonfigurasiJurnalIndex::class)->name('keuangan.config');
     // payment penjualan
     Route::get('keuangan/kasir/penjualan', \App\Http\Livewire\Keuangan\Kasir\PenerimaanPenjualanIndex::class)->name('keuangan.kasir.penjualan');
     Route::get('keuangan/kasir/penjualan/penerimaan', \App\Http\Livewire\Keuangan\Kasir\PenerimaanPenjualanForm::class)->name('keuangan.kasir.penjualan.penerimaan');
