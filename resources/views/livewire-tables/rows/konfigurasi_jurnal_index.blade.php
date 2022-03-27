@@ -3,14 +3,14 @@
     {{$row->config}}
 </x-atoms.table.td>
 <x-atoms.table.td width="10%" align="center">
-    {{$row->akun_id->deskripsi}}
+    {{$row->akun->deskripsi}}
 
 </x-atoms.table.td>
 <x-atoms.table.td width="10%" align="center">
     {{$row->keterangan}}
 </x-atoms.table.td>
 <x-atoms.table.td width="10%" align="center">
-    <x-atoms.button.btn-icon onclick="Livewire.emit('edit', {{$row->id}})">
+    <x-atoms.button.btn-icon onclick="Livewire.emit('edit', '{{$row->config}}')">
 
         <i class="bi bi-check2-square fs-3"></i>
     </x-atoms.button.btn-icon>

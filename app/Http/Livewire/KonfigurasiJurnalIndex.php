@@ -19,12 +19,12 @@ class KonfigurasiJurnalIndex extends Component
         'destroy',
         'confirmDestroy'
     ];
-    
+
     public string $mode= 'create';
 
     // enable update proses
     public bool $update = false;
-    
+
 
     public $config, $akun_id, $keterangan;
 

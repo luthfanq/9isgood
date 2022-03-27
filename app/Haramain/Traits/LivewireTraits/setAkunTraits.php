@@ -4,11 +4,11 @@ use App\Models\Keuangan\Akun;
 
 trait SetAkunTraits
 {
-    public $akun_id, $deskripsi;
+    public $akun_id, $akun_nama, $deskripsi;
 
     public function setAkun(Akun $akun)
     {
         $this->akun_id = $akun->id;
-        $this->akunNama = $akun->deskripsi;
+        $this->akun_nama = $akun->deskripsi;
     }
 }
