@@ -4,13 +4,14 @@ namespace App\Http\Livewire;
 
 use App\Models\Keuangan\Akun;
 use App\Haramain\Traits\LivewireTraits\ResetFormTraits;
+use App\Haramain\Traits\LivewireTraits\SetAkunTraits;
 use App\Models\KonfigurasiJurnal;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class KonfigurasiJurnalIndex extends Component
 {
-    use ResetFormTraits;
+    use ResetFormTraits, setAkunTraits;
     protected $listeners = [
         'set_akun' => 'setAkun',
         'edit',
@@ -18,14 +19,12 @@ class KonfigurasiJurnalIndex extends Component
         'destroy',
         'confirmDestroy'
     ];
+    
+    public string $mode= 'create';
 
-    public $akun_nama;
-
-    public function setAkun(Akun $akun)
-    {
-        $this->akun_id = $akun->id;
-        $this->akun_nama = $akun->deskripsi;
-    }
+    // enable update proses
+    public bool $update = false;
+    
 
     public $config, $akun_id, $keterangan;
 

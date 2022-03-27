@@ -1,33 +1,29 @@
 <div>
-    <x-molecules.card title="Konfigurasi Akun">
-        <x-slot name="toolbar">
-
-        </x-slot>
-        <div class="row">
-            <div class="col-8">
-                <livewire:datatables.konfigurasi-jurnal-index/>
-            </div>
-            <div class="col-4">
-                <form>
-                    <div class="mb-5">
-                        <x-atoms.input.group label="Konfigurasi">
-                            <x-atoms.input.text name="config" wire:model.defer="config" />
-                        </x-atoms.input.group>
-                    </div>
-                    <div class="mb-5">
-                        <x-atoms.input.group label="Akun ID" name="akun_id" required="required">
-                            <x-atoms.input.text name="akun_id" wire:model.defer="akun_nama" readonly="" data-bs-toggle="modal" data-bs-target="#akun_modal"/>
-                        </x-atoms.input.group>
-                    </div>
-                    <div class="mb-5">
-                        <x-atoms.input.group label="Keterangan">
-                            <x-atoms.input.text name="keterangan" wire:model.defer="keterangan" />
-                        </x-atoms.input.group>
-                    </div>
-                    <div class="mb-5">
-                        <x-atoms.button.btn-primary wire:click="store">Simpan</x-atoms.button.btn-primary>
-                    </div>
-                </form>
+    <x-molecules.card title="Konfigurasi Akun">        
+        <table class="col-5">
+        <livewire:datatables.konfigurasi-jurnal-index/>
+        </table>
+        <div class="col-4 border">
+            <form wire:ignore.self> 
+                <div class="pt-4">
+                    <x-atoms.input.group-horizontal label="Konfigurasi" required="required">
+                        <x-atoms.input.text name="config" wire:model.defer="config" />
+                    </x-atoms.input.group-horizontal>
+                </div>
+                <div class="pt-4">
+                    <x-atoms.input.group-horizontal label="Akun ID" name="akun_id" required="required">
+                        <x-atoms.input.text name="akun_id" wire:model.defer="deskripsi"  data-bs-toggle="modal" data-bs-target="#akun_modal" readonly/>
+                    </x-atoms.input.group-horizontal>
+                </div>
+                <div class="pt-4">
+                    <x-atoms.input.group-horizontal label="Keterangan">
+                        <x-atoms.input.text name="keterangan" wire:model.defer="keterangan" />
+                    </x-atoms.input.group-horizontal>
+                </div>
+            </form>
+            
+            <div class="text-center pb-4 pt-5">
+                <x-atoms.button.btn-primary wire:click="store">Simpan</x-atoms.button.btn-primary>
             </div>
         </div>
     </x-molecules.card>
@@ -37,7 +33,6 @@
         <x-slot name="footer"></x-slot>
     </x-molecules.modal>
 
-    <x-molecules.modal-notifications />
 
     @push('custom-scripts')
         <script>
