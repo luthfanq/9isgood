@@ -6,7 +6,7 @@ trait StockKeluarRepoTraits
 {
     protected static function storeStockKeluar(object $dataClass, $data)
     {
-        return $dataClass->create([
+        $stock_keluar = $dataClass->create([
             'kode'=>StockKeluarRepository::kode('baik'),
             'active_cash'=>session('ClosedCash'),
             'kondisi'=>'baik',
@@ -15,5 +15,13 @@ trait StockKeluarRepoTraits
             'user_id'=>\Auth::id(),
             'keterangan'=>$data->keterangan,
         ]);
+
+        $stock_keluar->hpp()->create([
+            'active_cash'=>session('ClosedCash'),
+            'type'=>'debet', // debet/kredit
+            'nominal_debet',
+        ]);
+
+        return $stock_keluar;
     }
 }

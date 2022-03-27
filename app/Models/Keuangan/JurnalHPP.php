@@ -17,7 +17,6 @@ class JurnalHPP extends Model
         'stock_id',
         'nominal_debet',
         'nominal_kredit',
-        'nominal_saldo',
     ];
 
     public function stockable_hpp()

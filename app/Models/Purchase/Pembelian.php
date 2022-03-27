@@ -2,16 +2,23 @@
 
 namespace App\Models\Purchase;
 
-use App\Haramain\Traits\ModelTraits\{KodeTraits, SupplierTraits, GudangTraits, UserTraits, StockMasukTraits};
+use App\Models\Keuangan\PersediaanTransaksi;
+use App\Haramain\Traits\ModelTraits\{JurnalTransaksiTraits,
+    KodeTraits,
+    SupplierTraits,
+    GudangTraits,
+    UserTraits,
+    StockMasukTraits};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Pembelian extends Model
 {
-    use HasFactory, KodeTraits, SupplierTraits, GudangTraits, UserTraits, StockMasukTraits;
+    use HasFactory, KodeTraits, SupplierTraits, GudangTraits, UserTraits, StockMasukTraits, JurnalTransaksiTraits;
     protected $table = 'pembelian';
     protected $fillable = [
         'kode',
+        'nomor_nota',
         'active_cash',
         'supplier_id',
         'gudang_id',
@@ -31,6 +38,11 @@ class Pembelian extends Model
     public function pembelianDetail()
     {
         return $this->hasMany(PembelianDetail::class, 'pembelian_id');
+    }
+
+    public function persediaan_transaksi()
+    {
+        return $this->morphOne(PersediaanTransaksi::class, 'persediaanable_transaksi', 'persediaan_type', 'persediaan_id');
     }
 
 }

@@ -16,7 +16,8 @@ class StockInventoryTable extends DataTableComponent
     {
         return [
             Column::make('ID', 'produk_id'),
-            Column::make('Produk', ''),
+            Column::make('Produk', 'produk.nama')
+                ->searchable(),
             Column::make('Kondisi', ''),
             Column::make('Gudang', ''),
             Column::make('Stock Opname', ''),

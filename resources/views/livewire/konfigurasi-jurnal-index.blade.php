@@ -1,6 +1,5 @@
 <div>
-    <x-molecules.card title="Konfigurasi Akun">
-        
+    <x-molecules.card title="Konfigurasi Akun">        
         <table class="col-5">
         <livewire:datatables.konfigurasi-jurnal-index/>
         </table>
@@ -37,7 +36,6 @@
 
     @push('custom-scripts')
         <script>
-
             let modal_akun = document.getElementById('akun_modal');
             let akunModal = new bootstrap.Modal(modal_akun);
 

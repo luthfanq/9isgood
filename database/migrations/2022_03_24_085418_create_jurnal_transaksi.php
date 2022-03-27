@@ -26,7 +26,7 @@ return new class extends Migration
             $table->unsignedBigInteger('akun_id');
             $table->bigInteger('nominal_debet')->nullable();
             $table->bigInteger('nominal_kredit')->nullable();
-            $table->text('keterangan');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }
