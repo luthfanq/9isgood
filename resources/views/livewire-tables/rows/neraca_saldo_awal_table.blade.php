@@ -1,14 +1,14 @@
 <x-atoms.table.td>
-    {{$row->DT_RowIndex}}
-</x-atoms.table.td>
-<x-atoms.table.td>
     {{$row->akun_id->deskripsi}}
 </x-atoms.table.td>
 <x-atoms.table.td>
-    {{$row->debet}}
+    {{$row->user_id}}
 </x-atoms.table.td>
 <x-atoms.table.td>
-    {{$row->kredit}}
+    {{$row->nominal_debet}}
+</x-atoms.table.td>
+<x-atoms.table.td>
+    {{$row->nominal_kredit}}
 </x-atoms.table.td>
 <x-atoms.table.td>
     {{$row->keterangan}}
