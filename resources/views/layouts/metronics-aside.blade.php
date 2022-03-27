@@ -567,7 +567,26 @@
                                         <span class="menu-title">Stock Akhir Baru</span>
                                     </a>
                                 </div>
-                            </div>
+                            </div>                        
+                        </div>
+                        <div data-kt-menu-trigger="click" class="menu-item {{request()->is('stock/transaksi/internal*') ? 'here show' : ''}} menu-accordion mb-1">
+                            <span class="menu-link">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Stock Internal</span>
+                                <span class="menu-arrow"></span>
+                            </span>
+                            <div class="menu-sub menu-sub-accordion">
+                                <div class="menu-item">
+                                    <a class="menu-link {{request()->is('stock/transaksi/internal') ? 'active' : ''}}" href="{{route('stock.masuk.internal.index')}}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+                                        <span class="menu-title">Stock Masuk Internal</span>
+                                    </a>
+                                </div>
+                            </div>                        
                         </div>
                     </div>
                 </div>
@@ -670,6 +689,25 @@
 															<span class="bullet bullet-dot"></span>
 														</span>
                                         <span class="menu-title">Kasir Penerimaan Penjualan Baru</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-kt-menu-trigger="click" class="menu-item {{request()->is('keuangan/neraca/*') ? 'here show' : ''}} menu-accordion mb-1">
+                            <span class="menu-link">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Neraca Saldo</span>
+                                <span class="menu-arrow"></span>
+                            </span>
+                            <div class="menu-sub menu-sub-accordion">
+                                <div class="menu-item">
+                                    <a class="menu-link {{request()->is('keuangan/neraca/saldo/awal') ? 'active' : ''}}" href="{{route('keuangan.neraca.saldoawal')}}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+                                        <span class="menu-title">Neraca Saldo Awal</span>
                                     </a>
                                 </div>
                             </div>

@@ -55,7 +55,7 @@ Route::middleware('auth')->group(function (){
 
     // neraca
     Route::get('keuangan/neraca')->name('keuangan.neraca');
-    Route::get('keuangan/neraca/saldoawal')->name('keuangan.neraca.saldoawal');
+    Route::get('keuangan/neraca/saldo/awal', \App\Http\Livewire\Keuangan\Kasir\NeracaSaldoAwal::class)->name('keuangan.neraca.saldoawal');
 
     // persediaan
     Route::get('keuangan/persediaan', \App\Http\Livewire\Keuangan\Persediaan\PersediaanIndex::class)->name('keuangan.persediaan');
