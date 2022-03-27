@@ -1,8 +1,8 @@
 <div>
     <x-molecules.card title="Konfigurasi Akun">        
-        <table class="col-5">
+        <form>
         <livewire:datatables.konfigurasi-jurnal-index/>
-        </table>
+        </form>
         <div class="col-4 border">
             <form wire:ignore.self> 
                 <div class="pt-4">

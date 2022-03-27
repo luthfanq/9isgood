@@ -107,6 +107,8 @@ Route::middleware('auth')->group(function (){
     Route::get('stock/stockakhir', \App\Http\Livewire\Stock\StockAkhirIndex::class)->name('stock.stockakhir');
     Route::get('stock/stockakhir/transaksi', \App\Http\Livewire\Stock\StockAkhirForm::class)->name('stock.stockakhir.transaksi');
     Route::get('stock/stockakhir/transaksi/{id}', \App\Http\Livewire\Stock\StockAkhirForm::class);
+
+    Route::get('stock/transaksi/internal', \App\Http\Livewire\Stock\StockMasukInternalIndex::class)->name('stock.masuk.internal.index');
 });
 
 /**
