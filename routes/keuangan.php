@@ -50,12 +50,16 @@ Route::middleware('auth')->group(function (){
     Route::get('keuangan/jurnal/penyesuaian/trans')->name('keuangan.jurnal.penyesuaian.trans');
     Route::get('keuangan/jurnal/penyesuaian/trans/{id}');
 
+    // Jurnal transaksi
+    Route::get('keuangan/jurnal/transaksi', \App\Http\Livewire\Keuangan\Jurnal\JurnalTransaksiIndex::class)->name('jurnal.transaksi');
+
     // neraca
     Route::get('keuangan/neraca')->name('keuangan.neraca');
     Route::get('keuangan/neraca/saldoawal')->name('keuangan.neraca.saldoawal');
 
     // persediaan
-    Route::get('keuangan/persediaan')->name('keuangan.persediaan');
+    Route::get('keuangan/persediaan', \App\Http\Livewire\Keuangan\Persediaan\PersediaanIndex::class)->name('keuangan.persediaan');
+    Route::get('keuangan/persediaan/transaksi', \App\Http\Livewire\Keuangan\Persediaan\PersediaanTransaksiIndex::class)->name('keuangan.persediaan.transaksi');
 
     // laba-rugi
     Route::get('keuangan/labarugi')->name('keuangan.labarugi');

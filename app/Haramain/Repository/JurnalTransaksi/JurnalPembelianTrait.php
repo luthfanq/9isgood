@@ -33,7 +33,7 @@ trait JurnalPembelianTrait
         $jurnal_transaksi->create([
             'active_cash'=>session('ClosedCash'),
             'akun_id'=>$data->akun_hutang_dagang, // konfig hutang dagang
-            'nominal_kredit'=>$data->ppn,
+            'nominal_kredit'=>$data->total_bayar,
         ]);
     }
 }

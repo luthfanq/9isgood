@@ -2,14 +2,14 @@
 
 namespace App\Models\Keuangan;
 
+use App\Haramain\Traits\ModelTraits\AkunTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class JurnalTransaksi extends Model
 {
-    use HasFactory;
-    protected $connection = 'mysql2';
-    protected $table = 'jurnal_transaksi';
+    use HasFactory, AkunTrait;
+    protected $table = 'haramain_keuangan.jurnal_transaksi';
     protected $fillable = [
         'active_cash',
         'jurnal_type',

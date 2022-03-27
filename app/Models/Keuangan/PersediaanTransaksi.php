@@ -10,8 +10,8 @@ class PersediaanTransaksi extends Model
 {
     use HasFactory, KodeTraits;
 
-    protected $connection = 'mysql2';
-    protected $table = 'persediaan_transaksi';
+//    protected $connection = 'mysql2';
+    protected $table = 'haramain_keuangan.persediaan_transaksi';
     protected $fillable = [
         'active_cash',
         'kode',

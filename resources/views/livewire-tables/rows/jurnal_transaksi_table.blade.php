@@ -1,0 +1,12 @@
+<x-atoms.table.td>
+    {{$row->jurnal_type}}
+</x-atoms.table.td>
+<x-atoms.table.td>
+    {{$row->akun->deskripsi}}
+</x-atoms.table.td>
+<x-atoms.table.td>
+    {{$row->nominal_debet}}
+</x-atoms.table.td>
+<x-atoms.table.td>
+    {{$row->nominal_kredit}}
+</x-atoms.table.td>

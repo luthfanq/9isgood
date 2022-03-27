@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 class PersediaanPerpetual extends Model
 {
     use HasFactory, GudangTraits, ProdukTraits;
-    protected $connection = 'mysql2';
+//    protected $connection = 'mysql2';
 
-    protected $table = 'persediaan_perpetual';
+    protected $table = 'haramain_keuangan.persediaan_perpetual';
     protected $fillable = [
         'active_cash',
         'jenis',
