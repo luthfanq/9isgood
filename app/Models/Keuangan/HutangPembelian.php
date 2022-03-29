@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class HutangPembelian extends Model
 {
-    use HasFactory, PembelianTraits;
+    use HasFactory;
     protected $connection = 'mysql2';
     protected $table = 'hutang_pembelian';
     protected $fillable = [
         'saldo_hutang_pembelian_id',
+        'pembelian_type',
         'pembelian_id',
         'status_bayar', // lunas, belum, kurang
         'total_bayar',
@@ -22,5 +23,10 @@ class HutangPembelian extends Model
     public function saldo_hutang_pembelian()
     {
         return $this->belongsTo(SaldoHutangPembelian::class, 'saldo_hutang_pembelian_id', 'supplier_id');
+    }
+
+    public function hutang_pembelian_morph()
+    {
+        return $this->morphTo(__FUNCTION__, 'pembelian_id', 'pembelian_type');
     }
 }

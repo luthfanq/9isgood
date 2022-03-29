@@ -2,7 +2,9 @@
 
 use App\Haramain\Repository\JurnalTransaksi\JurnalPembelianTrait;
 use App\Haramain\Repository\Persediaan\PersediaanJenisMasukRepo;
+use App\Haramain\Repository\PersediaanPerpetualRepo;
 use App\Haramain\Repository\StockInventoryRepository;
+use App\Models\Keuangan\HutangPembelian;
 use App\Haramain\Repository\StockMasuk\{StockMasukRepoTrait};
 use App\Haramain\Repository\TransaksiRepositoryInterface;
 use App\Models\Purchase\Pembelian;
@@ -48,6 +50,7 @@ class PembelianRepository implements TransaksiRepositoryInterface
         $pembelian = Pembelian::query()->create([
             'kode'=>self::kode(),
             'active_cash'=>session('ClosedCash'),
+            'jenis'=>$data->jenis,
             'nomor_nota'=>$data->nomor_nota,
             'supplier_id'=>$data->supplier_id,
             'gudang_id'=>$data->gudang_id,
@@ -109,22 +112,53 @@ class PembelianRepository implements TransaksiRepositoryInterface
      */
     public static function update(object $data, array $detail): ?string
     {
-        $pembelian = Pembelian::query()
-            ->find($data->pembelian_id);
+        /************
+         * Inititate
+         ************/
+        $field = 'stock_masuk';
+        $kondisi = 'baik';
+        $pembelian_bersih = $data->total_bayar - (int)$data->biaya_lain - (int)$data->ppn;
 
-        // rollback
-        foreach ($pembelian->returDetail as $row)
+        $pembelian = Pembelian::query()->find($data->pembelian_id);
+        $pembelian_bersih_old = $pembelian->total_bayar - (int)$pembelian->biaya_lain - (int)$pembelian->ppn;
+
+        $stock_masuk = $pembelian->stockMasukMorph()->first();
+
+        $persediaan_transaksi = $pembelian->persediaan_transaksi()->first();
+
+        $jurnal_transaksi = $pembelian->jurnal_transaksi();
+
+        /*******************
+         * ROLLBACK is Coming
+         ******************/
+        foreach ($pembelian->pembelianDetail as $row)
         {
-            StockInventoryRepository::rollback($row, 'baik', $pembelian->gudang_id, 'stock_masuk');
+             //dd(PersediaanPerpetualRepo::rollback($row, 'masuk', $pembelian->gudang_id, $kondisi));
+            // rollback stock inventory
+            StockInventoryRepository::rollback($row, 'baik', $pembelian->gudang_id, $field);
+            // rollback persediaan_perpetual
+            PersediaanPerpetualRepo::rollback($row, 'masuk', $pembelian->gudang_id, $kondisi);
         }
 
         // rollback saldo_hutang_penjualan
         HutangPembelianRepo::rollback($pembelian->supplier_id, $pembelian->total_bayar);
 
+        /***********
+         * delete detail
+         **********/
+        $stock_masuk->stockMasukDetail()->delete();
+
+        $persediaan_transaksi->persediaan_transaksi_detail()->delete();
+
+        $jurnal_transaksi->delete();
 
         $pembelian->pembelianDetail()->delete();
 
+        /********************
+         * Update Data Master
+         *******************/
         $pembelian->update([
+            'nomor_nota'=>$data->nomor_nota,
             'supplier_id'=>$data->supplier_id,
             'gudang_id'=>$data->gudang_id,
             'user_id'=>\Auth::id(),
@@ -139,46 +173,37 @@ class PembelianRepository implements TransaksiRepositoryInterface
             'keterangan'=>$data->keterangan,
         ]);
 
-        $stock_masuk = $pembelian->stockMasukMorph()->first();
+        self::updateStockMasuk($stock_masuk, $data, $kondisi);
 
-        $stock_masuk->stockMasukDetail()->delete();
-
-        $stock_masuk->update([
-            'kondisi'=>'baik',
-            'gudang_id'=>$data->gudang_id,
-            'tgl_masuk'=>tanggalan_database_format($data->tgl_nota, 'd-M-Y'),
-            'user_id'=>\Auth::id(),
-            'keterangan'=>$data->keterangan,
+        $persediaan_transaksi->update([
+            'debet'=>$pembelian_bersih,
         ]);
-        return self::detailProses($detail, $pembelian, $stock_masuk, 'baik', $data);
-    }
 
-    protected static function detailProses(array $detail, Pembelian $pembelian, $stock_masuk, $kondisi, object $data): ?string
-    {
-        foreach ($detail as $item)
-        {
+        $hutangPembelian = $pembelian->hutang_pembelian()->first();
+        $hutangPembelian->update([
+            'total_bayar'=> $data->total_bayar
+        ]);
+
+        HutangPembelian::query()
+            ->where('customer_id', $data->customer_id)
+            ->increment('saldo', $data->total_bayar);
+
+        // add jurnal_transaksi
+        self::storeJurnalPembelian($pembelian->jurnal_transaksi(), $pembelian_bersih, $data);
+
+        /*************************
+         * Update Data Detail
+         ************************/
+        foreach ($detail as $row){
             $pembelian->pembelianDetail()->create([
-                'produk_id' => $item['produk_id'],
-                'harga' => $item['harga'],
-                'jumlah' => $item['jumlah'],
-                'diskon' => $item['diskon'],
-                'sub_total' => $item['sub_total'],
+                'produk_id' => $row['produk_id'],
+                'harga' => $row['harga'],
+                'jumlah' => $row['jumlah'],
+                'diskon' => $row['diskon'],
+                'sub_total' => $row['sub_total'],
             ]);
-
-            $stock_masuk->stockMasukDetail()->create([
-                'produk_id' => $item['produk_id'],
-                'jumlah' => $item['jumlah'],
-            ]);
-
-            StockInventoryRepository::create(
-                (object)[
-                    'produk_id' => $item['produk_id'],
-                    'jumlah' => $item['jumlah']
-                ],
-                $kondisi,
-                $data->gudang_id,
-                'stock_masuk'
-            );
+            self::storeStockMasukDetail($stock_masuk, $row, $data->gudang_id, $kondisi, $field);
+            PersediaanJenisMasukRepo::storeDetail($persediaan_transaksi, $row, $data->gudang_id, $kondisi);
         }
         return $pembelian->id;
     }

@@ -65,9 +65,14 @@ Route::middleware('auth')->group(function(){
     Route::get('pembelian/trans', \App\Http\Livewire\Purchase\PembelianForm::class)->name('pembelian.trans');
     Route::get('pembelian/trans/{pembelian}', \App\Http\Livewire\Purchase\PembelianForm::class);
 
-    Route::get('pembelian/retur/', \App\Http\Livewire\Purchase\PembelianReturIndex::class)->name('pembelian.retur');
-    Route::get('pembelian/retur/trans/', \App\Http\Livewire\Purchase\PembelianReturForm::class);
+    Route::get('pembelian/retur/{kondisi}', \App\Http\Livewire\Purchase\PembelianReturIndex::class)->name('pembelian.retur');
+    Route::get('pembelian/retur/{kondisi}/trans/', \App\Http\Livewire\Purchase\PembelianReturForm::class);
     Route::get('pembelian/retur/trans/{retur}', \App\Http\Livewire\Purchase\PembelianReturForm::class);
+
+    // pembelian (dari buku internal)
+    Route::get('pembelian/internal', \App\Http\Livewire\Purchase\PembelianInternalIndex::class)->name('pembelian.internal');
+    Route::get('pembelian/internal/trans', \App\Http\Livewire\Purchase\PembelianInternalForm::class);
+    Route::get('pembelian/internal/trans/{pembelian}', \App\Http\Livewire\Purchase\PembelianInternalForm::class);
 });
 
 /**

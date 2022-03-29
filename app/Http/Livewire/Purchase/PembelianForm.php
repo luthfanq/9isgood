@@ -19,10 +19,11 @@ class PembelianForm extends Purchase
 
     public function mount($pembelian = null)
     {
+        $this->jenis = 'INTERNAL';
         $pembelian = Pembelian::query()->find($pembelian);
 
         if ($pembelian){
-            $this->pembelian_id = $pembelian;
+            $this->pembelian_id = $pembelian->id;
 
             $this->forMount('update', $pembelian, $pembelian->pembelianDetail);
 
@@ -41,6 +42,7 @@ class PembelianForm extends Purchase
         $this->total_barang = array_sum(array_column($this->data_detail, 'jumlah'));
         return $this->validate([
             'pembelian_id'=>'nullable',
+            'jenis'=>'required',
             'supplier_id'=>'required',
             'gudang_id'=>'required',
             'nomor_nota'=>'required',
