@@ -20,6 +20,7 @@ class Pembelian extends Model
     protected $fillable = [
         'kode',
         'nomor_nota',
+        'jenis',
         'active_cash',
         'supplier_id',
         'gudang_id',
