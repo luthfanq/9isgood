@@ -2,6 +2,7 @@
 
 namespace App\Models\Stock;
 
+use App\Models\Keuangan\PersediaanOpname;
 use App\Haramain\Traits\ModelTraits\{GudangTraits, KodeTraits, PegawaiTraits, UserTraits};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,5 +26,10 @@ class StockOpname extends Model
     public function stockOpnameDetail()
     {
         return $this->hasMany(StockOpnameDetail::class, 'stock_opname_id');
+    }
+
+    public function persediaanOpname()
+    {
+        return $this->hasOne(PersediaanOpname::class, 'stock_opname_id');
     }
 }

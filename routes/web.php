@@ -42,6 +42,13 @@ Route::middleware('auth')->group(function (){
     Route::get('/master/pegawai/user', \App\Http\Livewire\Master\PegawaiUserIndex::class)->name('pegawai.user');
 });
 
+Route::middleware('auth')->group(function (){
+
+    // penjualan
+    Route::get('closedcash', \App\Http\Livewire\CloseCashIndex::class)->name('closedcash');
+
+});
+
 /**
  * Penjualan Routing
  */
