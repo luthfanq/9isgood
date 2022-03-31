@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql2')->create('konfigurasi_jurnal', function (Blueprint $table) {
-            $table->string('config')->primary();
-            $table->unsignedBigInteger('akun_id')->nullable();
-            $table->text('keterangan')->nullable();
+        Schema::connection('mysql2')->create('harga_hpp_all', function (Blueprint $table) {
+            $table->id();
+            $table->string('deskripsi');
+            $table->string('harga')->nullable();
+            $table->string('persen')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::connection('mysql2')->dropIfExists('konfigurasi_jurnal');
+        Schema::connection('mysql2')->dropIfExists('harga_hpp_all');
     }
 };

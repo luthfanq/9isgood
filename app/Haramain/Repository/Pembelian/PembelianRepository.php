@@ -208,6 +208,53 @@ class PembelianRepository implements TransaksiRepositoryInterface
         return $pembelian->id;
     }
 
+    public static function storeInternal($data)
+    {
+        $kondisi = 'baik';
+        $field = 'stock_masuk';
+        $pembelian = Pembelian::query()->create([
+            'kode'=>self::kode(),
+            'nomor_nota'=>$data->surat_jalan,
+            'jenis'=>$data->jenis,
+            'active_cash'=>session('ClosedCash'),
+            'supplier_id'=>$data->supplier_id,
+            'gudang_id'=>$data->gudang_id,
+            'user_id'=>\Auth::id(),
+            'tgl_nota'=>$data->tgl_masuk,
+            'tgl_tempo'=>null,
+            'jenis_bayar'=>'cash',
+            'status_bayar'=>'belum',
+            'total_barang'=>$data->total_barang,
+            'ppn'=>null,
+            'biaya_lain'=>null,
+            'total_bayar'=>$data->total_bayar,
+            'keterangan'=>$data->keterangan,
+        ]);
+
+        $pembelian_detail = $pembelian->pembelianDetail();
+
+        $pembelian_bersih = $data->total_bayar - (int)$data->biaya_lain - (int)$data->ppn;
+
+        $stock_masuk = $pembelian->stockMasukMorph();
+
+        $persediaan_transaksi = $pembelian->persediaan_transaksi();
+
+        foreach ($data->detail as $row){
+            $pembelian_detail->create([
+                'produk_id' => $row['produk_id'],
+                'harga' => $row['produk_harga_hpp'],
+                'jumlah' => $row['jumlah'],
+                'diskon' => 0,
+                'sub_total' => $row['sub_total'],
+            ]);
+            self::storeStockMasukDetail($stock_masuk, $row, $data->gudang_id, $kondisi, $field);
+            PersediaanJenisMasukRepo::storeDetail($persediaan_transaksi, $row, $data->gudang_id, $kondisi);
+        }
+
+        // add jurnal_transaksi
+        self::storeJurnalPembelian($pembelian->jurnal_transaksi(), $pembelian_bersih, $data);
+    }
+
     public static function delete(int $id): ?string
     {
         // TODO: Implement delete() method.

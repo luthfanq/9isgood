@@ -19,7 +19,7 @@ class PembelianForm extends Purchase
 
     public function mount($pembelian = null)
     {
-        $this->jenis = 'INTERNAL';
+        $this->jenis = 'BLU';
         $pembelian = Pembelian::query()->find($pembelian);
 
         if ($pembelian){

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Purchase;
 
+use App\Models\Master\Gudang;
 use App\Models\Master\Produk;
 use App\Models\Master\Supplier;
 use App\Models\Purchase\Pembelian;
@@ -19,13 +20,19 @@ class PembelianInternalForm extends Component
         'set_produk'
     ];
 
+    public $gudang_data = [];
+
     public function render()
     {
         return view('livewire.purchase.pembelian-internal-form');
     }
 
+    public $akun_persediaan;
+
     public function mount($pembelian = null)
     {
+        $this->gudang_data = Gudang::all();
+        $this->tgl_masuk = tanggalan_format(now('ASIA/JAKARTA'));
         if ($pembelian){
             $this->pembelian_internal_id = $pembelian;
             $pembelian_internal = Pembelian::query()->find($pembelian);
@@ -126,9 +133,10 @@ class PembelianInternalForm extends Component
         $this->detail = array_values($this->detail);
     }
 
-    public $gudang_id, $tgl_nota, $tgl_tempo, $nomor_nota, $surat_jalan;
+    public $gudang_id, $tgl_masuk, $tgl_tempo, $nomor_nota, $surat_jalan;
     public $jenis_bayar, $status_bayar;
     public $total_barang, $total_bayar;
+    public $jenis = 'INTERNAL';
     public $keterangan;
 
     /**
@@ -139,10 +147,10 @@ class PembelianInternalForm extends Component
         return $this->validate([
             'pembelian_internal_id'=>'nullable|int',
             'detail'=>'required|array',
+            'jenis'=>'required',
             'supplier_id'=>'required',
-            'tgl_nota'=>'required',
+            'tgl_masuk'=>'required',
             'tgl_tempo'=>'required',
-            'nomor_nota'=>'required',
             'surat_jalan'=>'required',
             'jenis_bayar'=>'required',
             'status_bayar'=>'required',
