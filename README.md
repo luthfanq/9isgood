@@ -7,3 +7,13 @@ Belum ada keinginan untuk mengubah menjadi microservice, dan jika segalanya memu
 
 <h2>Core</h2>
 <p>Core berada pada folder app/Haramain </p>
+
+<h2>Closed Cash</h2>
+<p>
+Closed Cash adalah generate periode baru untuk satu masa keuangan.
+Closed Cash meliputi banyak hal sebagai berikut :
+</p>
+<ul>
+    <li>Stock Akhir menjadi Stock Opname (stock awal)</li>
+    <li>Persediaan dari stock akhir menjadi persediaan awal. Dengan ketentuan, harga HPP dari tahun sebelumnya bisa diedit.</li>
+</ul>
