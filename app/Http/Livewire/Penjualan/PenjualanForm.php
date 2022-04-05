@@ -39,6 +39,7 @@ class PenjualanForm extends Transaksi
      */
     protected function validateData(): array
     {
+        //dd($this->keterangan);
         $this->total_barang = array_sum(array_column($this->data_detail, 'jumlah'));
         return $this->validate([
             'data_detail'=>'array',

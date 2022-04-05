@@ -30,6 +30,7 @@ class PenjualanPureRepo
 
     public function store($data)
     {
+        //dd($data);
         $penjualan = Penjualan::query()->create([
             'kode'=>$this->kode(),
             'active_cash'=>$this->closedCash,
@@ -63,6 +64,7 @@ class PenjualanPureRepo
 
     public function update($data)
     {
+        //dd($data);
         $penjualan = Penjualan::query()->find($data->penjualan_id);
 
         $penjualanDetail = $penjualan->penjualanDetail();

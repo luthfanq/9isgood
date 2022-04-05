@@ -30,7 +30,7 @@
                     {{$item->produk->nama}}
                     {{$item->produk->kategoriHarga->nama}} {{$item->produk->cover}}
                 </td>
-                <td class="text-right">{{rupiah_format($item->stock_opname)}}</td>
+                <td class="text-center" style="font-size: larger">{{rupiah_format($item->stock_opname)}}</td>
             </tr>
         @endforeach
     </table>

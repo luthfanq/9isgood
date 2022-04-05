@@ -23,11 +23,11 @@
                             <x-atoms.input.group-horizontal label="Gudang" name="gudang" required="required">
                                 <x-atoms.input.select name="gudang_id" wire:model.defer="gudang_id">
                                     <option>Dipilih</option>
-                                    {{-- @forelse($gudang_data as $row)
+                                    @forelse($gudang_data as $row)
                                         <option value="{{$row->id}}">{{$row->nama}}</option>
                                     @empty
                                         <option>Tidak Ada Data</option>
-                                    @endforelse --}}
+                                    @endforelse
                                 </x-atoms.input.select>
                             </x-atoms.input.group-horizontal>
                         </div>
@@ -49,30 +49,25 @@
                             <th width="10%"></th>
                         </tr>
                     </x-slot>
-                    {{-- @forelse($data_detail as $row)
+                    @forelse($data_detail as $index=> $row)
                         <tr class="align-middle">
                             <td class="text-center">{{$row['kode_lokal']}}</td>
                             <td>{{$row['nama_produk']}}</td>
                             <td class="text-center">{{$row['jumlah']}}</td>
                             <td>
                                 <button type="button" class="btn btn-flush btn-active-color-info btn-icon" wire:click="editLine({{$index}})"><i class="la la-edit fs-2"></i></button>
-                                <button type="button" class="btn btn-flush btn-active-color-info btn-icon" wire:click="destroyLine({{$index}})"><i class="la la-trash fs-2"></i></button>
+                                <button type="button" class="btn btn-flush btn-active-color-info btn-icon" wire:click="removeLine({{$index}})"><i class="la la-trash fs-2"></i></button>
                             </td>
                         </tr>
                     @empty
                         <tr>
                             <td colspan="7" class="text-center">Tidak Ada Data</td>
                         </tr>
-                    @endforelse --}}
+                    @endforelse
                 </x-atoms.table>
             </div>
             <div class="col-4 border">
                 <form wire:ignore.self>
-                    <div class="pb-5 pt-5">
-                        <x-atoms.input.group-horizontal name="idProduk" label="ID Produk">
-                            <x-atoms.input.textarea wire:model.defer="idProduk" />
-                        </x-atoms.input.group-horizontal>
-                    </div>
                     <div class="pb-5 pt-5">
                         <x-atoms.input.group-horizontal name="namaProduk" label="Produk">
                             <x-atoms.input.textarea wire:model.defer="namaProduk" />
@@ -95,6 +90,15 @@
                 </div>
             </div>
         </div>
+        <x-slot name="footer">
+            <div class="d-flex justify-content-end">
+                @if($mode == 'update')
+                    <x-atoms.button.btn-primary wire:click="update">Update All</x-atoms.button.btn-primary>
+                @else
+                    <x-atoms.button.btn-primary wire:click="store">Save All</x-atoms.button.btn-primary>
+                @endif
+            </div>
+        </x-slot>
     </x-molecules.card>
 
     <x-molecules.modal title="Daftar Pegawai" id="pegawai_modal" size="xl" wire:ignore.self>

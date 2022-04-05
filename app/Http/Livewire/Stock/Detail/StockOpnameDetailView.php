@@ -10,6 +10,8 @@ class StockOpnameDetailView extends Component
 {
     use ResetFormTraits;
 
+    public $resetForm = ['stock_data', 'stock_detail_data'];
+
     protected $listeners = [
         'showStockDetail'=>'show'
     ];
@@ -18,7 +20,7 @@ class StockOpnameDetailView extends Component
     {
         return view('livewire.stock.detail.stock-opname-detail-view');
     }
-    
+
     public function show(StockOpname $stock_opname)
     {
         $this->stock_data = $stock_opname;

@@ -77,7 +77,7 @@
 
 
                 detail.forEach(function(data){
-                    barisUtama += ' '+getEscTable((data.produk.kode_lokal) ? data.produk.kode_lokal : '', 9, 'left')+getEscTable(data.produk.nama, 60, 'left')+getEscTable((data.jumlah).toString(), 5, 'right')+getEscTable(numberWithCommas(data.harga), 20, 'right')+"     "
+                    barisUtama += ' '+getEscTable((data.produk.kode_lokal) ? data.produk.kode_lokal : '', 9, 'left')+getEscTable(data.produk.nama+' '+(data.produk.kategori_harga.nama ?? ''), 60, 'left')+getEscTable((data.jumlah).toString(), 5, 'right')+getEscTable(numberWithCommas(data.harga), 20, 'right')+"     "
                         +getEscTable((data.diskon).toString(), 5, 'center')+getEscTable(numberWithCommas(data.sub_total), 28, 'right')+'\n';
                     subTotal += data.sub_total;
                 })
@@ -114,7 +114,7 @@
 
 
                 detail.forEach(function(data){
-                    barisUtama += ' '+getEscTable((data.produk.kode_lokal) ? data.produk.kode_lokal : '', 9, 'left')+getEscTable(data.produk.nama, 60, 'left')+getEscTable((data.jumlah).toString(), 5, 'center')+getEscTable(numberWithCommas(data.harga), 20, 'right')+"     "
+                    barisUtama += ' '+getEscTable((data.produk.kode_lokal) ? data.produk.kode_lokal : '', 9, 'left')+getEscTable(data.produk.nama+' '+(data.produk.kategori_harga.nama ?? ''), 60, 'left')+getEscTable((data.jumlah).toString(), 5, 'center')+getEscTable(numberWithCommas(data.harga), 20, 'right')+"     "
                         +getEscTable((data.diskon).toString(), 5, 'center')+getEscTable(numberWithCommas(data.sub_total), 28, 'right')+'\n';
                     subTotal += data.sub_total;
                 })

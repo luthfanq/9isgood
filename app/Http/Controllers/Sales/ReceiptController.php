@@ -27,7 +27,7 @@ class ReceiptController extends Controller
         ];
         return view('pages.Receipt.SalesReceipt', [
             'dataUtama'=>json_encode($dataPenjualan),
-            'dataDetail'=>$penjualan->penjualanDetail()->with('produk')->get(),
+            'dataDetail'=>$penjualan->penjualanDetail()->with(['produk', 'produk.kategoriHarga'])->get(),
         ]);
     }
 }

@@ -3,7 +3,7 @@
 use App\Haramain\Repository\TransaksiRepositoryInterface;
 use App\Models\Stock\StockOpname;
 
-class StockOpnameRepository implements TransaksiRepositoryInterface
+class StockOpnameRepository
 {
     public $diskon_hpp;
 
@@ -27,48 +27,66 @@ class StockOpnameRepository implements TransaksiRepositoryInterface
 
     public static function create(object $data, array $detail): ?string
     {
+        // create stock opname
         $stock_opname = StockOpname::query()->create([
             'active_cash'=>session('ClosedCash'),
             'kode'=>self::kode($data->jenis),
             'jenis'=>$data->jenis,
-            'tgl_input'=>$data->tgl_input,
+            'tgl_input'=>tanggalan_database_format($data->tgl_input, 'd-M-Y'),
             'gudang_id'=>$data->gudang_id,
-            'user_id'=>$data->user_id,
+            'user_id'=>\Auth::id(),
             'pegawai_id'=>$data->pegawai_id,
             'keterangan'=>$data->keterangan,
         ]);
 
-        // store persediaanOpname
-        $persediaan_opname = $stock_opname->persediaanOpname()->create([
-            'kode',
-            'active_cash',
-            'kondisi',
-            'gudang_id',
-            'stock_opname_id',
-            'user_id',
-            'keterangan',
-        ]);
+        // initiate stock opname detail
+        $stock_opname_detail = $stock_opname->stockOpnameDetail();
 
-        foreach ($detail as $item) {
-            $stock_opname->stockOpnameDetail()->create([
-                'produk_id'=>$item->produk_id,
-                'jumlah'=>$item->jumlah,
+        foreach ($data->data_detail as $item){
+            // store stock opname detail
+            $stock_opname_detail->create([
+                'produk_id'=>$item['produk_id'],
+                'jumlah'=>$item['jumlah'],
             ]);
-
-            $harga_hpp = ($item->produk->harga_hpp) ?: $item->produk->harga;
-            $sub_total = $harga_hpp * $item->jumlah;
-            $persediaan_opname->persediaan_opname_detail()->create([
-                'produk_id'=>$item->produk_id,
-                'jumlah'=>$item->jumlah,
-                'harga'=> $harga_hpp,
-                'sub_total'=>$sub_total,
-            ]);
+            // update stock
+            (new StockInventoryRepo())->incrementArrayData($item, $data->gudang_id, $data->jenis, 'stock_opname');
         }
+        return $stock_opname->id;
     }
 
     public static function update(object $data, array $detail): ?string
     {
-        // TODO: Implement update() method.
+        // initiate
+        $stockOpname = StockOpname::query()->find($data->stock_id);
+        $stock_opname_detail = $stockOpname->stockOpnameDetail();
+
+        //rollback
+        foreach ($stockOpname->stockOpnameDetail as $item){
+            (new StockInventoryRepo())->rollback($item, $stockOpname->gudang_id, $stockOpname->jenis, 'stock_opname');
+        }
+        $stock_opname_detail->delete();
+
+        // update stock opname
+        $stockOpname->update([
+            'jenis'=>$data->jenis,
+            'tgl_input'=>tanggalan_database_format($data->tgl_input, 'd-M-Y'),
+            'gudang_id'=>$data->gudang_id,
+            'user_id'=>\Auth::id(),
+            'pegawai_id'=>$data->pegawai_id,
+            'keterangan'=>$data->keterangan,
+        ]);
+
+        // create new detail
+        foreach ($data->data_detail as $item){
+            // store stock opname detail
+            $stock_opname_detail->create([
+                'produk_id'=>$item['produk_id'],
+                'jumlah'=>$item['jumlah'],
+            ]);
+            // update stock
+            (new StockInventoryRepo())->incrementArrayData($item, $data->gudang_id, $data->jenis, 'stock_opname');
+        }
+        return $stockOpname->id;
     }
 
     public static function delete(int $id): ?string

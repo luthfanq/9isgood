@@ -12,6 +12,8 @@ class StockOpnameController extends Controller
     {
         $data = StockInventory::query()
             ->where('active_cash', session('ClosedCash'))
+            ->join('produk', 'produk.id', '=', 'stock_inventory.produk_id')
+            ->orderBy('produk.nama', 'ASC')
             ->get();
 
         $pdf = \PDF::loadView('pages.ReportStockOpname', [
@@ -23,7 +25,7 @@ class StockOpnameController extends Controller
             'margin-bottom' => 5,
             'margin-left'   => 5,
         ];
-        $pdf->setPaper('letter');
+        $pdf->setPaper('a4');
         $pdf->setOptions($options);
         return $pdf->inline('invoice.pdf');
     }
