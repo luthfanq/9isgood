@@ -14,7 +14,7 @@
     {{tanggalan_format($row->tgl_input)}}
 </x-atoms.table.td>
 <x-atoms.table.td align="center" width="12%">
-        <x-atoms.button.btn-icon-link :href="url('/').'/stock/transaksi/opname/trans/'.$row->id"><i class="far fa-edit fs-4"></i></x-atoms.button.btn-icon-link>
+        <x-atoms.button.btn-icon-link :href="url('/').'/stock/transaksi/opname/trans/'.$row->jenis.'/'.$row->id"><i class="far fa-edit fs-4"></i></x-atoms.button.btn-icon-link>
         <x-atoms.button.btn-icon color="danger"><i class="bi bi-trash-fill fs-4"></i></x-atoms.button.btn-icon>
         <x-atoms.button.btn-icon><i class="fas fa-indent fs-4" onclick="Livewire.emit('showStockDetail', {{$row->id}})"></i></x-atoms.button.btn-icon>
         <x-atoms.button.btn-icon-link color="info"><i class="fas fa-print fs-4"></i></x-atoms.button.btn-icon-link>
