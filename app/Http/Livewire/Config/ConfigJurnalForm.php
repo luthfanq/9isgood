@@ -14,6 +14,10 @@ class ConfigJurnalForm extends Component
     public $akun_name;
     public $setConfigForAkun;
 
+    protected $listeners = [
+        'set_akun'
+    ];
+
     public function render()
     {
         return view('livewire.config.config-jurnal-form');
@@ -33,7 +37,7 @@ class ConfigJurnalForm extends Component
         $this->setConfigForAkun = $config;
     }
 
-    public function setAkun(Akun $akun)
+    public function set_akun(Akun $akun)
     {
         $this->akun_id[$this->setConfigForAkun] = $akun->id;
         $this->akun_name[$this->setConfigForAkun] = $akun->deskripsi ?? null;
@@ -42,10 +46,11 @@ class ConfigJurnalForm extends Component
     public function update(string $config)
     {
         $this->validate([
-            'akun_id.*'=>'required'
+            "akun_id.{$config}"=>'required'
         ]);
-        $config = KonfigurasiJurnal::query()->find($config);
-        $config->update([
+        //dd($this->akun_id[$config]);
+        $query = KonfigurasiJurnal::query()->find($config);
+        $query->update([
             'akun_id'=>$this->akun_id[$config]
         ]);
         $this->reset(['setConfigForAkun']);

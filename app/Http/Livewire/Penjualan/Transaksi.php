@@ -75,6 +75,8 @@ class Transaksi extends Component
         $this->tgl_nota = tanggalan_format($data->tgl_nota);
         $this->tgl_tempo = tanggalan_format($data->tgl_tempo);
         $this->gudang_id = $data->gudang_id;
+        $this->biaya_lain = $data->biaya_lain;
+        $this->ppn = $data->ppn;
         $this->keterangan = $data->keterangan;
 
         // mount detail

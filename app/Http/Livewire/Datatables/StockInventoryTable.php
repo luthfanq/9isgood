@@ -29,7 +29,8 @@ class StockInventoryTable extends DataTableComponent
 
     public function query(): Builder
     {
-        return StockInventory::query();
+        return StockInventory::query()
+            ->where('active_cash', session('ClosedCash'));
     }
 
     public function rowView(): string

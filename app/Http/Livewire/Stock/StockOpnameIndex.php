@@ -8,7 +8,7 @@ class StockOpnameIndex extends Component
 {
     public $jenis;
 
-    public function mount($jenis = 'baik')
+    public function mount($jenis = null)
     {
         $this->jenis = $jenis;
     }

@@ -10,7 +10,7 @@
                     <th>Ended</th>
                 </tr>
             </x-slot>
-            @foreach($closed_cash_data as $item)
+            @foreach($data_forView as $item)
                 <tr>
                     <x-atoms.table.td width="20%">
                         {{ucwords($item->users->name)}}

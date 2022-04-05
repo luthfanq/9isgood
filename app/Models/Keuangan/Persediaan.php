@@ -20,6 +20,7 @@ class Persediaan extends Model
         'stock_opname',
         'stock_masuk',
         'stock_keluar',
+        'stock_saldo',
         'stock_akhir',
         'stock_lost',
     ];

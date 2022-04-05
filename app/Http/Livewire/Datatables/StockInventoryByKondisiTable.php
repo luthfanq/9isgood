@@ -36,6 +36,7 @@ class StockInventoryByKondisiTable extends DataTableComponent
     public function query(): Builder
     {
         return StockInventory::query()
+            ->where('active_cash', session('ClosedCash'))
             ->where('jenis', $this->jenis)
             ->whereRelation('gudang', 'id', $this->gudang);
     }

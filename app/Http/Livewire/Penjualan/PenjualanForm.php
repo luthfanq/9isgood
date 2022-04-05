@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Penjualan;
 
+use App\Haramain\Repository\Penjualan\PenjualanPureRepo;
 use App\Haramain\Repository\PenjualanRepository;
 use App\Models\Penjualan\Penjualan;
 use Illuminate\Contracts\View\View;
@@ -40,6 +41,7 @@ class PenjualanForm extends Transaksi
     {
         $this->total_barang = array_sum(array_column($this->data_detail, 'jumlah'));
         return $this->validate([
+            'data_detail'=>'array',
             'penjualan_id'=>'nullable',
             'customer_id'=>'required',
             'gudang_id'=>'required',
@@ -62,25 +64,26 @@ class PenjualanForm extends Transaksi
     {
         \DB::beginTransaction();
         try {
-            PenjualanRepository::create((object) $this->validateData(), $this->data_detail);
+            $penjualan = (new PenjualanPureRepo())->store((object) $this->validateData());
+            //PenjualanRepository::create((object) $this->validateData(), $this->data_detail);
             \DB::commit();
         } catch (ModelNotFoundException $e){
             \DB::rollBack();
             session()->flash('message', $e);
         }
-        return redirect()->route('penjualan');
+        return redirect()->to('penjualan/print/'.$penjualan);
     }
 
     public function update()
     {
         \DB::beginTransaction();
         try {
-            PenjualanRepository::update((object) $this->validateData(), $this->data_detail);
+            $penjualan = (new PenjualanPureRepo())->update((object) $this->validateData());
             \DB::commit();
         } catch (ModelNotFoundException $e){
             \DB::rollBack();
             session()->flash('message', $e);
         }
-        return redirect()->route('penjualan');
+        return redirect()->to('penjualan/print/'.$penjualan);
     }
 }

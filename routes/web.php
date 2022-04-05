@@ -65,6 +65,8 @@ Route::middleware('auth')->group(function (){
     Route::get('penjualan/trans', \App\Http\Livewire\Penjualan\PenjualanForm::class)->name('penjualan.trans');
     Route::get('penjualan/trans/{penjualan}', \App\Http\Livewire\Penjualan\PenjualanForm::class);
 
+    Route::get('penjualan/print/{penjualan}', [\App\Http\Controllers\Sales\ReceiptController::class, 'printDotmatrix']);
+
     Route::get('penjualan/retur/{kondisi}', \App\Http\Livewire\Penjualan\PenjualanReturIndex::class);
     Route::get('penjualan/retur/{kondisi}/trans', \App\Http\Livewire\Penjualan\PenjualanReturForm::class);
     Route::get('penjualan/retur/{kondisi}/trans/{retur}', \App\Http\Livewire\Penjualan\PenjualanReturForm::class);
@@ -96,6 +98,8 @@ Route::middleware('auth')->group(function (){
     // daftar inventory
     Route::get('stock/inventory', \App\Http\Livewire\Stock\InventoryIndex::class)->name('inventory');
     Route::get('stock/inventory/{jenis}/{gudang}', \App\Http\Livewire\Stock\InventoryByJenisIndex::class);
+
+    Route::get('stock/print/stockopname', [\App\Http\Controllers\Stock\StockOpnameController::class, 'reportStockByProduk'])->name('stock.print.stockopname');
 
     // stock transaksi
     Route::get('stock/transaksi/masuk', \App\Http\Livewire\Stock\StockMasukIndex::class)->name('stock.masuk');

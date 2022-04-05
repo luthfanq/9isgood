@@ -21,7 +21,7 @@ class StockOpnameRepository implements TransaksiRepositoryInterface
             return "0001/{$kode}/".date('Y');
         }
 
-        $num = (int)$query->first()->last_num + 1 ;
+        $num = (int)$query->first()->last_num_trans + 1 ;
         return sprintf("%04s", $num)."/{$kode}/".date('Y');
     }
 
@@ -55,7 +55,7 @@ class StockOpnameRepository implements TransaksiRepositoryInterface
                 'jumlah'=>$item->jumlah,
             ]);
 
-            $harga_hpp = ($item->produk->harga_hpp) ?: $item->produk->harga * $this->diskon_hpp;
+            $harga_hpp = ($item->produk->harga_hpp) ?: $item->produk->harga;
             $sub_total = $harga_hpp * $item->jumlah;
             $persediaan_opname->persediaan_opname_detail()->create([
                 'produk_id'=>$item->produk_id,

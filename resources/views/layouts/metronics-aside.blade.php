@@ -461,6 +461,14 @@
 												<span class="menu-arrow"></span>
 											</span>
                             <div class="menu-sub menu-sub-accordion">
+                                <div class="menu-item">
+                                    <a class="menu-link {{request()->is('stock/transaksi/opname') ? 'active' : ''}}" href="{{url('/').'/stock/transaksi/opname'}}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                        <span class="menu-title">Stock Opname</span>
+                                    </a>
+                                </div>
                                     @foreach($jenis as $item)
                                     <div class="menu-item">
                                         <a class="menu-link {{request()->is('stock/transaksi/opname/'.$item['jenis']) ? 'active' : ''}}" href="{{url('/').'/stock/transaksi/opname/'.$item['jenis']}}">
