@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Sales;
 
 use App\Http\Controllers\Controller;
 use App\Models\Penjualan\Penjualan;
+use App\Models\Penjualan\PenjualanRetur;
 use Illuminate\Http\Request;
 
 class ReceiptController extends Controller
 {
-    public function printDotmatrix(Penjualan $penjualan)
+    public function penjualanDotMatrix(Penjualan $penjualan)
     {
         $dataPenjualan = [
             'penjualanId' => $penjualan->kode,
@@ -28,6 +29,29 @@ class ReceiptController extends Controller
         return view('pages.Receipt.SalesReceipt', [
             'dataUtama'=>json_encode($dataPenjualan),
             'dataDetail'=>$penjualan->penjualanDetail()->with(['produk', 'produk.kategoriHarga'])->get(),
+        ]);
+    }
+
+    public function penjualanReturDotMatrix(PenjualanRetur $penjualanRetur)
+    {
+        $dataPenjualan = [
+            'penjualanId' => $penjualanRetur->kode,
+            'namaCustomer' => $penjualanRetur->customer->nama,
+            'addr_cust' => $penjualanRetur->customer->alamat,
+            'tgl_nota' => tanggalan_format($penjualanRetur->tgl_nota),
+            'tgl_tempo' => ( strtotime($penjualanRetur->tgl_tempo) > 0) ? tanggalan_format($penjualanRetur->tgl_tempo) : '',
+            'status_bayar' => $penjualanRetur->jenis_bayar,
+            'sudahBayar' => $penjualanRetur->status_bayar,
+            'total_jumlah' => $penjualanRetur->total_jumlah,
+            'ppn' => $penjualanRetur->ppn,
+            'biaya_lain' => $penjualanRetur->biaya_lain,
+            'total_bayar' => $penjualanRetur->total_bayar,
+            'penket' => $penjualanRetur->keterangan,
+            'print' => $penjualanRetur->print,
+        ];
+        return view('pages.Receipt.SalesReceipt', [
+            'dataUtama'=>json_encode($dataPenjualan),
+            'dataDetail'=>$penjualanRetur->returDetail()->with(['produk', 'produk.kategoriHarga'])->get(),
         ]);
     }
 }

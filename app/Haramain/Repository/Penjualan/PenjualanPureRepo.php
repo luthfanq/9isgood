@@ -43,7 +43,7 @@ class PenjualanPureRepo
             'status_bayar'=>'belum',
             'total_barang'=>$data->total_barang,
             'ppn'=>$data->ppn,
-            'biaya_lain'=>$data->ppn,
+            'biaya_lain'=>$data->biaya_lain,
             'total_bayar'=>$data->total_bayar,
             'keterangan'=>$data->keterangan,
             'print'=>null,
@@ -93,7 +93,7 @@ class PenjualanPureRepo
             'status_bayar'=>'belum',
             'total_barang'=>$data->total_barang,
             'ppn'=>$data->ppn,
-            'biaya_lain'=>$data->ppn,
+            'biaya_lain'=>$data->biaya_lain,
             'total_bayar'=>$data->total_bayar,
             'keterangan'=>$data->keterangan,
         ]);
