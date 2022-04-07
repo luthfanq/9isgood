@@ -15,6 +15,7 @@ class PersediaanTable extends DataTableComponent
     {
         return [
             Column::make('ID', 'produk.kode_lokal'),
+            Column::make('Jenis'),
             Column::make('Kondisi'),
             Column::make('Gudang'),
             Column::make('Produk', 'produk.nama'),

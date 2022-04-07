@@ -21,7 +21,7 @@ class ProdukIndex extends Component
 
     public $produk_id, $kategori, $kategori_harga;
     public $kode, $kode_lokal, $penerbit, $nama, $hal, $cover, $size, $deskripsi;
-    public $harga, $hargaRupiah;
+    public $harga, $harga_hpp, $hargaRupiah;
 
     public $resetForm = [
         'produk_id', 'kategori', 'kategori_harga',
@@ -51,6 +51,7 @@ class ProdukIndex extends Component
         $this->size = $produk->size;
         $this->deskripsi = $produk->deskripsi;
         $this->harga = $produk->harga;
+        $this->harga_hpp = $produk->harga_hpp;
         $this->emit('showModal');
     }
 
@@ -84,13 +85,14 @@ class ProdukIndex extends Component
             [
                 'kode'=> $this->kode ?? $this->kode(),
                 'kategori_id'=>$this->kategori,
-                'kategori_harga'=>$this->kategori_harga,
+                'kategori_harga_id'=>$this->kategori_harga,
                 'kode_lokal'=>$this->kode_lokal,
                 'penerbit'=>$this->penerbit,
                 'nama'=>$this->nama,
                 'hal'=>$this->hal,
                 'cover'=>$this->cover,
                 'harga'=>$this->harga,
+                'harga_hpp'=>$this->harga_hpp,
                 'size'=>$this->size,
                 'deskripsi'=>$this->deskripsi
             ]
@@ -112,6 +114,6 @@ class ProdukIndex extends Component
         $this->resetForm();
         $this->emit('hideDeleteNotification');
         $this->emit('close_confirm');
-        $this->emit('refreshDatatables');
+        $this->emit('refreshDatatable');
     }
 }

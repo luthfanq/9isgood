@@ -45,6 +45,10 @@ Route::middleware('auth')->group(function (){
     Route::get('keuangan/jurnal/pengeluaran/trans')->name('keuangan.jurnal.pengeluaran.trans');
     Route::get('keuangan/jurnal/pengeluaran/trans/{id}');
 
+    // jurnal umum
+    Route::get('keuangan/jurnal/umum', \App\Http\Livewire\Keuangan\Jurnal\JurnalUmumIndex::class)->name('jurnal.umum');
+    Route::get('keuangan/jurnal/umum/trans', \App\Http\Livewire\Keuangan\Jurnal\JurnalUmumForm::class)->name('jurnal.umum.trans');
+
     // penyesuaian
     Route::get('keuangan/jurnal/penyesuaian')->name('keuangan.jurnal.penyesuaian');
     Route::get('keuangan/jurnal/penyesuaian/trans')->name('keuangan.jurnal.penyesuaian.trans');
@@ -54,12 +58,19 @@ Route::middleware('auth')->group(function (){
     Route::get('keuangan/jurnal/transaksi', \App\Http\Livewire\Keuangan\Jurnal\JurnalTransaksiIndex::class)->name('jurnal.transaksi');
 
     // neraca
-    Route::get('keuangan/neraca')->name('keuangan.neraca');
+    Route::get('keuangan/neraca/awal', \App\Http\Livewire\Keuangan\Neraca\NeracaSaldoAwalIndex::class)->name('keuangan.neraca');
     Route::get('keuangan/neraca/saldo/awal', \App\Http\Livewire\Keuangan\Kasir\NeracaSaldoAwal::class)->name('keuangan.neraca.saldoawal');
 
     // persediaan
     Route::get('keuangan/persediaan', \App\Http\Livewire\Keuangan\Persediaan\PersediaanIndex::class)->name('keuangan.persediaan');
     Route::get('keuangan/persediaan/transaksi', \App\Http\Livewire\Keuangan\Persediaan\PersediaanTransaksiIndex::class)->name('keuangan.persediaan.transaksi');
+
+    // persediaan awal temporary
+    Route::get('keuangan/persediaan/awal/temp', \App\Http\Livewire\Keuangan\PersediaanTempIndex::class);
+
+    // persediaan opname
+    Route::get('keuangan/persediaan/opname', \App\Http\Livewire\Keuangan\PersediaanOpnameIndex::class);
+    Route::get('keuangan/persediaan/opname/trans', \App\Http\Livewire\Keuangan\PersediaanOpnameForm::class);
 
     // laba-rugi
     Route::get('keuangan/labarugi')->name('keuangan.labarugi');

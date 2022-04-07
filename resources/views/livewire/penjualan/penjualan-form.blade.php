@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-6">
                             <x-atoms.input.group-horizontal label="Keterangan" name="keterangan">
-                                <x-atoms.input.text nwire:model.defer="keterangan" />
+                                <x-atoms.input.text wire:model.defer="keterangan" />
                             </x-atoms.input.group-horizontal>
                         </div>
                     </div>

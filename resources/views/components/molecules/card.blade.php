@@ -1,13 +1,15 @@
 @props(['title'=>null])
 <div class="card">
-    <div class="card-header">
-        <div class="card-title">{{$title}}</div>
-        @isset($toolbar)
-        <div class="card-toolbar">
-            {{$toolbar}}
+    @if($title)
+        <div class="card-header">
+            <div class="card-title">{{$title}}</div>
+            @isset($toolbar)
+                <div class="card-toolbar">
+                    {{$toolbar}}
+                </div>
+            @endisset
         </div>
-        @endisset
-    </div>
+    @endif
     <div class="card-body">
         {{$slot}}
     </div>

@@ -295,7 +295,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link {{request()->is('penjualan/trans') ? 'active' : ''}}" href="{{route('pembelian.trans')}}">
+                            <a class="menu-link {{request()->is('pembelian/trans') ? 'active' : ''}}" href="{{route('pembelian.trans')}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -303,7 +303,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link {{request()->is('penjualan/retur/baik') ? 'active' : ''}}" href="{{url('/').'/penjualan/retur/baik'}}">
+                            <a class="menu-link {{request()->is('pembelian/retur/baik') ? 'active' : ''}}" href="{{url('/').'/pembelian/retur/baik'}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -311,7 +311,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link {{request()->is('penjualan/retur/baik/trans') ? 'active' : ''}}" href="{{url('/').'/penjualan/retur/baik/trans'}}">
+                            <a class="menu-link {{request()->is('pembelian/retur/baik/trans') ? 'active' : ''}}" href="{{url('/').'/pembelian/retur/baik/trans'}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -319,7 +319,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link {{request()->is('penjualan/retur/rusak') ? 'active' : ''}}" href="{{url('/').'/penjualan/retur/rusak'}}">
+                            <a class="menu-link {{request()->is('pembelian/retur/rusak') ? 'active' : ''}}" href="{{url('/').'/pembelian/retur/rusak'}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -327,7 +327,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link {{request()->is('penjualan/retur/rusak/trans') ? 'active' : ''}}" href="{{url('/').'/penjualan/retur/rusak/trans'}}">
+                            <a class="menu-link {{request()->is('pembelian/retur/rusak/trans') ? 'active' : ''}}" href="{{url('/').'/pembelian/retur/rusak/trans'}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -461,6 +461,14 @@
 												<span class="menu-arrow"></span>
 											</span>
                             <div class="menu-sub menu-sub-accordion">
+                                <div class="menu-item">
+                                    <a class="menu-link {{request()->is('stock/transaksi/opname') ? 'active' : ''}}" href="{{url('/').'/stock/transaksi/opname'}}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                        <span class="menu-title">Stock Opname</span>
+                                    </a>
+                                </div>
                                     @foreach($jenis as $item)
                                     <div class="menu-item">
                                         <a class="menu-link {{request()->is('stock/transaksi/opname/'.$item['jenis']) ? 'active' : ''}}" href="{{url('/').'/stock/transaksi/opname/'.$item['jenis']}}">
@@ -567,7 +575,7 @@
                                         <span class="menu-title">Stock Akhir Baru</span>
                                     </a>
                                 </div>
-                            </div>                        
+                            </div>
                         </div>
                         <div data-kt-menu-trigger="click" class="menu-item {{request()->is('stock/transaksi/internal*') ? 'here show' : ''}} menu-accordion mb-1">
                             <span class="menu-link">
@@ -586,11 +594,11 @@
                                         <span class="menu-title">Stock Masuk Internal</span>
                                     </a>
                                 </div>
-                            </div>                        
+                            </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="menu-item">
                     <div class="menu-content pt-8 pb-0">
                         <span class="menu-section text-muted text-uppercase fs-8 ls-1">Keuangan</span>
@@ -783,7 +791,7 @@
                         </div>
                     </div>
                 </div>
-               
+
             </div>
             <!--end::Menu-->
         </div>
@@ -791,6 +799,6 @@
     </div>
     <!--end::Aside menu-->
     <!--begin::Footer-->
-   
+
     <!--end::Footer-->
 </div>

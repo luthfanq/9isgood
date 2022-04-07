@@ -19,7 +19,6 @@ class NeracaSaldoAwalTable extends DataTableComponent
             Column::make('Pembuat'),
             Column::make('Debet'),
             Column::make('Kredit'),
-            Column::make('Keterangan'),            
             Column::make(''),
         ];
     }

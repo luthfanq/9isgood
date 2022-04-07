@@ -21,5 +21,5 @@
     {{rupiah_format($row->stock_keluar)}}
 </x-atoms.table.td>
 <x-atoms.table.td align="end">
-    {{rupiah_format($row->stock_opname + $row->stock_masuk - $row->stock_keluar)}}
+    {{rupiah_format($row->stock_saldo)}}
 </x-atoms.table.td>

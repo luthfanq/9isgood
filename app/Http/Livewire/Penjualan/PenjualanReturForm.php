@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Penjualan;
 
+use App\Haramain\Repository\Penjualan\PenjualanReturRepo;
 use App\Haramain\Repository\PenjualanReturRepository;
 use App\Models\Master\Customer;
 use App\Models\Master\Gudang;
@@ -50,13 +51,12 @@ class PenjualanReturForm extends Transaksi
             'customer_id'=>'required',
             'gudang_id'=>'required',
             'tgl_nota'=>'required|date_format:d-M-Y',
-            'tgl_tempo'=>'nullable|date_format:d-M-Y',
-            'jenis_bayar'=>'required',
             'total_barang'=>'nullable|numeric',
             'ppn'=>'nullable|numeric',
             'biaya_lain'=>'nullable|numeric',
             'total_bayar'=>'required|numeric',
-            'keterangan'=>'nullable|string'
+            'keterangan'=>'nullable|string',
+            'data_detail'=>'nullable|array'
         ]);
     }
 
@@ -64,26 +64,26 @@ class PenjualanReturForm extends Transaksi
     {
         \DB::beginTransaction();
         try {
-            PenjualanReturRepository::create((object)$this->validatedData(), $this->data_detail);
+            $penjualanRetur = (new PenjualanReturRepo())->store((object)$this->validatedData());
             \DB::commit();
         } catch (ModelNotFoundException $e){
             \DB::rollBack();
             session()->flash('message', $e);
         }
-        return redirect()->to(url('/').'/penjualan/retur/baik');
+        return redirect()->to(url('/').'/penjualan/retur/print/'.$penjualanRetur);
     }
 
     public function update()
     {
         \DB::beginTransaction();
         try {
-            PenjualanReturRepository::update((object)$this->validatedData(), $this->data_detail);
+            $penjualanRetur = (new PenjualanReturRepo())->update((object)$this->validatedData());
             \DB::commit();
         } catch (ModelNotFoundException $e){
             \DB::rollBack();
             session()->flash('message', $e);
         }
-        return redirect()->to(url('/').'/penjualan/retur/baik');
+        return redirect()->to(url('/').'/penjualan/retur/print/'.$penjualanRetur);
     }
 
 }

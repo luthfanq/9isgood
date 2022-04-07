@@ -48,4 +48,33 @@ trait StockMasukRepoTrait
 
         return $stock_masuk;
     }
+
+    public static function storeStockMasukDetail (object $stock_masuk, $row, $gudang, $kondisi, $field_inventory)
+    {
+        $stock_masuk->stockMasukDetail()->create([
+            'produk_id'=>$row['produk_id'],
+            'jumlah'=>$row['jumlah'],
+        ]);
+        StockInventoryRepository::create(
+            (object)[
+                'produk_id' => $row['produk_id'],
+                'jumlah' => $row['jumlah']
+            ],
+            $kondisi,
+            $gudang,
+            $field_inventory
+        );
+    }
+
+    public static function updateStockMasuk(object $stock_masuk,object $data, $kondisi)
+    {
+        $stock_masuk->update([
+            'nomor_surat_jalan'=>$data->surat_jalan,
+            'kondisi'=>$kondisi,
+            'gudang_id'=>$data->gudang_id,
+            'tgl_masuk'=>tanggalan_database_format($data->tgl_nota, 'd-M-Y'),
+            'user_id'=>\Auth::id(),
+            'keterangan'=>$data->keterangan,
+        ]);
+    }
 }

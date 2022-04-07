@@ -1,9 +1,9 @@
 <?php
 
 if (!function_exists('rupiah_format')){
-    function rupiah_format($number)
+    function rupiah_format($number): ?string
     {
-        return number_format($number, 0, ",", ".");
+        return number_format($number, 0, ",", ".") ?? null;
     }
 }
 
@@ -15,16 +15,16 @@ if (!function_exists('diskon_format')){
 }
 
 if (!function_exists('tanggalan_database_format')){
-    function tanggalan_database_format($tanggal, $format): string
+    function tanggalan_database_format($tanggal, $format): ?string
     {
-        return \Carbon\Carbon::createFromFormat($format, $tanggal)->format('Y-m-d');
+        return \Carbon\Carbon::createFromFormat($format, $tanggal)->format('Y-m-d') ?? null;
     }
 }
 
 if (!function_exists('tanggalan_format')){
-    function tanggalan_format($tanggal)
+    function tanggalan_format($tanggal): ?string
     {
-        return \Carbon\Carbon::parse($tanggal)->format('d-M-Y');
+        return \Carbon\Carbon::parse($tanggal)->format('d-M-Y') ?? null;
     }
 }
 

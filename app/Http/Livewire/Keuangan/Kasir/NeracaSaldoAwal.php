@@ -8,6 +8,7 @@ use App\Haramain\Traits\LivewireTraits\ResetFormTraits;
 use App\Models\Keuangan\NeracaSaldoAwalModel;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
+use App\Http\Controllers\Auth;
 
 
 class NeracaSaldoAwal extends Component

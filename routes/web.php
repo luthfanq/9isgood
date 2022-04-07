@@ -42,6 +42,19 @@ Route::middleware('auth')->group(function (){
     Route::get('/master/pegawai/user', \App\Http\Livewire\Master\PegawaiUserIndex::class)->name('pegawai.user');
 });
 
+Route::middleware('auth')->group(function (){
+
+    // closed cash
+    Route::get('closedcash', \App\Http\Livewire\CloseCashIndex::class)->name('closedcash');
+
+    // config hpp
+    Route::get('config/hpp', \App\Http\Livewire\Config\ConfigHpp::class)->name('config.hpp');
+
+    // config jurnal
+    Route::get('config/jurnal', \App\Http\Livewire\Config\ConfigJurnalForm::class)->name('config.jurnal');
+
+});
+
 /**
  * Penjualan Routing
  */
@@ -52,10 +65,13 @@ Route::middleware('auth')->group(function (){
     Route::get('penjualan/trans', \App\Http\Livewire\Penjualan\PenjualanForm::class)->name('penjualan.trans');
     Route::get('penjualan/trans/{penjualan}', \App\Http\Livewire\Penjualan\PenjualanForm::class);
 
+    Route::get('penjualan/print/{penjualan}', [\App\Http\Controllers\Sales\ReceiptController::class, 'penjualanDotMatrix']);
+
     Route::get('penjualan/retur/{kondisi}', \App\Http\Livewire\Penjualan\PenjualanReturIndex::class);
     Route::get('penjualan/retur/{kondisi}/trans', \App\Http\Livewire\Penjualan\PenjualanReturForm::class);
     Route::get('penjualan/retur/{kondisi}/trans/{retur}', \App\Http\Livewire\Penjualan\PenjualanReturForm::class);
 
+    Route::get('penjualan/retur/print/{penjualanRetur}', [\App\Http\Controllers\Sales\ReceiptController::class, 'print']);
 });
 
 Route::middleware('auth')->group(function(){
@@ -65,9 +81,14 @@ Route::middleware('auth')->group(function(){
     Route::get('pembelian/trans', \App\Http\Livewire\Purchase\PembelianForm::class)->name('pembelian.trans');
     Route::get('pembelian/trans/{pembelian}', \App\Http\Livewire\Purchase\PembelianForm::class);
 
-    Route::get('pembelian/retur/', \App\Http\Livewire\Purchase\PembelianReturIndex::class)->name('pembelian.retur');
-    Route::get('pembelian/retur/trans/', \App\Http\Livewire\Purchase\PembelianReturForm::class);
+    Route::get('pembelian/retur/{kondisi}', \App\Http\Livewire\Purchase\PembelianReturIndex::class)->name('pembelian.retur');
+    Route::get('pembelian/retur/{kondisi}/trans/', \App\Http\Livewire\Purchase\PembelianReturForm::class);
     Route::get('pembelian/retur/trans/{retur}', \App\Http\Livewire\Purchase\PembelianReturForm::class);
+
+    // pembelian (dari buku internal)
+    Route::get('pembelian/internal', \App\Http\Livewire\Purchase\PembelianInternalIndex::class)->name('pembelian.internal');
+    Route::get('pembelian/internal/trans', \App\Http\Livewire\Purchase\PembelianInternalForm::class);
+    Route::get('pembelian/internal/trans/{pembelian}', \App\Http\Livewire\Purchase\PembelianInternalForm::class);
 });
 
 /**
@@ -78,6 +99,8 @@ Route::middleware('auth')->group(function (){
     // daftar inventory
     Route::get('stock/inventory', \App\Http\Livewire\Stock\InventoryIndex::class)->name('inventory');
     Route::get('stock/inventory/{jenis}/{gudang}', \App\Http\Livewire\Stock\InventoryByJenisIndex::class);
+
+    Route::get('stock/print/stockopname', [\App\Http\Controllers\Stock\StockOpnameController::class, 'reportStockByProduk'])->name('stock.print.stockopname');
 
     // stock transaksi
     Route::get('stock/transaksi/masuk', \App\Http\Livewire\Stock\StockMasukIndex::class)->name('stock.masuk');
@@ -94,7 +117,7 @@ Route::middleware('auth')->group(function (){
     Route::get('stock/transaksi/opname', \App\Http\Livewire\Stock\StockOpnameIndex::class)->name('stock.opname');
     Route::get('stock/transaksi/opname/{jenis}', \App\Http\Livewire\Stock\StockOpnameIndex::class);
     Route::get('stock/transaksi/opname/trans/{jenis}', \App\Http\Livewire\Stock\StockOpnameForm::class);
-    Route::get('stock/transaksi/opname/trans/{jenis}/{stockopname}', \App\Http\Livewire\Stock\StockOpnameForm::class);
+    Route::get('stock/transaksi/opname/trans/{jenis}/{stockOpname_id}', \App\Http\Livewire\Stock\StockOpnameForm::class);
 
     Route::get('stock/transaksi/mutasi/baik/baik',  \App\Http\Livewire\Stock\StockMutasiBaikBaikIndex::class)->name('stock.mutasi.baik.baik');
     Route::get('stock/transaksi/mutasi/baik/baik/trans',  \App\Http\Livewire\Stock\StockMutasiBaikBaikForm::class)->name('stock.mutasi.baik.baik.trans');

@@ -2,19 +2,20 @@
 
 namespace App\Models\Purchase;
 
-use App\Haramain\Traits\ModelTraits\{
+use App\Models\Keuangan\HutangPembelian;
+use App\Models\Keuangan\PersediaanTransaksi;
+use App\Haramain\Traits\ModelTraits\{JurnalTransaksiTraits,
     KodeTraits,
     StockKeluarTraits,
     SupplierTraits,
     GudangTraits,
-    UserTraits
-};
+    UserTraits};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class PembelianRetur extends Model
 {
-    use HasFactory, KodeTraits, SupplierTraits, GudangTraits, UserTraits, StockKeluarTraits;
+    use HasFactory, KodeTraits, SupplierTraits, GudangTraits, UserTraits, StockKeluarTraits, JurnalTransaksiTraits;
     protected $table = 'pembelian_retur';
     protected $fillable = [
         'kode',
@@ -36,6 +37,16 @@ class PembelianRetur extends Model
 
     public function returDetail()
     {
-        return $this->hasMany(PembelianRetur::class, 'pembelian_id');
+        return $this->hasMany(PembelianReturDetail::class, 'pembelian_retur_id');
+    }
+
+    public function persediaan_transaksi()
+    {
+        return $this->morphOne(PersediaanTransaksi::class, 'persediaanable_transaksi', 'persediaan_type', 'persediaan_id');
+    }
+
+    public function hutang_pembelian()
+    {
+        return $this->morphOne(HutangPembelian::class, 'hutang_pembelian_morph', 'pembelian_type', 'pembelian_id');
     }
 }

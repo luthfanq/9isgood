@@ -27,6 +27,17 @@ class PersediaanJenisMasukRepo
         }
     }
 
+    public static function storeDetail(object $persediaan_transaksi, $row, $gudang, $kondisi)
+    {
+        $persediaan_transaksi->persediaan_transaksi_detail()->create([
+            'produk_id'=>$row['produk_id'],
+            'harga'=>$row['harga_setelah_diskon'],
+            'jumlah'=>$row['jumlah'],
+            'sub_total'=>$row['harga_setelah_diskon'] * $row['jumlah'],
+        ]);
+        PersediaanPerpetualRepo::store($row, 'masuk', $gudang, $kondisi);
+    }
+
     public static function rollback(object $persediaanTransaksi, $debet, $gudang, $detail):void
     {
         $persediaan_transaksi = $persediaanTransaksi->update([

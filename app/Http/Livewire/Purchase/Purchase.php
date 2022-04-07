@@ -26,6 +26,7 @@ class Purchase extends Component
     public mixed $gudang_data;
 
     // master form properties
+    public $jenis; // INTERNAL atau BLU
     public $gudang_id;
     public $tgl_nota, $tgl_tempo, $nomor_nota, $surat_jalan;
     public $jenis_bayar, $status_bayar;
@@ -85,6 +86,10 @@ class Purchase extends Component
         $this->gudang_id = $data->gudang_id;
         $this->keterangan = $data->keterangan;
 
+        // added
+        $this->nomor_nota = $data->nomor_nota;
+        $this->surat_jalan = $data->stockMasukMorph()->first()->nomor_surat_jalan ?? null;
+
         // mount detail
         foreach ($data_detail as $row)
         {
@@ -92,6 +97,7 @@ class Purchase extends Component
                 'produk_id'=>$row->produk_id,
                 'kode_lokal'=>$row->produk->kode_lokal,
                 'nama_produk'=>$row->produk->nama."\n".$row->produk->cover."\n".$row->produk->hal,
+                'harga_setelah_diskon'=>(int) $row->harga - ($row->harga * ((int) $row->diskon)/100),
                 'harga'=>$row->harga,
                 'jumlah'=>$row->jumlah,
                 'diskon'=>$row->diskon,

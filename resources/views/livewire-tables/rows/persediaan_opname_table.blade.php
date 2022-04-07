@@ -1,0 +1,18 @@
+<x-atoms.table.td>
+    {{$row->kode}}
+</x-atoms.table.td>
+<x-atoms.table.td>
+    {{$row->kondisi}}
+</x-atoms.table.td>
+<x-atoms.table.td>
+    {{$row->gudang->nama}}
+</x-atoms.table.td>
+<x-atoms.table.td>
+    {{$row->users->name}}
+</x-atoms.table.td>
+<x-atoms.table.td>
+    {{$row->keterangan}}
+</x-atoms.table.td>
+<x-atoms.table.td>
+    {{$row->id}}
+</x-atoms.table.td>

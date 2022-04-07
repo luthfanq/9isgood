@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::connection('mysql2')->create('konfigurasi_jurnal', function (Blueprint $table) {
             $table->string('config')->primary();
-            $table->unsignedBigInteger('akun_id');
-            $table->text('keterangan');
+            $table->unsignedBigInteger('akun_id')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }
