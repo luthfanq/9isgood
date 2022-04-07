@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Livewire\Datatables;
+namespace App\Http\Livewire\Datatables\Keuangan;
 
 use App\Haramain\Traits\LivewireTraits\DatatablesTraits;
-use App\Models\Keuangan\NeracaSaldo;
+use App\Models\Keuangan\PersediaanOpname;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 
-class NeracaSaldoAwalTable extends DataTableComponent
+class PersediaanOpnameTable extends DataTableComponent
 {
     use DatatablesTraits;
 
@@ -16,20 +16,22 @@ class NeracaSaldoAwalTable extends DataTableComponent
     {
         return [
             Column::make('ID'),
-            Column::make('Akun ID'),
-            Column::make('Debet'),
-            Column::make('Kredit'),
+            Column::make('Kondisi'),
+            Column::make('Gudang'),
+            Column::make('Pembuat'),
+            Column::make('Keterangan'),
             Column::make(''),
         ];
     }
 
     public function query(): Builder
     {
-        return NeracaSaldo::query()->latest();
+        return PersediaanOpname::query()
+            ->where('active_cash', session('ClosedCash'));
     }
 
     public function rowView(): string
     {
-        return 'livewire-tables.rows.neraca_saldo_awal_table';
+        return 'livewire-tables.rows.persediaan_opname_table';
     }
 }

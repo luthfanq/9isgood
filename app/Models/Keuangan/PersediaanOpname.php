@@ -32,4 +32,9 @@ class PersediaanOpname extends Model
     {
         return $this->hasMany(PersediaanOpnameDetail::class, 'persediaan_opname_id');
     }
+
+    public function jurnal_transaksi()
+    {
+        return $this->morphMany(JurnalTransaksi::class, 'jurnalable_transaksi', 'jurnal_type', 'jurnal_id');
+    }
 }

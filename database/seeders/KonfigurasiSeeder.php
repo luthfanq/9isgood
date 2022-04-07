@@ -26,6 +26,8 @@ class KonfigurasiSeeder extends Seeder
             ['config'=>'ppn_penjualan'],
             ['config'=>'persediaan_baik'],
             ['config'=>'persediaan_rusak'],
+            ['config'=>'persediaan_awal'],
+            ['config'=>'modal_persediaan'],
         ]);
     }
 }

@@ -10,14 +10,15 @@
                             </x-atoms.input.group-horizontal>
                         </div>
                         <div class="col-6">
-                            <x-atoms.input.group-horizontal label="Jenis Bayar" name="jenis_bayar" required="required">
-                                <div class="input-group">
-                                    <x-atoms.input.select name="jenis_bayar" wire:model.defer="jenis_bayar">
-                                        <option>Dipilih</option>
-                                        <option value="Tunai">Tunai</option>
-                                        <option value="Tempo">Tempo</option>
-                                    </x-atoms.input.select>
-                                </div>
+                            <x-atoms.input.group-horizontal label="Gudang" name="gudang" required="required">
+                                <x-atoms.input.select name="gudang_id" wire:model.defer="gudang_id">
+                                    <option>Dipilih</option>
+                                    @forelse($gudang_data as $row)
+                                        <option value="{{$row->id}}">{{$row->nama}}</option>
+                                    @empty
+                                        <option>Tidak Ada Data</option>
+                                    @endforelse
+                                </x-atoms.input.select>
                             </x-atoms.input.group-horizontal>
                         </div>
                     </div>
@@ -28,28 +29,6 @@
                                 <div class="input-group">
                                     <x-atoms.input.singledaterange id="tgl_nota" name="tgl_nota" wire:model.defer="tgl_nota"/>
                                 </div>
-                            </x-atoms.input.group-horizontal>
-                        </div>
-                        <div class="col-6">
-                            <x-atoms.input.group-horizontal label="Tgl Tempo" name="tgl_tempo" required="required">
-                                <div class="input-group">
-                                    <x-atoms.input.singledaterange id="tgl_tempo" name="tgl_tempo" wire:model.defer="tgl_tempo"/>
-                                </div>
-                            </x-atoms.input.group-horizontal>
-                        </div>
-                    </div>
-
-                    <div class="row mb-6">
-                        <div class="col-6">
-                            <x-atoms.input.group-horizontal label="Gudang" name="gudang" required="required">
-                                <x-atoms.input.select name="gudang_id" wire:model.defer="gudang_id">
-                                    <option>Dipilih</option>
-                                    @forelse($gudang_data as $row)
-                                        <option value="{{$row->id}}">{{$row->nama}}</option>
-                                    @empty
-                                        <option>Tidak Ada Data</option>
-                                    @endforelse
-                                </x-atoms.input.select>
                             </x-atoms.input.group-horizontal>
                         </div>
                         <div class="col-6">

@@ -4,80 +4,72 @@ use App\Models\Keuangan\Persediaan;
 
 class PersediaanRepository
 {
-    /**
-     * simpan data dengan data input berupa array
-     * @param $data
-     * @param $jenis
-     * @param $gudang
-     * @param $field_stock
-     * @return \Illuminate\Database\Eloquent\Model|int
-     */
-    public static function storeArrayData($data, $jenis,  $gudang, $field_stock): \Illuminate\Database\Eloquent\Model|int
+    public function store(object $dataMaster, array $dataDetail, $field)
     {
-        $query = Persediaan::query()
-            ->where('active_cash', session('ClosedCash'))
-            ->where('jenis', $jenis)
-            ->where('gudang_id', $gudang)
-            ->where('produk_id', $data['produk_id'])
-            ->where('harga', $data['harga']);
-        if ($query->doesntExist()){
-            return Persediaan::query()->create([
-                'active_cash'=>session('ClosedCash'),
-                'jenis'=>$jenis,// baik or buruk
-                'gudang_id'=>$gudang,
-                'produk_id'=>$data['produk_id'],
-                'harga'=>$data['harga'],
-                $field_stock=>$data['jumlah'],
-            ]);
+        $persediaan = Persediaan::query()->create([
+            'active_cash'=>session('ClosedCash'),
+            'jenis'=>$dataMaster->kondisi ?? $dataMaster->jenis,// baik or buruk
+            'gudang_id'=>$dataMaster->gudang_id,
+            'produk_id'=>$dataDetail['produk_id'],
+            'harga'=>$dataDetail['harga_hpp'],
+            $field=>$dataDetail['jumlah']
+        ]);
+
+        if ($field == 'stock_masuk' || 'stock_opname'){
+            $persediaan->increment('stock_saldo', $dataDetail['jumlah']);
         }
-        return $query->increment($field_stock, $data['jumlah']);
+
+        if ($field == 'stock_keluar'){
+            $persediaan->decrement('stock_saldo', $dataDetail['jumlah']);
+        }
+        return $persediaan->id;
     }
 
-    /**
-     * simpan data dari data bentuk object
-     * @param $data
-     * @param $jenis
-     * @param $gudang
-     * @param $field_stock
-     * @return \Illuminate\Database\Eloquent\Model|int
-     */
-    public static function storeObjectData($data, $jenis,  $gudang, $field_stock): \Illuminate\Database\Eloquent\Model|int
+    public function update(object $dataMaster, array $dataDetail, $field)
     {
-        $query = Persediaan::query()
+        $persediaan = Persediaan::query()
             ->where('active_cash', session('ClosedCash'))
-            ->where('jenis', $jenis)
-            ->where('gudang_id', $gudang)
-            ->where('produk_id', $data->produk_id)
-            ->where('harga', $data->harga);
-        if ($query->doesntExist()){
-            return Persediaan::query()->create([
-                'active_cash'=>session('ClosedCash'),
-                'jenis'=>$jenis,// baik or buruk
-                'gudang_id'=>$gudang,
-                'produk_id'=>$data->produk_id,
-                'harga'=>$data->harga,
-                $field_stock=>$data->jumlah,
-            ]);
+            ->where('jenis', $dataMaster->kondisi ?? $dataMaster->jenis)
+            ->where('gudang_id', $dataMaster->gudang_id)
+            ->where('produk_id', $dataDetail['produk_id'])
+            ->where('harga', $dataDetail['harga_hpp']);
+
+        if ($persediaan->doesntExist()){
+            return $this->store($dataMaster, $dataDetail, $field);
         }
-        return $query->increment($field_stock, $data->jumlah);
+
+        $persediaan = $persediaan->first();
+
+        $persediaan->increment($field, $dataDetail['jumlah']);
+
+        if ($field == 'stock_masuk' || 'stock_opname'){
+            $persediaan->increment('stock_saldo', $dataDetail['jumlah']);
+        }
+
+        if ($field == 'stock_keluar'){
+            $persediaan->decrement('stock_saldo', $dataDetail['jumlah']);
+        }
+        return $persediaan->id;
     }
 
-    /**
-     * rollback object data
-     * @param $data
-     * @param $jenis
-     * @param $gudang
-     * @param $field_stock
-     * @return int
-     */
-    public static function rollbackObjectData($data, $jenis, $gudang, $field_stock)
+    public function rollback(object $dataMaster, object $dataDetail, $field)
     {
-        $query = Persediaan::query()
+        $persediaan = Persediaan::query()
             ->where('active_cash', session('ClosedCash'))
-            ->where('jenis', $jenis)
-            ->where('gudang_id', $gudang)
-            ->where('produk_id', $data->produk_id)
-            ->where('harga', $data->harga);
-        return $query->decrement($field_stock, $data->jumlah);
+            ->where('jenis', $dataMaster->kondisi ?? $dataMaster->jenis)
+            ->where('gudang_id', $dataMaster->gudang_id)
+            ->where('produk_id', $dataDetail['produk_id'])
+            ->where('harga', $dataDetail['harga_hpp'])->first();
+
+        $persediaan->decrement($field, $dataDetail['jumlah']);
+
+        if ($field == 'stock_masuk' || 'stock_opname'){
+            $persediaan->decrement('stock_saldo', $dataDetail['jumlah']);
+        }
+
+        if ($field == 'stock_keluar'){
+            $persediaan->increment('stock_saldo', $dataDetail['jumlah']);
+        }
+        return $persediaan->id;
     }
 }

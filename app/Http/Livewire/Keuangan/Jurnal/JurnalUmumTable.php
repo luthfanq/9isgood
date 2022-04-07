@@ -1,35 +1,36 @@
 <?php
 
-namespace App\Http\Livewire\Datatables;
+namespace App\Http\Livewire\Keuangan\Jurnal;
 
 use App\Haramain\Traits\LivewireTraits\DatatablesTraits;
-use App\Models\Keuangan\NeracaSaldo;
+use App\Models\Keuangan\JurnalUmum;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 
-class NeracaSaldoAwalTable extends DataTableComponent
+class JurnalUmumTable extends DataTableComponent
 {
     use DatatablesTraits;
 
     public function columns(): array
     {
         return [
-            Column::make('ID'),
-            Column::make('Akun ID'),
-            Column::make('Debet'),
-            Column::make('Kredit'),
+            Column::make('Kode'),
+            Column::make('Tanggal'),
             Column::make(''),
+            Column::make('Pembuat'),
+            Column::make('Keterangan'),
         ];
     }
 
     public function query(): Builder
     {
-        return NeracaSaldo::query()->latest();
+        return JurnalUmum::query()
+            ->where('active_cash', session('ClosedCash'));
     }
 
     public function rowView(): string
     {
-        return 'livewire-tables.rows.neraca_saldo_awal_table';
+        return 'livewire-tables.rows.jurnal_umum_table';
     }
 }

@@ -1,10 +1,8 @@
 <div>
     <x-molecules.card title="Daftar Neraca Saldo Awal">
-        <x-slot name="toolbar">
-            <x-atoms.button.btn-modal target="#modal_form">New Data</x-atoms.button.btn-modal>
-        </x-slot>
         <livewire:datatables.neraca-saldo-awal-table />
     </x-molecules.card>
+
 
     <x-molecules.modal title="Form Neraca Saldo Awal" id="modal_form" size="lg" wire:ignore.self>
         <form>

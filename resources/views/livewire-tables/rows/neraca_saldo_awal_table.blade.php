@@ -11,9 +11,6 @@
     {{$row->kredit}}
 </x-atoms.table.td>
 <x-atoms.table.td>
-    {{$row->keterangan}}
-</x-atoms.table.td>
-<x-atoms.table.td>
     <x-atoms.button.btn-icon onclick="Livewire.emit('edit', {{$row->id}})">
         <i class="bi bi-check2-square fs-3"></i>
     </x-atoms.button.btn-icon>
