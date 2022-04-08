@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function (){
     Route::get('keuangan/kasir/hutangpembelian')->name('keuangan.kasir.hutangpembelian'); // daftar hutang by supplier
 
     // hutang pegawai
-    Route::get('keuangan/kasir/piutanginternal')->name('keuangan.kasir.piutanginternal');
+    Route::get('keuangan/kasir/piutanginternal', \App\Http\Livewire\Keuangan\Jurnal\PenerimaanPiutangInternal::class)->name('keuangan.kasir.piutanginternal');
     Route::get('keuangan/kasir/piutanginternal/pembayaran')->name('keuangan.kasir.piutanginternal.pembayaran');
     Route::get('keuangan/kasir/piutanginternal/pembayaran/{id}');
     Route::get('keuangan/kasir/piutanginternal/penerimaan')->name('keuangan.kasir.piutanginternal.penerimaan');
