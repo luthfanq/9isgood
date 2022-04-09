@@ -730,11 +730,17 @@
                             </span>
                             <div class="menu-sub menu-sub-accordion">
                                 <div class="menu-item">
-                                    <a class="menu-link {{request()->is('keuangan/config/akun') ? 'active' : ''}}" href="{{route('keuangan.config')}}">
+                                    <a class="menu-link {{request()->is('keuangan/config/jurnal') ? 'active' : ''}}" href="{{route('config.jurnal')}}">
 														<span class="menu-bullet">
 															<span class="bullet bullet-dot"></span>
 														</span>
-                                        <span class="menu-title">Konfigurasi Jurnal</span>
+                                        <span class="menu-title">Jurnal</span>
+                                    </a>
+                                    <a class="menu-link {{request()->is('keuangan/config/hpp') ? 'active' : ''}}" href="{{route('config.hpp')}}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+                                        <span class="menu-title">Hpp</span>
                                     </a>
                                 </div>
                             </div>

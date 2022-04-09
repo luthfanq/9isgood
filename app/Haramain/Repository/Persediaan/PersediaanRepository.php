@@ -11,7 +11,7 @@ class PersediaanRepository
             'jenis'=>$dataMaster->kondisi ?? $dataMaster->jenis,// baik or buruk
             'gudang_id'=>$dataMaster->gudang_id,
             'produk_id'=>$dataDetail['produk_id'],
-            'harga'=>$dataDetail['harga_hpp'],
+            'harga'=>$dataDetail['harga_hpp'] ?? $dataDetail['harga'],
             $field=>$dataDetail['jumlah']
         ]);
 
@@ -32,7 +32,7 @@ class PersediaanRepository
             ->where('jenis', $dataMaster->kondisi ?? $dataMaster->jenis)
             ->where('gudang_id', $dataMaster->gudang_id)
             ->where('produk_id', $dataDetail['produk_id'])
-            ->where('harga', $dataDetail['harga_hpp']);
+            ->where('harga', $dataDetail['harga_hpp'] ?? $dataDetail['harga']);
 
         if ($persediaan->doesntExist()){
             return $this->store($dataMaster, $dataDetail, $field);
@@ -69,6 +69,27 @@ class PersediaanRepository
 
         if ($field == 'stock_keluar'){
             $persediaan->increment('stock_saldo', $dataDetail['jumlah']);
+        }
+        return $persediaan->id;
+    }
+
+    public function rollbackObject(object $dataMaster, object $dataDetail, $field)
+    {
+        $persediaan = Persediaan::query()
+            ->where('active_cash', session('ClosedCash'))
+            ->where('jenis', $dataMaster->kondisi ?? $dataMaster->jenis)
+            ->where('gudang_id', $dataMaster->gudang_id)
+            ->where('produk_id', $dataDetail->produk_id)
+            ->where('harga', $dataDetail->harga)->first();
+
+        $persediaan->decrement($field, $dataDetail->jumlah);
+
+        if ($field == 'stock_masuk' || 'stock_opname'){
+            $persediaan->decrement('stock_saldo', $dataDetail->jumlah);
+        }
+
+        if ($field == 'stock_keluar'){
+            $persediaan->increment('stock_saldo',$dataDetail->jumlah);
         }
         return $persediaan->id;
     }

@@ -28,6 +28,8 @@ class KonfigurasiSeeder extends Seeder
             ['config'=>'persediaan_rusak'],
             ['config'=>'persediaan_awal'],
             ['config'=>'modal_persediaan'],
+            ['config'=>'akun_persediaan_awal'],
+            ['config'=>'akun_modal_persediaan'],
         ]);
     }
 }

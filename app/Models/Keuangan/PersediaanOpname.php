@@ -3,6 +3,7 @@
 namespace App\Models\Keuangan;
 
 use App\Haramain\Traits\ModelTraits\GudangTraits;
+use App\Haramain\Traits\ModelTraits\KodeTraits;
 use App\Haramain\Traits\ModelTraits\UserTraits;
 use App\Models\Stock\StockOpname;
 use App\Models\Stock\StockOpnameDetail;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PersediaanOpname extends Model
 {
-    use HasFactory, GudangTraits, UserTraits;
+    use HasFactory, GudangTraits, UserTraits, KodeTraits;
     protected $table = 'haramain_keuangan.persediaan_opname';
     protected $fillable = [
         'kode',

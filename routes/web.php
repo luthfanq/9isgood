@@ -48,10 +48,10 @@ Route::middleware('auth')->group(function (){
     Route::get('closedcash', \App\Http\Livewire\CloseCashIndex::class)->name('closedcash');
 
     // config hpp
-    Route::get('config/hpp', \App\Http\Livewire\Config\ConfigHpp::class)->name('config.hpp');
+    Route::get('keuangan/config/hpp', \App\Http\Livewire\Config\ConfigHpp::class)->name('config.hpp');
 
     // config jurnal
-    Route::get('config/jurnal', \App\Http\Livewire\Config\ConfigJurnalForm::class)->name('config.jurnal');
+    Route::get('keuangan/config/jurnal', \App\Http\Livewire\Config\ConfigJurnalForm::class)->name('config.jurnal');
 
 });
 

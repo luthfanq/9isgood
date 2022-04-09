@@ -69,8 +69,9 @@ Route::middleware('auth')->group(function (){
     Route::get('keuangan/persediaan/awal/temp', \App\Http\Livewire\Keuangan\PersediaanTempIndex::class);
 
     // persediaan opname
-    Route::get('keuangan/persediaan/opname', \App\Http\Livewire\Keuangan\PersediaanOpnameIndex::class);
+    Route::get('keuangan/persediaan/opname', \App\Http\Livewire\Keuangan\PersediaanOpnameIndex::class)->name('persediaan.opname');
     Route::get('keuangan/persediaan/opname/trans', \App\Http\Livewire\Keuangan\PersediaanOpnameForm::class);
+    Route::get('keuangan/persediaan/opname/trans/{persediaanOpnameId}', \App\Http\Livewire\Keuangan\PersediaanOpnameForm::class)->name('persediaan.opname.trans');
 
     // laba-rugi
     Route::get('keuangan/labarugi')->name('keuangan.labarugi');

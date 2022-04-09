@@ -13,6 +13,18 @@ class PersediaanAwalTempTable extends DataTableComponent
     use DatatablesTraits;
 
     protected string $pageName = 'persediaanawal';
+    public $kondisi = 'baik';
+    public $gudang_id = 1;
+
+    protected $listeners = [
+        'refreshDatatable'=>'$refresh',
+        'setGudang'
+    ];
+
+    public function setGudang($gudang_id)
+    {
+        $this->gudang_id = $gudang_id;
+    }
 
     public function columns(): array
     {
@@ -20,7 +32,8 @@ class PersediaanAwalTempTable extends DataTableComponent
             Column::make('ID'),
             Column::make('Kondisi'),
             Column::make('Gudang'),
-            Column::make('Produk'),
+            Column::make('Produk', 'produk.nama')
+                ->searchable(),
             Column::make('Jumlah'),
             Column::make(''),
         ];
@@ -28,10 +41,11 @@ class PersediaanAwalTempTable extends DataTableComponent
 
     public function query(): Builder
     {
-        return PersediaanAwalTemporary::query()
-            ->leftJoin('produk', 'haramain_keuangan.persediaan_awal_temporary.produk_id', '=', 'produk.id')
-            ->where('active_cash', session('ClosedCash'))
-            ->oldest('produk.nama');
+        return PersediaanAwalTemporary::query()->with('produk', 'produk.kategoriHarga')
+            ->where('kondisi', $this->kondisi)
+            ->where('gudang_id', $this->gudang_id)
+            ->where('jumlah', '>', 0)
+            ->oldest('produk_id');
     }
 
     public function rowView(): string

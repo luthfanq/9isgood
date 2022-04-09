@@ -32,6 +32,29 @@ class NeracaSaldoRepository
         return $neraca->increment('kredit', $data['nominal_kredit']);
     }
 
+    public function updateOneRow($akunId, $nominalDebet, $nominalKredit)
+    {
+        $neraca = NeracaSaldo::query()
+            ->where('active_cash', session('ClosedCash'))
+            ->where('akun_id', $akunId);
+
+        if ($neraca->doesntExist()){
+            return NeracaSaldo::query()->create([
+                'active_cash'=>session('ClosedCash'),
+                'akun_id'=>$akunId,
+                'debet'=>$nominalDebet,
+                'kredit'=>$nominalKredit,
+            ]);
+        }
+        $neraca = $neraca->first();
+
+        if ($nominalDebet != null){
+            return $neraca->increment('debet', $nominalDebet);
+        }
+
+        return $neraca->increment('kredit', $nominalKredit);
+    }
+
     public function rollback($data)
     {
         $neraca = NeracaSaldo::query()

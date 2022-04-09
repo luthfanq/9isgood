@@ -27,17 +27,26 @@ class PersediaanAwalTempRepo
         if ($query->doesntExist()){
             return $this->store($datamaster, $datadetail);
         }
-
-        return $query;
+        return $query->increment('jumlah', $datadetail->jumlah);
     }
 
-    public function updateIncrement($datamaster, $datadetail)
+    public function decrement($datamaster, array $datadetail): int
     {
-        return $this->update($datamaster, $datadetail)->increment('jumlah', $datadetail->jumlah);
+        return PersediaanAwalTemporary::query()
+            ->where('active_cash', session('ClosedCash'))
+            ->where('gudang_id', $datamaster->gudang_id)
+            ->where('kondisi', $datamaster->kondisi ?? $datamaster->jenis)
+            ->where('produk_id', $datadetail['produk_id'])
+            ->decrement('jumlah', $datadetail['jumlah']);
     }
 
-    public function updateDecrement($datamaster, $datadetail)
+    public function increment($datamaster, array|object $datadetail)
     {
-        return $this->update($datamaster, $datadetail)->decrement('jumlah', $datadetail->jumlah);
+        return PersediaanAwalTemporary::query()
+            ->where('active_cash', session('ClosedCash'))
+            ->where('gudang_id', $datamaster->gudang_id)
+            ->where('kondisi', $datamaster->kondisi ?? $datamaster->jenis)
+            ->where('produk_id', $datadetail['produk_id'] ?? $datadetail->produk_id)
+            ->increment('jumlah', $datadetail['jumlah'] ?? $datadetail->jumlah);
     }
 }

@@ -16,6 +16,7 @@ class HargaHppSeeder extends Seeder
     public function run()
     {
         DB::connection('mysql2')->table('harga_hpp_all')->insertOrIgnore([
+            'id'=>1,
             'deskripsi'=>'HPP Internal',
             'harga'=>null,
             'persen'=>null,

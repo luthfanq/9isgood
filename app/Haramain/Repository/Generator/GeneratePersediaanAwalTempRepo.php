@@ -21,7 +21,7 @@ class GeneratePersediaanAwalTempRepo
             foreach ($stockDetail as $item)
             {
                 // ditambahkan pada persediaan awal temporary
-                $persediaanAwalTemp->updateIncrement($row, $item);
+                $persediaanAwalTemp->update($row, $item);
             }
         }
     }
