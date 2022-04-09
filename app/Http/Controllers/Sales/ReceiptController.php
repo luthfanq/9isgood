@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class ReceiptController extends Controller
 {
-    public function print(Penjualan $penjualan)
+    public function penjualanDotMatrix(Penjualan $penjualan)
     {
         $dataPenjualan = [
             'penjualanId' => $penjualan->kode,
