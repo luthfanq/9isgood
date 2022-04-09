@@ -35,6 +35,11 @@ Route::middleware('auth')->group(function (){
     Route::get('keuangan/kasir/piutanginternal/penerimaan')->name('keuangan.kasir.piutanginternal.penerimaan');
     Route::get('keuangan/kasir/piutanginternal/penerimaan/{id}');
 
+    // piutang penjualan
+    Route::get('keuangan/penjualan/piutang', \App\Http\Livewire\Keuangan\Kasir\PiutangPenjualanIndex::class)->name('penjualan.piutang');
+    Route::get('keuangan/penjualan/piutang/trans', \App\Http\Livewire\Keuangan\Kasir\PiutangPenjualanForm::class)->name('penjualan.piutang.trans');
+    Route::get('keuangan/penjualan/piutang/trans/{piutangId}', \App\Http\Livewire\Keuangan\Kasir\PiutangPenjualanForm::class)->name('penjualan.piutang.trans.piutangId');
+
     // penerimaan
     Route::get('keuangan/jurnal/penerimaan')->name('keuangan.jurnal.penerimaan');
     Route::get('keuangan/jurnal/penerimaan/trans')->name('keuangan.jurnal.penerimaan.trans');

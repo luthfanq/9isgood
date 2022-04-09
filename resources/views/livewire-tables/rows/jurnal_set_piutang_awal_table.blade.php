@@ -1,0 +1,18 @@
+<x-atoms.table.td>
+    {{$row->kode}}
+</x-atoms.table.td>
+<x-atoms.table.td>
+    {{$row->tgl_jurnal}}
+</x-atoms.table.td>
+<x-atoms.table.td>
+    {{$row->customer->nama}}
+</x-atoms.table.td>
+<x-atoms.table.td>
+    {{$row->users->name}}
+</x-atoms.table.td>
+<x-atoms.table.td>
+    {{$row->keterangan}}
+</x-atoms.table.td>
+<x-atoms.table.td>
+    {{$row->kode}}
+</x-atoms.table.td>

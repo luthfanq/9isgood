@@ -655,6 +655,33 @@
                                 </div>
                             </div>
                         </div>
+                        <div data-kt-menu-trigger="click" class="menu-item {{request()->is('keuangan/penjualan/*') ? 'here show' : ''}} menu-accordion mb-1">
+                            <span class="menu-link">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Penjualan</span>
+                                <span class="menu-arrow"></span>
+                            </span>
+                            <div class="menu-sub menu-sub-accordion">
+                                <div class="menu-item">
+                                    <a class="menu-link {{request()->is('keuangan/penjualan') ? 'active' : ''}}" href="{{route('keuangan.master.akun')}}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+                                        <span class="menu-title">Penerimaan Penjualan</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item">
+                                    <a class="menu-link {{request()->is('keuangan/penjualan/piutang') ? 'active' : ''}}" href="{{route('penjualan.piutang')}}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+                                        <span class="menu-title">Piutang Penjualan</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                         <div data-kt-menu-trigger="click" class="menu-item {{request()->is('keuangan/jurnal/*') ? 'here show' : ''}} menu-accordion mb-1">
                             <span class="menu-link">
                                 <span class="menu-bullet">

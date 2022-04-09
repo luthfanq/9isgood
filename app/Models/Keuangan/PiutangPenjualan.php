@@ -14,6 +14,7 @@ class PiutangPenjualan extends Model
 
     protected $fillable = [
         'saldo_piutang_penjualan_id',
+        'jurnal_set_piutang_awal_id',
         'penjualan_id',
         'status_bayar', // enum ['lunas', 'belum', 'kurang']
         'kurang_bayar',
@@ -22,5 +23,10 @@ class PiutangPenjualan extends Model
     public function saldo_piutang_penjualan()
     {
         return $this->belongsTo(SaldoPiutangPenjualan::class, 'saldo_piutang_penjualan_id', 'customer_id');
+    }
+
+    public function jurnal_set_piutang_awal()
+    {
+        return $this->belongsTo(JurnalSetPiutangAwal::class, 'jurnal_set_piutang_awal_id');
     }
 }
