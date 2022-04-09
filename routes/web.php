@@ -71,7 +71,7 @@ Route::middleware('auth')->group(function (){
     Route::get('penjualan/retur/{kondisi}/trans', \App\Http\Livewire\Penjualan\PenjualanReturForm::class);
     Route::get('penjualan/retur/{kondisi}/trans/{retur}', \App\Http\Livewire\Penjualan\PenjualanReturForm::class);
 
-    Route::get('penjualan/retur/print/{penjualanRetur}', [\App\Http\Controllers\Sales\ReceiptController::class, 'print']);
+    Route::get('penjualan/retur/print/{penjualanRetur}', [\App\Http\Controllers\Sales\ReceiptController::class, 'penjualanReturDotMatrix']);
 });
 
 Route::middleware('auth')->group(function(){
