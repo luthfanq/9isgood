@@ -12,10 +12,14 @@ class AkunTable extends DataTableComponent
 {
     use DatatablesTraits;
 
+    public bool $singleColumnSorting = true;
+
     public function columns(): array
     {
         return [
-            Column::make('Kode'),
+            Column::make('Kode', 'kode')
+                ->sortable()
+                ->searchable(),
             Column::make('Tipe'),
             Column::make('Kategori'),
             Column::make('Akun'),
@@ -26,7 +30,7 @@ class AkunTable extends DataTableComponent
 
     public function query(): Builder
     {
-        return Akun::query()->latest();
+        return Akun::query();
     }
 
     public function rowView(): string

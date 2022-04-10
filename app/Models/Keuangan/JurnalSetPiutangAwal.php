@@ -25,4 +25,9 @@ class JurnalSetPiutangAwal extends Model
     {
         return $this->hasMany(PiutangPenjualan::class, 'jurnal_set_piutang_awal_id');
     }
+
+    public function jurnal_transaksi()
+    {
+        return $this->morphMany(JurnalTransaksi::class, 'jurnalable_transaksi', 'jurnal_type', 'jurnal_id');
+    }
 }
