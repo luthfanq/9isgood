@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a13eeabfbe44fe381ae2478a1b083f6b",
+    "content-hash": "c5c6f2d7693eeb933da0facf0515e62b",
     "packages": [
         {
             "name": "barryvdh/laravel-snappy",
@@ -3346,16 +3346,16 @@
         },
         {
             "name": "rappasoft/laravel-livewire-tables",
-            "version": "v1.24.0",
+            "version": "v1.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rappasoft/laravel-livewire-tables.git",
-                "reference": "3836d7fef740b5606665463071ecc9b75f752b30"
+                "reference": "57a18f89a8f0976f6e501df0022d37614621fd89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rappasoft/laravel-livewire-tables/zipball/3836d7fef740b5606665463071ecc9b75f752b30",
-                "reference": "3836d7fef740b5606665463071ecc9b75f752b30",
+                "url": "https://api.github.com/repos/rappasoft/laravel-livewire-tables/zipball/57a18f89a8f0976f6e501df0022d37614621fd89",
+                "reference": "57a18f89a8f0976f6e501df0022d37614621fd89",
                 "shasum": ""
             },
             "require": {
@@ -3406,7 +3406,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rappasoft/laravel-livewire-tables/issues",
-                "source": "https://github.com/rappasoft/laravel-livewire-tables/tree/v1.24.0"
+                "source": "https://github.com/rappasoft/laravel-livewire-tables/tree/v1.25.0"
             },
             "funding": [
                 {
@@ -3414,7 +3414,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-02-13T17:12:05+00:00"
+            "time": "2022-03-29T03:32:44+00:00"
         },
         {
             "name": "spatie/laravel-package-tools",

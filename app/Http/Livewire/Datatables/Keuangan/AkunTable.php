@@ -12,6 +12,9 @@ class AkunTable extends DataTableComponent
 {
     use DatatablesTraits;
 
+    public string $defaultSortColumn = 'kode';
+    public string $defaultSortDirection = 'desc';
+
     public function columns(): array
     {
         return [
