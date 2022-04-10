@@ -13,12 +13,14 @@ class AkunSetTable extends DataTableComponent
     use DatatablesTraits;
 
     public string $defaultSortColumn = 'kode';
-    public string $defaultSortDirection = 'desc';
+    public string $defaultSortDirection = 'asc';
 
     public function columns(): array
     {
         return [
-        Column::make('Kategori', 'akun_kategori_id'),
+        Column::make('Kategori', 'akun_kategori_id')
+            ->sortable()
+            ->searchable(),
         Column::make('Tipe', 'akun_tipe_id'),
         Column::make('Kode', 'kode'),
         Column::make('Deskripsi', 'deskripsi')
