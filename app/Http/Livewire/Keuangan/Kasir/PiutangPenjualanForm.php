@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Keuangan\Kasir;
 
+use App\Models\KonfigurasiJurnal;
 use App\Models\Master\Customer;
 use App\Models\Penjualan\Penjualan;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -14,28 +15,41 @@ class PiutangPenjualanForm extends Component
         return view('livewire.keuangan.kasir.piutang-penjualan-form');
     }
 
+    protected $listeners = [
+        'setPenjualan',
+        'set_customer'=>'setCustomer'
+    ];
+
     // var customer
     public $customer_id, $customer_nama;
+    public $tgl_jurnal, $keterangan;
 
     // var detail
     public $data_detail = [];
 
     // var jurnal transaksi
-    public $akun_modal_piutang; // debet
-    public $akun_piutang_penjualan; // kredit
-    public $akun_ppn; // kredit
+    public $modal_piutang_awal; // debet
+    public $piutang_usaha; // kredit
+    public $ppn_penjualan; // kredit
     public $akun_modal_biaya_lain; // kredit
+
+    public function mount($piutangPenjualanId = null)
+    {
+        $this->tgl_jurnal = tanggalan_format(now('ASIA/JAKARTA'));
+    }
 
     protected function setAkunJurnal()
     {
         // set aku from config
+        $this->modal_piutang_awal = KonfigurasiJurnal::find('modal_piutang_awal')->akun_id;
+        $this->piutang_usaha = KonfigurasiJurnal::find('piutang_usaha')->akun_id;
+        $this->ppn_penjualan = KonfigurasiJurnal::find('ppn_penjualan')->akun_id;
     }
 
     public function setCustomer(Customer $customer)
     {
         $this->customer_id = $customer->id;
         $this->customer_nama = $customer->nama;
-        $this->emit('setCustomer', $customer->id);
     }
 
     public function validateButton()
@@ -49,6 +63,7 @@ class PiutangPenjualanForm extends Component
     {
         $this->data_detail [] = [
             'penjualan_id'=>$penjualan->id,
+            'penjualan_kode'=>$penjualan->kode,
             'penjualan_total_bayar'=>$penjualan->total_bayar,
             'penjualan_biaya_lain'=>$penjualan->biaya_lain,
             'penjualan_ppn'=>$penjualan->ppn,
