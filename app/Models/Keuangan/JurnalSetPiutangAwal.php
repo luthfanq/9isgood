@@ -18,6 +18,7 @@ class JurnalSetPiutangAwal extends Model
         'tgl_jurnal',
         'customer_id',
         'user_id',
+        'total_piutang',
         'keterangan',
     ];
 

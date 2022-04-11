@@ -121,10 +121,16 @@ class PersediaanOpnameRepository
             'nominal_kredit' => $data->total_persediaan,
             'keterangan' => $data->keterangan
         ]);
-        // update neraca saldo awal debet
-        (new NeracaSaldoRepository())->updateOneRow($data->akun_persediaan_awal, $data->total_persediaan, null);
+        if($persediaanOpname->gudang->nama == 'kalimas'){
+            // update neraca saldo awal debet
+            (new NeracaSaldoRepository())->updateOneRow($data->akun_persediaan_awal_kalimas, $data->total_persediaan, null);
+        } elseif ($persediaanOpname->gudang->nama == 'perak'){
+            // update neraca saldo awal debet
+            (new NeracaSaldoRepository())->updateOneRow($data->akun_persediaan_awal_perak, $data->total_persediaan, null);
+        }
         // update neraca saldo awal kredit
-        (new NeracaSaldoRepository())->updateOneRow($data->akun_modal_persediaan, null, $data->total_persediaan);
+        (new NeracaSaldoRepository())->updateOneRow($data->prive_modal_awal, null, $data->total_persediaan);
+
         return $persediaanOpname->id;
     }
 }

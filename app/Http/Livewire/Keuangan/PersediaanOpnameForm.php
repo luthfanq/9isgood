@@ -39,7 +39,7 @@ class PersediaanOpnameForm extends Component
     public $total_persediaan;
 
     // var for jurnal_transaksi
-    public $akun_persediaan_awal, $akun_modal_persediaan;
+    public $persediaan_awal_kalimas, $persediaan_awal_perak, $prive_modal_awal;
 
     // url exception
     public $urlConfigHpp, $urlConfigJurnal;
@@ -99,12 +99,11 @@ class PersediaanOpnameForm extends Component
     // set for jurnal_transaksi
     public function setJurnalTransaksi()
     {
-        $configQuery = KonfigurasiJurnal::query();
-        $this->akun_persediaan_awal = $configQuery->firstWhere('config', 'akun_persediaan_awal')->akun_id;
-        $configQuery = KonfigurasiJurnal::query();
-        $this->akun_modal_persediaan = $configQuery->firstWhere('config', 'akun_modal_persediaan')->akun_id;
+        $this->persediaan_awal_kalimas = KonfigurasiJurnal::query()->firstWhere('config', 'akun_persediaan_awal_kalimas')->akun_id;
+        $this->persediaan_awal_perak = KonfigurasiJurnal::query()->firstWhere('config', 'akun_persediaan_awal_perak')->akun_id;
+        $this->prive_modal_awal = KonfigurasiJurnal::query()->firstWhere('config', 'prive_modal_awal')->akun_id;
 
-        if ($this->akun_persediaan_awal == null || $this->akun_modal_persediaan == null){
+        if ($this->persediaan_awal_kalimas == null || $this->persediaan_awal_perak == null){
             // pop up disable form and must be redirect to config jurnal
             session()->flash('setJurnalTransaksi', 'Isi Data Config Dulu');
             $this->urlConfigJurnal = route('config.jurnal');
@@ -207,8 +206,9 @@ class PersediaanOpnameForm extends Component
             'tujuan'=>'nullable',
             'total_persediaan'=>'required',
             'keterangan'=>'nullable',
-            'akun_persediaan_awal'=>'required',
-            'akun_modal_persediaan'=>'required',
+            'akun_persediaan_awal_kalimas'=>'required',
+            'akun_persediaan_awal_perak'=>'required',
+            'prive_modal_awal'=>'required',
             'data_detail'=>'required'
         ]);
         \DB::beginTransaction();
@@ -224,14 +224,15 @@ class PersediaanOpnameForm extends Component
     public function update(){
         $this->total_persediaan = array_sum(array_column($this->data_detail, 'sub_total'));
         $validate = $this->validate([
-            'persediaan_opname_id'=>'required',
+            'persediaan_opname_id'=>'nullable',
             'kondisi'=>'required',
             'gudang_id'=>'required',
             'tujuan'=>'nullable',
             'total_persediaan'=>'required',
             'keterangan'=>'nullable',
-            'akun_persediaan_awal'=>'required',
-            'akun_modal_persediaan'=>'required',
+            'akun_persediaan_awal_kalimas'=>'required',
+            'akun_persediaan_awal_perak'=>'required',
+            'prive_modal_awal'=>'required',
             'data_detail'=>'required'
         ]);
         \DB::beginTransaction();

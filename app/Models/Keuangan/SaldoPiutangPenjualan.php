@@ -17,7 +17,7 @@ class SaldoPiutangPenjualan extends Model
     protected $primaryKey = 'customer_id';
 
     protected $fillable = [
-        'saldo'
+        'customer_id','saldo'
     ];
 
     public function piutang_penjualan()

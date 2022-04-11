@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function (){
     // piutang penjualan
     Route::get('keuangan/penjualan/piutang', \App\Http\Livewire\Keuangan\Kasir\PiutangPenjualanIndex::class)->name('penjualan.piutang');
     Route::get('keuangan/penjualan/piutang/trans', \App\Http\Livewire\Keuangan\Kasir\PiutangPenjualanForm::class)->name('penjualan.piutang.trans');
-    Route::get('keuangan/penjualan/piutang/trans/{piutangId}', \App\Http\Livewire\Keuangan\Kasir\PiutangPenjualanForm::class)->name('penjualan.piutang.trans.piutangId');
+    Route::get('keuangan/penjualan/piutang/trans/{jurnalSetPiutangId}', \App\Http\Livewire\Keuangan\Kasir\PiutangPenjualanForm::class)->name('penjualan.piutang.trans.piutangId');
 
     // penerimaan
     Route::get('keuangan/jurnal/penerimaan')->name('keuangan.jurnal.penerimaan');
@@ -75,7 +75,7 @@ Route::middleware('auth')->group(function (){
 
     // persediaan opname
     Route::get('keuangan/persediaan/opname', \App\Http\Livewire\Keuangan\PersediaanOpnameIndex::class)->name('persediaan.opname');
-    Route::get('keuangan/persediaan/opname/trans', \App\Http\Livewire\Keuangan\PersediaanOpnameForm::class);
+    Route::get('keuangan/persediaan/opname/trans', \App\Http\Livewire\Keuangan\PersediaanOpnameForm::class)->name('persediaan.opname.t');
     Route::get('keuangan/persediaan/opname/trans/{persediaanOpnameId}', \App\Http\Livewire\Keuangan\PersediaanOpnameForm::class)->name('persediaan.opname.trans');
 
     // laba-rugi

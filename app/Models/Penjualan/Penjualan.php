@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Penjualan extends Model
 {
     use HasFactory, KodeTraits, CustomerTraits, GudangTraits, UserTraits, StockKeluarTraits;
-    protected $table = 'penjualan';
+    protected $table = 'haramainv2.penjualan';
     protected $fillable = [
         'kode',
         'active_cash',

@@ -16,7 +16,7 @@
                     </div>
                     <div class="col-6 mb-5">
                         <x-atoms.button.btn-modal target="#penjualan_modal">Add Nota</x-atoms.button.btn-modal>
-                        <x-atoms.button.btn-danger>Simpan</x-atoms.button.btn-danger>
+                        <x-atoms.button.btn-danger wire:click="store">Simpan</x-atoms.button.btn-danger>
                     </div>
                 </div>
 
