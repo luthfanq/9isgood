@@ -77,9 +77,9 @@ Route::middleware('auth')->group(function (){
 Route::middleware('auth')->group(function(){
 
     // pembelian
-    Route::get('pembelian', \App\Http\Livewire\Purchase\PembelianIndex::class)->name('pembelian');
-    Route::get('pembelian/trans', \App\Http\Livewire\Purchase\PembelianForm::class)->name('pembelian.trans');
-    Route::get('pembelian/trans/{pembelian}', \App\Http\Livewire\Purchase\PembelianForm::class);
+    Route::get('pembelian', \App\Http\Livewire\Pembelian\PembelianLuarIndex::class)->name('pembelian');
+    Route::get('pembelian/trans', \App\Http\Livewire\Pembelian\PembelianLuarForm::class)->name('pembelian.trans');
+    Route::get('pembelian/trans/{pembelianId}', \App\Http\Livewire\Pembelian\PembelianLuarForm::class)->name('pembelian.trans.edit');
 
     Route::get('pembelian/retur/{kondisi}', \App\Http\Livewire\Purchase\PembelianReturIndex::class)->name('pembelian.retur');
     Route::get('pembelian/retur/{kondisi}/trans/', \App\Http\Livewire\Purchase\PembelianReturForm::class);
@@ -103,7 +103,9 @@ Route::middleware('auth')->group(function (){
     Route::get('stock/print/stockopname', [\App\Http\Controllers\Stock\StockOpnameController::class, 'reportStockByProduk'])->name('stock.print.stockopname');
 
     // stock transaksi
-    Route::get('stock/transaksi/masuk', \App\Http\Livewire\Stock\StockMasukIndex::class)->name('stock.masuk');
+    Route::get('stock/transaksi/masuk', \App\Http\Livewire\Pembelian\PembelianInternalIndex::class)->name('stock.masuk');
+    Route::get('stock/transaksi/masuk/transaksi', \App\Http\Livewire\Pembelian\PembelianInternalForm::class)->name('stock.masuk.trans');
+    Route::get('stock/transaksi/masuk/transaksi/{pembelianId}', \App\Http\Livewire\Pembelian\PembelianInternalForm::class)->name('stock.masuk.trans.edit');
     Route::get('stock/transaksi/masuk/{kondisi}', \App\Http\Livewire\Stock\StockMasukIndex::class);
     Route::get('stock/transaksi/masuk/trans/{kondisi}', \App\Http\Livewire\Stock\StockMasukForm::class);
     Route::get('stock/transaksi/masuk/trans/{kondisi}/{stockmasuk}', \App\Http\Livewire\Stock\StockMasukForm::class);

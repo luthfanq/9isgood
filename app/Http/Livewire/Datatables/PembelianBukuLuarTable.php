@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Pembelian;
+namespace App\Http\Livewire\Datatables;
 
 use App\Haramain\Traits\LivewireTraits\DatatablesTraits;
 use App\Models\Purchase\Pembelian;
@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 
-class PembelianInternalTable extends DataTableComponent
+class PembelianBukuLuarTable extends DataTableComponent
 {
     use DatatablesTraits;
+
     public function columns(): array
     {
         return [
@@ -29,11 +30,11 @@ class PembelianInternalTable extends DataTableComponent
     {
         return Pembelian::query()
             ->where('active_cash', session('ClosedCash'))
-            ->where('jenis', 'INTERNAL');
+            ->where('jenis', 'BLU');
     }
 
     public function rowView(): string
     {
-        return 'livewire-tables.rows.pembelian_internal_table';
+        return 'livewire-tables.rows.pembelian_buku_luar_table';
     }
 }

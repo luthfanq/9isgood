@@ -18,6 +18,7 @@ class PembelianRepository implements TransaksiRepositoryInterface
         // query
         $query = Pembelian::query()
             ->where('active_cash', session('ClosedCash'))
+            ->where('jenis', 'INTERNAL')
             ->latest('kode');
 
         // check last num

@@ -8,7 +8,7 @@ use Livewire\Component;
 class PembelianDetailView extends Component
 {
     protected $listeners = [
-        'show'
+        'showPembelianDetail'=>'show'
     ];
 
     public $pembelian_data, $pembelian_detail_data;

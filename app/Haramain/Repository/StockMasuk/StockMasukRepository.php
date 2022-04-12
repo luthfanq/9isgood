@@ -15,7 +15,7 @@ class StockMasukRepository implements TransaksiRepositoryInterface
             ->where('kondisi', $kondisi)
             ->latest('kode');
 
-        $kodeKondisi = ($kondisi == 'baik') ? 'SK' : 'SKR';
+        $kodeKondisi = ($kondisi == 'baik') ? 'SM' : 'SMR';
 
         // check last num
         if ($query->doesntExist()){

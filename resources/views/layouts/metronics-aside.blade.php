@@ -399,6 +399,22 @@
 												<span class="menu-arrow"></span>
 											</span>
                             <div class="menu-sub menu-sub-accordion">
+                                <div class="menu-item">
+                                    <a class="menu-link {{request()->is('stock/transaksi/masuk') ? 'active' : ''}}" href="{{url('/').'/stock/transaksi/masuk'}}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+                                        <span class="menu-title">Stock Masuk</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item">
+                                    <a class="menu-link {{request()->is('stock/transaksi/masuk/transaksi') ? 'active' : ''}}" href="{{route('stock.masuk.trans')}}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+                                        <span class="menu-title">Stock Masuk Baru</span>
+                                    </a>
+                                </div>
                                     @foreach($kondisi as $item)
                                         <div class="menu-item">
                                             <a class="menu-link {{request()->is('stock/transaksi/masuk/'.$item['kondisi']) ? 'active' : ''}}" href="{{url('/').'/stock/transaksi/masuk/'.$item['kondisi']}}">

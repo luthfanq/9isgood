@@ -67,8 +67,8 @@
                         <tr>
                             <x-atoms.table.td>{{$row['kode_lokal']}}</x-atoms.table.td>
                             <x-atoms.table.td>{{$row['produk_nama']}}</x-atoms.table.td>
-                            <x-atoms.table.td align="end">{{$row['jumlah']}}</x-atoms.table.td>
                             <x-atoms.table.td align="end">{{$row['harga']}}</x-atoms.table.td>
+                            <x-atoms.table.td align="end">{{$row['jumlah']}}</x-atoms.table.td>
                             <x-atoms.table.td align="end">{{$row['sub_total']}}</x-atoms.table.td>
                             <x-atoms.table.td align="center">
                                 <x-atoms.button.btn-icon wire:click="editLine({{$index}})"><i class="la la-edit fs-3"></i></x-atoms.button.btn-icon>

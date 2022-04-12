@@ -73,11 +73,11 @@ class PersediaanRepository
         return $persediaan->id;
     }
 
-    public function rollbackObject(object $dataMaster, object $dataDetail, $field)
+    public function rollbackObject(object $dataMaster, object $dataDetail, $field, $kondisi=null)
     {
         $persediaan = Persediaan::query()
             ->where('active_cash', session('ClosedCash'))
-            ->where('jenis', $dataMaster->kondisi ?? $dataMaster->jenis)
+            ->where('jenis', $kondisi ?? $dataMaster->kondisi ?? $dataMaster->jenis)
             ->where('gudang_id', $dataMaster->gudang_id)
             ->where('produk_id', $dataDetail->produk_id)
             ->where('harga', $dataDetail->harga)->first();
