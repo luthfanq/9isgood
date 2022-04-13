@@ -1,8 +1,5 @@
 <?php namespace App\Haramain\Repository\Pembelian;
 
-use App\Haramain\Repository\Persediaan\PersediaanRepository;
-use App\Haramain\Repository\Saldo\SaldoHutangPembelianRepository;
-use App\Haramain\Repository\Stock\StockInventoryRepo;
 use App\Haramain\Repository\StockMasuk\StockMasukRepository;
 use App\Models\Purchase\Pembelian;
 

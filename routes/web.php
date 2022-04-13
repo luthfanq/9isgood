@@ -100,6 +100,10 @@ Route::middleware('auth')->group(function (){
     Route::get('stock/inventory', \App\Http\Livewire\Stock\InventoryIndex::class)->name('inventory');
     Route::get('stock/inventory/{jenis}/{gudang}', \App\Http\Livewire\Stock\InventoryByJenisIndex::class);
 
+    // card stock
+    Route::get('stock/card/{produk_id}', \App\Http\Livewire\Stock\StockCardIndex::class);
+    Route::get('stock/card/{produk_id}/{gudang_id}', \App\Http\Livewire\Stock\StockCardIndex::class)->name('stock.card');
+
     Route::get('stock/print/stockopname', [\App\Http\Controllers\Stock\StockOpnameController::class, 'reportStockByProduk'])->name('stock.print.stockopname');
 
     // stock transaksi
