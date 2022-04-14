@@ -2,6 +2,7 @@
 
 namespace App\Models\Stock;
 
+use App\Models\Keuangan\JurnalPersediaanMutasi;
 use App\Haramain\Traits\ModelTraits\{GudangTraits, KodeTraits, StockKeluarTraits, StockMasukTraits, UserTraits};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,5 +27,10 @@ class StockMutasi extends Model
     public function stockMutasiDetail()
     {
         return $this->hasMany(StockMutasiDetail::class, 'stock_mutasi_id');
+    }
+
+    public function jurnalPersediaanTransaksi()
+    {
+        return $this->hasMany(JurnalPersediaanMutasi::class, 'stock_mutasi_id');
     }
 }

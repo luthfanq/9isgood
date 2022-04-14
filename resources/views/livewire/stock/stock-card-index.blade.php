@@ -16,9 +16,9 @@
             @endphp
             @forelse($queryData as $row)
                 <tr>
-                    <x-atoms.table.td>{{$row->tanggal}}</x-atoms.table.td>
-                    <x-atoms.table.td>{{$row->kode}}</x-atoms.table.td>
-                    <x-atoms.table.td>{{$row->nama}}</x-atoms.table.td>
+                    <x-atoms.table.td align="center">{{tanggalan_format($row->tanggal)}}</x-atoms.table.td>
+                    <x-atoms.table.td align="center">{{$row->kode}}</x-atoms.table.td>
+                    <x-atoms.table.td>{{$row->nama}} ({{$row->nama_keterangan}})</x-atoms.table.td>
                     <x-atoms.table.td align="end">{{$row->jumlah_masuk}}</x-atoms.table.td>
                     <x-atoms.table.td align="end">{{$row->jumlah_keluar}}</x-atoms.table.td>
                     <x-atoms.table.td align="end">{{rupiah_format($saldo += $row->jumlah_masuk - $row->jumlah_keluar)}}</x-atoms.table.td>

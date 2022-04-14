@@ -119,6 +119,9 @@ Route::middleware('auth')->group(function (){
     Route::get('stock/transaksi/keluar/trans/{kondisi}', \App\Http\Livewire\Stock\StockKeluarForm::class);
     Route::get('stock/transaksi/keluar/trans/{kondisi}/{stockkeluar}', \App\Http\Livewire\Stock\StockKeluarForm::class);
 
+    Route::get('stock/rusak', \App\Http\Livewire\Stoc\StockRusakIndex::class)->name('stock.rusak');
+    Route::get('stock/rusak/trans', \App\Http\Livewire\Stoc\StockRusakForm::class)->name('stock.rusak.trans');
+
 
     Route::get('stock/transaksi/opname', \App\Http\Livewire\Stock\StockOpnameIndex::class)->name('stock.opname');
     Route::get('stock/transaksi/opname/{jenis}', \App\Http\Livewire\Stock\StockOpnameIndex::class);
@@ -150,6 +153,13 @@ Route::middleware('guest')->group(function (){
         Route::get('/register', 'create')->name('register');
         Route::post('/register', 'store');
     });
+});
+
+/**
+ * Tester
+ */
+Route::middleware('auth')->group(function (){
+    Route::get('test/{produk_id}', \App\Http\Livewire\Z\Tester::class);
 });
 
 Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'destroy'])->name('logout');
