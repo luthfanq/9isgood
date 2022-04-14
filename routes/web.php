@@ -159,7 +159,7 @@ Route::middleware('guest')->group(function (){
  * Tester
  */
 Route::middleware('auth')->group(function (){
-    Route::get('test/{produk_id}', \App\Http\Livewire\Z\Tester::class);
+    Route::get('testyoman', \App\Http\Livewire\Z\Tester::class);
 });
 
 Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'destroy'])->name('logout');

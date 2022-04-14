@@ -39,7 +39,7 @@ class PersediaanOpnameForm extends Component
     public $total_persediaan;
 
     // var for jurnal_transaksi
-    public $persediaan_awal_kalimas, $persediaan_awal_perak, $prive_modal_awal;
+    public $akun_persediaan_awal_kalimas, $akun_persediaan_awal_perak, $prive_modal_awal;
 
     // url exception
     public $urlConfigHpp, $urlConfigJurnal;
@@ -99,11 +99,11 @@ class PersediaanOpnameForm extends Component
     // set for jurnal_transaksi
     public function setJurnalTransaksi()
     {
-        $this->persediaan_awal_kalimas = KonfigurasiJurnal::query()->firstWhere('config', 'akun_persediaan_awal_kalimas')->akun_id;
-        $this->persediaan_awal_perak = KonfigurasiJurnal::query()->firstWhere('config', 'akun_persediaan_awal_perak')->akun_id;
+        $this->akun_persediaan_awal_kalimas = KonfigurasiJurnal::query()->firstWhere('config', 'akun_persediaan_awal_kalimas')->akun_id;
+        $this->akun_persediaan_awal_perak = KonfigurasiJurnal::query()->firstWhere('config', 'akun_persediaan_awal_perak')->akun_id;
         $this->prive_modal_awal = KonfigurasiJurnal::query()->firstWhere('config', 'prive_modal_awal')->akun_id;
 
-        if ($this->persediaan_awal_kalimas == null || $this->persediaan_awal_perak == null){
+        if ($this->akun_persediaan_awal_kalimas == null || $this->akun_persediaan_awal_perak == null){
             // pop up disable form and must be redirect to config jurnal
             session()->flash('setJurnalTransaksi', 'Isi Data Config Dulu');
             $this->urlConfigJurnal = route('config.jurnal');

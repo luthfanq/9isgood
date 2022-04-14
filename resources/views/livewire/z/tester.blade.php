@@ -1,42 +1,44 @@
 <div>
     <x-molecules.card>
-        <x-atoms.table>
-            <x-slot name="head">
-                <tr>
-                    <x-atoms.table.td>Tanggal</x-atoms.table.td>
-                    <x-atoms.table.td>Kode</x-atoms.table.td>
-                    <x-atoms.table.td>Keterangan</x-atoms.table.td>
-                    <x-atoms.table.td>Stock Masuk</x-atoms.table.td>
-                    <x-atoms.table.td>Stock Keluar</x-atoms.table.td>
-                    <x-atoms.table.td></x-atoms.table.td>
-                </tr>
-            </x-slot>
+        @php
+            $saldo = $stockData->sum('stock_saldo');
+            $data = [];
+        @endphp
+        @for($i = 200, $y=0; $y < $stockData->count(); $y++)
             @php
-                $jumlah = 0;
+              if ($i < $stockData[$y]->stock_saldo){
+                    echo $i.'<br>';
+                    echo $y.'<br>';
+                    $data[] = (object)[
+                        'produk_id'=>$stockData[$y]->produk_id,
+                        'jumlah'=>$i,
+                        ];
+                    break;
+                } else {
+                    if ($stockData[$y]->stock_saldo == 0 ){
+                        continue;
+                    }
+                    if ($y == $stockData->count() -1){
+                         $data[] = (object)[
+                        'produk_id'=>$stockData[$y]->produk_id,
+                        'jumlah'=>$i,
+                        ];
+                        break;
+                    }
+                        $i = $i - $stockData[$y]->stock_saldo;
+                        echo $stockData[$y]->stock_saldo.'<br>';
+                        echo $y.'<br>';
+                        $data[] = (object)[
+                        'produk_id'=>$stockData[$y]->produk_id,
+                        'jumlah'=>$stockData[$y]->stock_saldo,
+                        ];
+                }
             @endphp
-            @forelse($stockData as $item)
-                <tr>
-                    <x-atoms.table.td>
-                        {{tanggalan_format($item->tanggal)}}
-                    </x-atoms.table.td>
-                    <x-atoms.table.td>
-                        {{$item->kode}}
-                    </x-atoms.table.td>
-                    <x-atoms.table.td>
-                        {{$item->nama}} ({{$item->nama_keterangan}})
-                    </x-atoms.table.td>
-                    <x-atoms.table.td align="end">
-                        {{$item->stock_masuk}}
-                    </x-atoms.table.td>
-                    <x-atoms.table.td align="end">
-                        {{$item->stock_keluar}}
-                    </x-atoms.table.td>
-                    <x-atoms.table.td align="end">
-                        {{rupiah_format($jumlah += $item->stock_masuk - $item->stock_keluar)}}
-                    </x-atoms.table.td>
-                </tr>
-            @empty
-            @endforelse
-        </x-atoms.table>
+
+        @endfor
+        @foreach($data as $item)
+            Produk_id adalah {{$item->produk_id}} <br>
+            Jumlah adalah {{$item->jumlah}} <br>
+        @endforeach
     </x-molecules.card>
 </div>

@@ -72,10 +72,13 @@ class StockRusakRepository
             // detail stock masuk
             // detail stock keluar
             // detail persediaan transaksi keluar (berdasarkan fifo)
+            // get data persediaan persediaanRepo
+            // store data transaksi keluar from get data persediaanRepo
+            // persediaan inventoy update (barang baik)
             // detail persediaan transaksi masuk
+            // store data transaksi masuk from get data persediaanRepo
+            // persediaan inventory update (barang rusak)
         }
-        // stock inventory rusak update
-        // persediaan inventory update
         // jurnal transaksi persediaan rusak debet
         // jurnal transaksi persediaan rusak kredit
     }

@@ -105,18 +105,32 @@ class PersediaanOpnameRepository
         }
         // buat jurnal transaksi
         $jurnalTransaksi = $persediaanOpname->jurnal_transaksi();
-        // debet pada persediaan-awal (konfigurasi akun persediaan awal)
-        $jurnalTransaksi->create([
-            'active_cash' => session('ClosedCash'),
-            'akun_id' => $data->akun_persediaan_awal,
-            'nominal_debet' => $data->total_persediaan,
-            'nominal_kredit' => null,
-            'keterangan' => $data->keterangan
-        ]);
+        if ($data->gudang_id == '1'){
+            // debet pada persediaan-awal (konfigurasi akun persediaan awal)
+            $jurnalTransaksi->create([
+                'active_cash' => session('ClosedCash'),
+                'akun_id' => $data->akun_persediaan_awal_kalimas,
+                'nominal_debet' => $data->total_persediaan,
+                'nominal_kredit' => null,
+                'keterangan' => $data->keterangan
+            ]);
+        }
+
+        if ($data->gudang_id == '2'){
+            // debet pada persediaan-awal (konfigurasi akun persediaan awal)
+            $jurnalTransaksi->create([
+                'active_cash' => session('ClosedCash'),
+                'akun_id' => $data->akun_persediaan_awal_perak,
+                'nominal_debet' => $data->total_persediaan,
+                'nominal_kredit' => null,
+                'keterangan' => $data->keterangan
+            ]);
+        }
+
         // kredit pada modal pemilik (konfigurasi akun modal pemilik)
         $jurnalTransaksi->create([
             'active_cash' => session('ClosedCash'),
-            'akun_id' => $data->akun_modal_persediaan,
+            'akun_id' => $data->prive_modal_awal,
             'nominal_debet' => null,
             'nominal_kredit' => $data->total_persediaan,
             'keterangan' => $data->keterangan

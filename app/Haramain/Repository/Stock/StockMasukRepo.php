@@ -13,22 +13,37 @@ class StockMasukRepo
 
     public function kode($kondisi)
     {
-        return null;
+        // query
+        $query = StockMasuk::query()
+            ->where('active_cash', session('ClosedCash'))
+            ->where('kondisi', $kondisi)
+            ->latest('kode');
+
+        $kodeKondisi = ($kondisi == 'baik') ? 'SM' : 'SMR';
+
+        // check last num
+        if ($query->doesntExist()){
+            return "0001/{$kodeKondisi}/".date('Y');
+        }
+
+        $num = (int) $query->first()->last_num_trans + 1;
+        return sprintf("%04s", $num)."/{$kodeKondisi}/".date('Y');
     }
 
-    public function store($data)
+    public function store(object $stockMasuk, $data)
     {
+        $tglMasuk = $data->tgl_masuk ?? $data->tgl_nota;
         // store stock masuk
-        $stockMasuk = StockMasuk::query()->create([
+        $stockMasuk = $stockMasuk->create([
             'kode'=>$this->kode($data->kondisi),
             'active_cash'=>session('ClosedCash'),
             'kondisi'=>$data->kondisi,
             'gudang_id'=>$data->gudang_id,
             'supplier_id'=>$data->supplier_id,
-            'tgl_masuk'=>tanggalan_database_format($data->tgl_masuk, 'd-M-Y'),
+            'tgl_masuk'=>tanggalan_database_format($tglMasuk, 'd-M-Y'),
             'user_id'=>\Auth::id(),
             'nomor_po'=>null,
-            'nomor_surat_jalan'=>$data->surat_jalan,
+            'nomor_surat_jalan'=>$data->nomor_surat_jalan,
             'keterangan'=>$data->keterangan,
         ]);
         // store detail
@@ -41,6 +56,8 @@ class StockMasukRepo
             // stock inventory
             $this->stockInventory->incrementArrayData($item, $data->gudang_id, $data->kondisi, 'stock_masuk');
         }
+
+        return $stockMasuk;
     }
 
     public function storeKeuangan(object $stockMasuk, $data)

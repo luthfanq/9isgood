@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Pembelian;
 
+use App\Haramain\Repository\Pembelian\PembelianCobaRepo;
 use App\Haramain\Repository\Pembelian\PembelianInternalRepo;
 use App\Models\Keuangan\HargaHppALL;
 use App\Models\KonfigurasiJurnal;
@@ -114,7 +115,8 @@ class PembelianInternalForm extends Component
         //dd($this->data_detail);
         $data = $this->getTotalBarang();
         try {
-            $pembelian = (new PembelianInternalRepo())->store((object)$data);
+            //$pembelian = (new PembelianInternalRepo())->store((object)$data);
+            $pembelian = (new PembelianCobaRepo())->store((object)$data);
             \DB::commit();
             return redirect()->to(route('stock.masuk'));
         } catch (ModelNotFoundException $e){
