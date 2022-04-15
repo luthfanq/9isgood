@@ -26,8 +26,6 @@ class PembelianCobaRepo
             'total_bayar'=>$data->total_bayar,
             'keterangan'=>$data->keterangan,
         ]);
-
-        $stockMasuk = (new StockMasukRepo())->store($pembelian->stockMasukMorph(), $data);
         return $pembelian;
     }
 }

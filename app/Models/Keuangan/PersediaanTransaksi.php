@@ -16,6 +16,8 @@ class PersediaanTransaksi extends Model
         'active_cash',
         'kode',
         'jenis', // masuk atau keluar
+        'kondisi', // baik atau rusak
+        'gudang_id',
         'persediaan_type',
         'persediaan_id',
         'debet',

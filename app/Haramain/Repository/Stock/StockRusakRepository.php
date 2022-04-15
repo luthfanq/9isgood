@@ -24,31 +24,11 @@ class StockRusakRepository
             'keterangan'=>$data->keterangan,
         ]);
 
-        // stock masuk rusak
-        $stockMasukRusak = $stockMutasi->stockMasukMorph()->create([
-            'kode',
-            'active_cash'=>session('ClosedCash'),
-            'kondisi'=>'rusak',
-            'gudang_id'=>$data->gudang_tujuan_id,
-            'supplier_id'=>$data->supplier_id ?? null,
-            'tgl_masuk'=>tanggalan_database_format($data->tgl_mutasi, 'd-M-Y'),
-            'user_id'=>\Auth::id(),
-            'nomor_po'=>null,
-            'nomor_surat_jalan'=>$data->nomor_surat_jalan,
-            'keterangan'=>$data->keterangan,
-        ]);
+        // store masuk dan update inventory
+        $stockMasukRusak = (new StockMasukRepo())->storeFromRelation($stockMutasi->stockMasukMorph(), $data);
 
         // stock keluar baik
-        $stockKeluarBaik = $stockMutasi->stockKeluarMorph()->create([
-            'kode',
-            'supplier_id'=>$data->supplier_id ?? null,
-            'active_cash'=>session('ClosedCash'),
-            'kondisi'=>'baik',
-            'gudang_id'=>$data->gudang_asal_id,
-            'tgl_keluar'=>tanggalan_database_format($data->tgl_mutasi, 'd-M-Y'),
-            'user_id'=>\Auth::id(),
-            'keterangan'=>$data->keterangan,
-        ]);
+        $stockKeluarBaik = (new StockKeluarRepo())->storeFromRelation($stockMutasi->stockKeluarMorph(), $data);
 
         // initiate jurnal persediaan transaksi
         $JurnalPersediaanMutasi = $stockMutasi->jurnalPersediaanTransaksi()->create([

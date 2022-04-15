@@ -30,9 +30,9 @@ class StockMasukRepo
         return sprintf("%04s", $num)."/{$kodeKondisi}/".date('Y');
     }
 
-    public function store(object $stockMasuk, $data)
+    public function storeFromRelation(object $stockMasuk, $data)
     {
-        $tglMasuk = $data->tgl_masuk ?? $data->tgl_nota;
+        $tglMasuk = $data->tgl_masuk ?? $data->tgl_nota ?? $data->tgl_mutasi;
         // store stock masuk
         $stockMasuk = $stockMasuk->create([
             'kode'=>$this->kode($data->kondisi),
@@ -58,10 +58,5 @@ class StockMasukRepo
         }
 
         return $stockMasuk;
-    }
-
-    public function storeKeuangan(object $stockMasuk, $data)
-    {
-        //
     }
 }

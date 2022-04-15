@@ -2,6 +2,7 @@
 
 namespace App\Models\Keuangan;
 
+use App\Haramain\Traits\ModelTraits\KodeTraits;
 use App\Haramain\Traits\ModelTraits\UserTraits;
 use App\Models\Master\Gudang;
 use App\Models\Stock\StockMutasi;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class JurnalPersediaanMutasi extends Model
 {
-    use HasFactory, UserTraits;
+    use HasFactory, UserTraits, KodeTraits;
     protected $table = 'haramain_keuangan.jurnal_persediaan_mutasi';
     protected $fillable = [
         'active_cash',
