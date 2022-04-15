@@ -51,7 +51,7 @@ class SupplierIndex extends Component
         ]);
         Supplier::updateOrCreate(
             [
-                'id'=>$this->idSupplier,
+                'id'=>$this->supplier_id,
             ],
             [
                 'supplier_jenis_id'=>$this->jenis_supplier,
