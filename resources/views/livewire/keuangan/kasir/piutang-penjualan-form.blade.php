@@ -1,4 +1,9 @@
 <div>
+    @if(session()->has('message'))
+        <x-molecules.alert-danger>
+            <span>{{session('message')}}</span>
+        </x-molecules.alert-danger>
+    @endif
     <div class="d-flex flex-column flex-lg-row">
         <!-- begin:table cards-->
         <div class="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
@@ -15,6 +20,11 @@
                         </x-atoms.input.group-horizontal>
                     </div>
                     <div class="col-6 mb-5">
+                        <x-atoms.input.group-horizontal label="Keterangan" name="keterangan">
+                            <x-atoms.input.text wire:model.defer="keterangan" />
+                        </x-atoms.input.group-horizontal>
+                    </div>
+                    <div class="col-6 mb-5" class="text-end">
                         <x-atoms.button.btn-modal target="#penjualan_modal">Add Nota</x-atoms.button.btn-modal>
                         <x-atoms.button.btn-danger wire:click="store">Simpan</x-atoms.button.btn-danger>
                     </div>
