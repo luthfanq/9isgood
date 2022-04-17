@@ -1,5 +1,6 @@
 <?php namespace App\Haramain\Repository\Jurnal;
 
+use App\Haramain\Repository\Persediaan\PersediaanRepository;
 use App\Haramain\Repository\Persediaan\PersediaanTransaksiRepo;
 use App\Models\Keuangan\JurnalPersediaanMutasi;
 
@@ -35,6 +36,7 @@ class JurnalPersediaanMutasiRepo
 
     public function store(object $jurnalPersediannMutasi, $data)
     {
+        // make and initiate $jurnalMutasi
         $jurnalMutasi = $jurnalPersediannMutasi->create([
             'active_cash'=>session('ClosedCash'),
             'kode'=>$this->kode($data->jenis),
@@ -57,8 +59,8 @@ class JurnalPersediaanMutasiRepo
             $kondisiKeluar= 'rusak';
         }
 
-        // make persediaan transaksi
-        $persediaanTransaksi = $jurnalMutasi->persediaan_transaksi()->create([
+        // make persediaan transaksi keluar
+        $persediaanTransaksiKeluar = $jurnalMutasi->persediaan_transaksi()->create([
             'active_cash'=>session('ClosedCash'),
             'kode'=>(new PersediaanTransaksiRepo())->kode(),
             'jenis'=>'keluar', // masuk atau keluar
@@ -67,5 +69,43 @@ class JurnalPersediaanMutasiRepo
             'debet'=>null,
             'kredit'=>null,
         ]);
+
+        // make persediaan transaksi masuk
+        $persediaanTransaksiMasuk = $jurnalMutasi->persediaan_transaksi()->create([
+            'active_cash'=>session('ClosedCash'),
+            'kode'=>(new PersediaanTransaksiRepo())->kode(),
+            'jenis'=>'keluar', // masuk atau keluar
+            'kondisi'=>$kondisiMasuk, // baik atau rusak
+            'gudang_id'=>$data->gudang_tujuan_id,
+            'debet'=>null,
+            'kredit'=>null,
+        ]);
+
+        // transaksi detail
+        foreach ($data->data_detail as $item) {
+            // store $jurnal mutasi
+            // get data persediaan (fifo)
+            $stockPersediaan = (new PersediaanRepository())->getProdukForMutasi($item['produk_id'], $data->gudang_id, $item['jumlah']);
+            foreach ($stockPersediaan as $row) {
+                $persediaanTransaksiKeluar->persediaan_transaksi_detail()->create([
+                    'produk_id'=>$row->produk_id,
+                    'harga'=>$row->harga,
+                    'jumlah'=>$row->jumlah,
+                    'sub_total'=>(int)$row->harga * (int)$row->jumlah,
+                ]);
+                // update persediaan keluar
+                (new PersediaanRepository())->updateObject($persediaanTransaksiKeluar, $row, 'stock_keluar');
+                $persediaanTransaksiMasuk->persediaan_transaksi_detail()->create([
+                    'produk_id'=>$row->produk_id,
+                    'harga'=>$row->harga,
+                    'jumlah'=>$row->jumlah,
+                    'sub_total'=>(int)$row->harga * (int)$row->jumlah,
+                ]);
+                (new PersediaanRepository())->updateObject($persediaanTransaksiMasuk, $row, 'stock_masuk');
+                // update persediaan masuk
+            }
+        }
+
+        // make jurnal transaksi
     }
 }

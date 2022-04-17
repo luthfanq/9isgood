@@ -130,6 +130,7 @@ class PiutangPenjualanForm extends Component
             \DB::commit();
             return redirect()->to(route('penjualan.piutang'));
         } catch (ModelNotFoundException $e){
+            session()->flash('message', $e);
             \DB::rollBack();
         }
     }
