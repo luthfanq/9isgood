@@ -43,4 +43,9 @@ class JurnalPersediaanMutasi extends Model
     {
         return $this->belongsTo(StockMutasi::class, 'stock_mutasi_id');
     }
+
+    public function jurnalTransaksi()
+    {
+        return $this->morphMany(JurnalTransaksi::class, 'jurnalable_transaksi', 'jurnal_type', 'jurnal_id');
+    }
 }

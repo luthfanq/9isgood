@@ -13,6 +13,25 @@ class PenjualanPureRepo
         $this->closedCash = session('ClosedCash');
     }
 
+    public function getByDate($tglAwal, $tglAkhir)
+    {
+        $query = Penjualan::query()
+            ->where('active_cash', session('ClosedCash'))
+            ->oldest('kode');
+        if ($tglAwal && $tglAkhir){
+            return $query->whereBetween('tgl_nota', [tanggalan_database_format($tglAwal, 'd-M-Y'), tanggalan_database_format($tglAkhir, 'd-M-Y')]);
+        }
+        return $query;
+    }
+
+    public function getByMonth($month)
+    {
+        return Penjualan::query()
+            ->whereMonth('tgl_nota', $month)
+            ->where('active_cash', session('ClosedCash'))
+            ->get();
+    }
+
     public function kode(): string
     {
         $query = Penjualan::query()

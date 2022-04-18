@@ -105,7 +105,12 @@ class JurnalPersediaanMutasiRepo
                 // update persediaan masuk
             }
         }
-
-        // make jurnal transaksi
+        $jurnalTransaksi = new JurnalTransaksiRepository();
+        // debet persediaan rusak
+        // konfigurasi akun untuk mutasi
+        // $jurnalTransaksi->storeDebet();
+        // kredit persediaan baik
+        // $jurnalTransaksi->storeKredit();
+        return $jurnalMutasi;
     }
 }

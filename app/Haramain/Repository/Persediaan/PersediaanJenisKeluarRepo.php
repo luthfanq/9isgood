@@ -15,6 +15,8 @@ class PersediaanJenisKeluarRepo
      * mengembalikan nilai untuk dipakai dalam persediaan transaksi keluar
      * metode FIFO (algoritma FIFO)
      * @param object $data
+     * @param $gudang
+     * @param $kondisi
      * @return array|int
      */
     public function store(object $data, $gudang, $kondisi): int|array

@@ -74,8 +74,9 @@ Route::middleware('auth')->group(function (){
     Route::get('penjualan/retur/print/{penjualanRetur}', [\App\Http\Controllers\Sales\ReceiptController::class, 'penjualanReturDotMatrix']);
 
     // report penjualan
-    Route::get('penjualan/report/bydate', \App\Http\Livewire\Penjualan\ReportPenjualanByDateForm::class)->name('penjualan.report.bydate');
-    Route::post('penjualan/report/bydate', [\App\Http\Controllers\Penjualan\ReportPenjualanController::class, 'reportByDate']);
+    Route::get('penjualan/report', \App\Http\Livewire\Penjualan\PenjualanReportIndex::class)->name('penjualan.report');
+    // Route::get('penjualan/report/bydate', \App\Http\Livewire\Penjualan\ReportPenjualanByDateForm::class)->name('penjualan.report.bydate');
+    Route::get('penjualan/report/bydate/{tglAwal}/{tglakhir}', [\App\Http\Controllers\Penjualan\ReportPenjualanController::class, 'reportByDate'])->name('penjualan.report.bydate');
 });
 
 Route::middleware('auth')->group(function(){

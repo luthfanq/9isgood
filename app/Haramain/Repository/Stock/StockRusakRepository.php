@@ -1,5 +1,6 @@
 <?php namespace App\Haramain\Repository\Stock;
 
+use App\Haramain\Repository\Jurnal\JurnalPersediaanMutasiRepo;
 use App\Models\Stock\StockMutasi;
 
 class StockRusakRepository
@@ -31,20 +32,7 @@ class StockRusakRepository
         $stockKeluarBaik = (new StockKeluarRepo())->storeFromRelation($stockMutasi->stockKeluarMorph(), $data);
 
         // initiate jurnal persediaan transaksi
-        $JurnalPersediaanMutasi = $stockMutasi->jurnalPersediaanTransaksi()->create([
-            'active_cash'=>session('ClosedCash'),
-            'kode',
-            'gudang_asal_id'=>$data->gudang_asal_id,
-            'gudang_tujuan_id'=>$data->gudang_tujuan_id,
-            'jenis'=>'baik_rusak',
-            'user_id'=>\Auth::id(),
-            'keterangan'=>$data->keterangan,
-        ]);
-        // persediaan transaksi masuk
-        $persediaanTransaksi = $JurnalPersediaanMutasi->persediaanTransaksi();
-        $persediaanMasuk = $persediaanTransaksi->create();
-        // persediaan transaksi keluar
-        $persediaanKeluar = $persediaanTransaksi->create();
+        $JurnalPersediaanMutasi = (new JurnalPersediaanMutasiRepo())->store($stockMutasi->jurnalPersediaanTransaksi(), $data);
 
         // detail transaksi
         foreach ($data->data_detail as $item) {
