@@ -72,6 +72,10 @@ Route::middleware('auth')->group(function (){
     Route::get('penjualan/retur/{kondisi}/trans/{retur}', \App\Http\Livewire\Penjualan\PenjualanReturForm::class);
 
     Route::get('penjualan/retur/print/{penjualanRetur}', [\App\Http\Controllers\Sales\ReceiptController::class, 'penjualanReturDotMatrix']);
+
+    // report penjualan
+    Route::get('penjualan/report/bydate', \App\Http\Livewire\Penjualan\ReportPenjualanByDateForm::class)->name('penjualan.report.bydate');
+    Route::post('penjualan/report/bydate', [\App\Http\Controllers\Penjualan\ReportPenjualanController::class, 'reportByDate']);
 });
 
 Route::middleware('auth')->group(function(){
