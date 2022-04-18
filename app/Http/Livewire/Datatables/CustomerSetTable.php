@@ -27,7 +27,8 @@ class CustomerSetTable extends DataTableComponent
 
     public function query(): Builder
     {
-        return Customer::query();
+        return Customer::query()
+            ->whereNotIn('status_bayar', 'set_piutang');
     }
 
     public function rowView(): string
