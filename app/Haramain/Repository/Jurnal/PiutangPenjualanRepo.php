@@ -52,11 +52,11 @@ class PiutangPenjualanRepo
         $jurnalTransaksi = $jurnalSetPiutang->jurnal_transaksi();
 
         // rollback
-        foreach ($jurnalSetPiutang->piutangPenjualan as $item){
+        foreach ($jurnalSetPiutang->piutang_penjualan as $item){
             // rollback saldo piutang
             $saldoPiutangPenjualan->decrement('saldo', $item->kurang_bayar);
             $penjualan = Penjualan::query()->firstWhere('id', $item->penjualan_id);
-            $penjualan->update(['status_bayar'=>null]); // set to null
+            $penjualan->update(['status_bayar'=>'belum']); // set to null
         }
 
         // rollback neracasaldo
@@ -65,7 +65,7 @@ class PiutangPenjualanRepo
         }
 
         // delete detail
-        $jurnalSetPiutang->piutangPenjualan()->delete();
+        $jurnalSetPiutang->piutang_penjualan()->delete();
         $jurnalTransaksi->delete();
 
         // update begin

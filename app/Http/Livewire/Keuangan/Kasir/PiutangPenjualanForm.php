@@ -22,7 +22,7 @@ class PiutangPenjualanForm extends Component
         'setPenjualan',
         'set_customer'=>'setCustomer'
     ];
-    public $setPiutangId;
+    public $setPiutangId, $mode = 'create';
 
     // var customer
     public $customer_id, $customer_nama;
@@ -47,6 +47,7 @@ class PiutangPenjualanForm extends Component
 
         if($jurnalSetPiutangId){
             // load data piutang penjualan
+            $this->mode = 'update';
             $jurnalSetPiutang = JurnalSetPiutangAwal::query()->find($jurnalSetPiutangId);
             $this->setPiutangId = $jurnalSetPiutang->id;
             $this->customer_id = $jurnalSetPiutang->customer_id;
@@ -127,6 +128,33 @@ class PiutangPenjualanForm extends Component
         \DB::beginTransaction();
         try {
             $piutang_penjualan = (new PiutangPenjualanRepo())->store((object)$data);
+            \DB::commit();
+            return redirect()->to(route('penjualan.piutang'));
+        } catch (ModelNotFoundException $e){
+            session()->flash('message', $e);
+            \DB::rollBack();
+        }
+    }
+
+    public function update()
+    {
+        $this->penjualan_sum_total_bayar = array_sum(array_column($this->data_detail, 'penjualan_total_bayar'));
+        $data = $this->validate([
+            'setPiutangId'=>'nullable',
+            'customer_id'=>'required',
+            'tgl_jurnal'=>'required',
+            'keterangan'=>'nullable',
+            'data_detail'=>'required',
+            'modal_piutang_awal'=>'required',
+            'piutang_usaha'=>'required',
+            'ppn_penjualan'=>'required',
+            'biaya_penjualan'=>'required',
+            'penjualan_sum_total_bayar'=>'required'
+        ]);
+
+        \DB::beginTransaction();
+        try {
+            $piutang_penjualan = (new PiutangPenjualanRepo())->update((object)$data);
             \DB::commit();
             return redirect()->to(route('penjualan.piutang'));
         } catch (ModelNotFoundException $e){

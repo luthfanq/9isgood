@@ -26,7 +26,11 @@
                     </div>
                     <div class="col-6 mb-5" class="text-end">
                         <x-atoms.button.btn-modal target="#penjualan_modal">Add Nota</x-atoms.button.btn-modal>
-                        <x-atoms.button.btn-danger wire:click="store">Simpan</x-atoms.button.btn-danger>
+                        @if($mode == 'update')
+                            <x-atoms.button.btn-danger wire:click="update">Update</x-atoms.button.btn-danger>
+                        @else
+                            <x-atoms.button.btn-danger wire:click="store">Simpan</x-atoms.button.btn-danger>
+                        @endif
                     </div>
                 </div>
 
