@@ -4,6 +4,8 @@ namespace App\Models\Penjualan;
 
 use App\Models\Keuangan\JurnalPenjualan;
 use App\Models\Keuangan\PersediaanTransaksi;
+use App\Models\Keuangan\PiutangPenjualanLama;
+use App\Models\Keuangan\PiutangPenjualanLamaDetail;
 use App\Haramain\Traits\ModelTraits\{CustomerTraits, GudangTraits, KodeTraits, StockKeluarTraits, UserTraits};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -43,5 +45,10 @@ class Penjualan extends Model
     public function persediaan_transaksi()
     {
         return $this->morphOne(PersediaanTransaksi::class, 'persediaanable_transaksi', 'persediaan_type', 'persediaan_id');
+    }
+
+    public function piutangPenjualanLamaDetail()
+    {
+        return $this->hasOne(PiutangPenjualanLamaDetail::class, 'penjualan_id');
     }
 }

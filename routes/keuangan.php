@@ -22,6 +22,10 @@ Route::middleware('auth')->group(function (){
 
     Route::get('keuangan/jurnal/piutangpenjualan', \App\Http\Livewire\Keuangan\Kasir\DaftarPiutangPenjualan::class)->name('keuangan.jurnal.piutangpenjualan'); // daftar piutang by customer
 
+    Route::get('keuangan/kasir/penjualan/piutanglama', \App\Http\Livewire\Keuangan\PiutangPenjualanLamaIndex::class)->name('penjualan.piutanglama');
+    Route::get('keuangan/kasir/penjualan/piutanglama/trans', \App\Http\Livewire\Keuangan\PiutangPenjualanLamaForm::class)->name('penjualan.piutanglama.trans');
+    Route::get('keuangan/kasir/penjualan/piutanglama/trans/{piutangLamaId}', \App\Http\Livewire\Keuangan\PiutangPenjualanLamaForm::class)->name('penjualan.piutanglama.trans.piutangLamaId');
+
     // payment pembelian
     Route::get('keuangan/kasir/pembelian')->name('keuangan.kasir.pembelian');
     Route::get('keuangan/kasir/pembelian/pembayaran')->name('keuangan.kasir.pembelian.pembayaran');
