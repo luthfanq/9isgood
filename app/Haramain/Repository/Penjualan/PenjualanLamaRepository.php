@@ -21,25 +21,25 @@ class PenjualanLamaRepository
         // each data detail
         $total_bayar = 0;
         foreach ($data->data_detail as $item) {
-            $total_bayar += $item->total_bayar;
+            $total_bayar += $item['total_bayar'];
             // simpan penjualan
             $penjualan = Penjualan::query()
                 ->create([
-                    'kode'=>$item->nomor_nota,
+                    'kode'=>$item['nomor_nota'],
                     'active_cash'=>'old',
                     'customer_id'=>$data->customer_id,
                     'gudang_id'=>1,
                     'user_id'=>\Auth::id(),
-                    'tgl_nota'=>tanggalan_database_format($item->tgl_nota, 'd-M-Y'),
+                    'tgl_nota'=>tanggalan_database_format($item['tgl_nota'], 'd-M-Y'),
                     'jenis_bayar'=>'tempo',
                     'status_bayar'=>'belum',
                     'total_barang'=>0,
-                    'total_bayar'=>$item->total_bayar,
+                    'total_bayar'=>$item['total_bayar'],
                 ]);
             $piutangLamaDetail = $piutangLama->piutangPenjualanLamaDetail()
                 ->create([
                     'penjualan_id'=>$penjualan->id,
-                    'total_bayar'=>$item->total_bayar,
+                    'total_bayar'=>$item['total_bayar'],
                 ]);
         }
 
@@ -63,5 +63,13 @@ class PenjualanLamaRepository
         (new NeracaSaldoRepository())->updateOneRow($data->piutang_dagang, $total_bayar, null);
         // simpan neraca saldo awal kredit modal awal
         (new NeracaSaldoRepository())->updateOneRow($data->modal_awal, null, $total_bayar);
+
+        return $piutangLama->id;
+    }
+
+    public function update()
+    {
+        // inititate
+        // rollback
     }
 }

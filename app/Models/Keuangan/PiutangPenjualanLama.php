@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class PiutangPenjualanLama extends Model
 {
     use HasFactory, CustomerTraits, UserTraits;
-    protected $table = 'haramaian_keuangan.piutang_penjualan_lama';
+    protected $table = 'haramain_keuangan.piutang_penjualan_lama';
     protected $fillable = [
         'tahun_nota',
         'customer_id',
