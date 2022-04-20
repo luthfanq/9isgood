@@ -41,9 +41,12 @@
                     @forelse($data_detail as $index=>$item)
                         <tr>
                             <x-atoms.table.td>{{$item['nomor_nota']}}</x-atoms.table.td>
-                            <x-atoms.table.td>{{$item['tgl_nota']}}</x-atoms.table.td>
-                            <x-atoms.table.td>{{$item['total_bayar']}}</x-atoms.table.td>
-                            <x-atoms.table.td>{{$index}}</x-atoms.table.td>
+                            <x-atoms.table.td>{{tanggalan_format($item['tgl_nota'])}}</x-atoms.table.td>
+                            <x-atoms.table.td align="end">{{rupiah_format($item['total_bayar'])}}</x-atoms.table.td>
+                            <x-atoms.table.td align="center" width="15%">
+                                <x-atoms.button.btn-icon wire:click="edit({{$index}})"><i class="la la-edit fs-2"></i></x-atoms.button.btn-icon>
+                                <x-atoms.button.btn-icon wire:click="editLine({{$index}})"><i class="la la-trash fs-2"></i></x-atoms.button.btn-icon>
+                            </x-atoms.table.td>
                         </tr>
                     @empty
                         <tr>
@@ -71,7 +74,11 @@
                 <div class="row mb-5">
                     <!--begin::Col-->
                     <div class="col">
-                        <x-atoms.button.btn-info class="w-100" wire:click="addLine">Add</x-atoms.button.btn-info>
+                        @if($update)
+                            <x-atoms.button.btn-info class="w-100" wire:click="updateLine">Update</x-atoms.button.btn-info>
+                        @else
+                            <x-atoms.button.btn-info class="w-100" wire:click="addLine">Add</x-atoms.button.btn-info>
+                        @endif
                     </div>
                     <!--end::Col-->
                     <!--begin::Col-->
@@ -80,8 +87,8 @@
                     </div>
                     <!--end::Col-->
                 </div>
-                @if($update)
-                    <x-atoms.button.btn-primary class="w-100" >UPDATE</x-atoms.button.btn-primary>
+                @if($mode=='update')
+                    <x-atoms.button.btn-primary class="w-100" wire:click="update">UPDATE</x-atoms.button.btn-primary>
                 @else
                     <x-atoms.button.btn-primary class="w-100" wire:click="store">SIMPAN</x-atoms.button.btn-primary>
                 @endif

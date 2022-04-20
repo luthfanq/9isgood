@@ -14,7 +14,10 @@ class PenjualanLamaTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make('Column Name'),
+            Column::make('Nomor'),
+            Column::make('Customer', 'customer.nama'),
+            Column::make('Total Piutang'),
+            Column::make(''),
         ];
     }
 

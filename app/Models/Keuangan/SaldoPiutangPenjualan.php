@@ -22,6 +22,6 @@ class SaldoPiutangPenjualan extends Model
 
     public function piutang_penjualan()
     {
-        return $this->hasMany(PiutangPenjualan::class, 'saldo_piutang_penjualan', 'customer_id');
+        return $this->hasMany(PiutangPenjualan::class, 'saldo_piutang_penjualan_id', 'customer_id');
     }
 }

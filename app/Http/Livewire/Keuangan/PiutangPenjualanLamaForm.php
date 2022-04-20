@@ -36,16 +36,19 @@ class PiutangPenjualanLamaForm extends Component
     {
         if ($piutangLamaId){
             // initiate
+            $this->mode = 'update';
             $piutang = PiutangPenjualanLama::query()->with('piutangPenjualanLamaDetail.penjualan')->find($piutangLamaId);
             $this->piutang_id = $piutang->id;
-            $this->nomor_nota = $piutang->penjualan->kode;
+            $this->customer_id = $piutang->customer_id;
+            $this->customer_nama = $piutang->customer->nama;
+            $this->tahun_nota = $piutang->tahun_nota;
             $this->total_piutang = $piutang->total_piutang;
             $this->keterangan = $piutang->keterangan;
 
             foreach ($piutang->piutangPenjualanLamaDetail as $item) {
                 $this->data_detail[]=[
-                    'penjualan_id'=>$item->penjualan_id,
-                    'tgl_nota'=>$item->penjualan->tgl_nota,
+                    'nomor_nota'=>$item->penjualan->kode,
+                    'tgl_nota'=>tanggalan_format($item->penjualan->tgl_nota),
                     'total_bayar'=>$item->total_bayar
                 ];
             }
@@ -87,6 +90,7 @@ class PiutangPenjualanLamaForm extends Component
 
     public function edit($index)
     {
+        $this->update = true;
         $this->index = $index;
         $this->nomor_nota = $this->data_detail[$index]['nomor_nota'];
         $this->tgl_nota = $this->data_detail[$index]['tgl_nota'];
@@ -101,6 +105,7 @@ class PiutangPenjualanLamaForm extends Component
         $this->data_detail[$index]['total_bayar'] = $this->total_bayar;
         $this->setTotalPiutang();
         $this->reset(['penjualan_id', 'tgl_nota', 'total_bayar', 'nomor_nota']);
+        $this->update = false;
     }
 
     public function destroy($index)
@@ -130,6 +135,20 @@ class PiutangPenjualanLamaForm extends Component
         \DB::beginTransaction();
         try {
             $piutang = (new PenjualanLamaRepository())->store((object)$data);
+            \DB::commit();
+            redirect()->to(route('penjualan.piutanglama'));
+        } catch (ModelNotFoundException $e){
+            \DB::rollBack();
+            session()->flash('message'. $e);
+        }
+    }
+
+    public function update()
+    {
+        $data = $this->dataValidate();
+        \DB::beginTransaction();
+        try {
+            $piutang = (new PenjualanLamaRepository())->update((object)$data);
             \DB::commit();
             redirect()->to(route('penjualan.piutanglama'));
         } catch (ModelNotFoundException $e){
