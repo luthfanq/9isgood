@@ -43,6 +43,7 @@
                 <tr>
                     <th>Kode</th>
                     <th>Item</th>
+                    <th>Harga</th>
                     <th>Jumlah</th>
                     <th>Diskon</th>
                     <th>Sub Total</th>
@@ -57,7 +58,7 @@
                         <x-atoms.table.td>
                             {{$item->produk->nama}}
                         </x-atoms.table.td>
-                        <x-atoms.table.td>
+                        <x-atoms.table.td align="right">
                             {{$item->harga}}
                         </x-atoms.table.td>
                         <x-atoms.table.td align="center">
@@ -114,6 +115,10 @@
             let modalPenjualanDetail = new bootstrap.Modal(modal_penjualan_detail);
 
             Livewire.on('show', function (){
+                modalPenjualanDetail.show()
+            })
+
+            Livewire.on('showPembelianDetail', function (){
                 modalPenjualanDetail.show()
             })
         </script>

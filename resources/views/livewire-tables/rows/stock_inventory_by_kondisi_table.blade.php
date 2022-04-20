@@ -2,7 +2,9 @@
     {{$row->produk->kode_lokal}}
 </x-atoms.table.td>
 <x-atoms.table.td>
-    {{$row->produk->nama}} <br>
+    <a href="{{route('stock.card', [$row->produk_id, $row->gudang_id])}}">
+        {{$row->produk->nama}}
+    </a><br>
     {{$row->cover}} {{$row->produk->kategoriHarga->nama}}
 </x-atoms.table.td>
 <x-atoms.table.td align="center">

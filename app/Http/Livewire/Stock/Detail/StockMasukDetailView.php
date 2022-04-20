@@ -8,11 +8,11 @@ use Livewire\Component;
 
 class StockMasukDetailView extends Component
 {
-    use ResetFormTraits;
-
     protected $listeners = [
         'showStockDetail'=>'show'
     ];
+
+    public $stock_data, $stock_detail_data;
 
     public function render()
     {

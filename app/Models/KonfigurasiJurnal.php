@@ -14,6 +14,6 @@ class KonfigurasiJurnal extends Model
     protected $primaryKey = 'config';
     protected $keyType= 'string';
     protected $fillable = [
-        'config', 'akun_id', 'keterangan'
+        'config', 'kategori', 'akun_id', 'keterangan'
     ];
 }

@@ -1,0 +1,15 @@
+<x-atoms.table.td>
+    {{$row->tanggal}}
+</x-atoms.table.td>
+<x-atoms.table.td>
+    {{$row->kode}}
+</x-atoms.table.td>
+<x-atoms.table.td>
+    {{$row}}
+</x-atoms.table.td>
+<x-atoms.table.td>
+    {{$row->jumlah_masuk}}
+</x-atoms.table.td>
+<x-atoms.table.td>
+    {{$row->jumlah_keluar}}
+</x-atoms.table.td>

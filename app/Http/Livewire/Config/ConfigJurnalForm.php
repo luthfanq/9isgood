@@ -10,6 +10,7 @@ class ConfigJurnalForm extends Component
 {
     public $jurnal;
     public $configJurnal;
+    public $configJurnalKategori;
     public $akun_id;
     public $akun_name;
     public $setConfigForAkun;
@@ -20,7 +21,9 @@ class ConfigJurnalForm extends Component
 
     public function render()
     {
-        return view('livewire.config.config-jurnal-form');
+        return view('livewire.config.config-jurnal-form', [
+            'jurnalKategori'=>KonfigurasiJurnal::all()->groupBy('kategori')->all()
+        ]);
     }
 
     public function mount()
@@ -30,11 +33,14 @@ class ConfigJurnalForm extends Component
             $this->akun_id[$item->config] = $item->akun_id;
             $this->akun_name[$item->config] = $item->akun->deskripsi ?? null;
         }
+
+        $this->configJurnalKategori = $this->configJurnal->groupBy('kategori')->all();
     }
 
     public function setConfigForAkun($config)
     {
         $this->setConfigForAkun = $config;
+        //dd($this->setConfigForAkun);
     }
 
     public function set_akun(Akun $akun)

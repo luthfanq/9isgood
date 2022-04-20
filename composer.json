@@ -13,9 +13,10 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.10",
-        "rappasoft/laravel-livewire-tables": "^1.24"
+        "rappasoft/laravel-livewire-tables": "1.25"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.6",
         "fakerphp/faker": "^1.9.1",
         "laravel/breeze": "^1.8",
         "laravel/sail": "^1.0.1",

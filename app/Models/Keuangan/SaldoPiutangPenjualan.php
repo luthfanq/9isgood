@@ -17,11 +17,11 @@ class SaldoPiutangPenjualan extends Model
     protected $primaryKey = 'customer_id';
 
     protected $fillable = [
-        'saldo'
+        'customer_id','saldo'
     ];
 
     public function piutang_penjualan()
     {
-        return $this->hasMany(PiutangPenjualan::class, 'saldo_piutang_penjualan', 'customer_id');
+        return $this->hasMany(PiutangPenjualan::class, 'saldo_piutang_penjualan_id', 'customer_id');
     }
 }

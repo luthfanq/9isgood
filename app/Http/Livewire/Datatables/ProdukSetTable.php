@@ -17,7 +17,8 @@ class ProdukSetTable extends DataTableComponent
                 ->sortable()
                 ->searchable(),
             Column::make('Lokal', 'kode_lokal')
-                ->searchable(),
+                ->searchable()
+                ->sortable(),
             Column::make('Produk', 'nama')
                 ->sortable()
                 ->searchable(),
